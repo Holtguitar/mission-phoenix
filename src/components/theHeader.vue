@@ -9,7 +9,10 @@
       alt="Phoenix logo"
     >
       <a href="/">
-        <img src="Mission Phoenix Logo.png" class="mission-phoenix-logo" />
+        <img
+          src="../../public/Mission Phoenix Logo.png"
+          class="mission-phoenix-logo"
+        />
       </a>
     </div>
     <div
