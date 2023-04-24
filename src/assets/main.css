@@ -1,0 +1,24 @@
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+  overscroll-behavior-y: none;
+  /* overscroll-behavior-x: none; */
+  scroll-behavior: smooth;
+}
+
+body {
+  /* background-color: whitesmoke; */
+  position: relative;
+  background: url("/brushed-graphite.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  overscroll-behavior-y: none;
+  /* overscroll-behavior-x: none; */
+  color: whitesmoke;
+  scroll-behavior: smooth;
+  margin: 0;
+}
