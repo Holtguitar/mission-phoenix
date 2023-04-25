@@ -24,10 +24,11 @@
   left: 0;
   width: 100vw;
   height: 25vh;
-  background-color: rgba(47, 47, 47, 0.831);
+  background-color: rgb(47, 47, 47);
   color: whitesmoke;
   display: flex;
   flex-direction: column;
+  overscroll-behavior-x: hidden;
 }
 
 .phoenix-gear__footer {

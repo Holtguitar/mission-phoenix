@@ -4,21 +4,18 @@
   padding: 2rem;
   font-weight: normal;
   overscroll-behavior-y: none;
-  /* overscroll-behavior-x: none; */
   scroll-behavior: smooth;
 }
 
 body {
-  /* background-color: whitesmoke; */
   position: relative;
-  background: url("/brushed-graphite.jpeg");
+  background-color: rgb(224, 224, 224);
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   position: relative;
   overscroll-behavior-y: none;
-  /* overscroll-behavior-x: none; */
-  color: whitesmoke;
   scroll-behavior: smooth;
   margin: 0;
+  color: rgb(41, 41, 41);
 }

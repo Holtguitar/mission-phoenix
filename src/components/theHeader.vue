@@ -88,6 +88,7 @@ export default {
   margin: 0 auto;
   overflow: hidden;
   z-index: 1030;
+  opacity: 0.99;
 }
 
 .mission-phoenix-logo {
