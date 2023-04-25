@@ -9,10 +9,7 @@
       alt="Phoenix logo"
     >
       <a href="/">
-        <img
-          src="../../public/Mission-Phoenix-Logo.png"
-          class="mission-phoenix-logo"
-        />
+        <img src="/Mission-Phoenix-Logo.png" class="mission-phoenix-logo" />
       </a>
     </div>
     <div
@@ -105,9 +102,9 @@ export default {
   position: relative;
   color: white;
   position: absolute;
-  top: 20%;
-  left: 35%;
-  width: 50%;
+  top: 25%;
+  left: 40%;
+  width: 40%;
   height: 50px;
   display: flex;
   justify-content: space-between;

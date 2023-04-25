@@ -22,7 +22,6 @@
     <carousel :items-to-show="1">
       <slide v-for="slide in this.slides" :key="slide">
         <img :src="slide.source" />
-        <!-- <img src="../../public/gear.jpeg" /> -->
       </slide>
 
       <template #addons>
@@ -51,11 +50,11 @@ export default {
   data() {
     return {
       slides: [
-        { id: 1, source: '../../public/donate.jpeg' },
-        { id: 2, source: '../../public/who-are-we.jpeg' },
-        { id: 3, source: '../../public/resources.jpeg' },
-        { id: 4, source: '../../public/gear.jpeg' },
-        { id: 5, source: '../../public/amethyst.jpeg' },
+        { id: 1, source: '/donate.jpeg' },
+        { id: 2, source: '/who-are-we.jpeg' },
+        { id: 3, source: '/resources.jpeg' },
+        { id: 4, source: '/gear.jpeg' },
+        { id: 5, source: '/amethyst.jpeg' },
       ],
     }
   },
