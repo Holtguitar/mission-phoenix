@@ -84,7 +84,7 @@ export default {
   left: 0;
   width: 100vw;
   height: 20vh;
-  background: url('brushed-graphite.jpeg');
+  background: url('/brushed-graphite.jpeg');
   margin: 0 auto;
   overflow: hidden;
   z-index: 1030;
