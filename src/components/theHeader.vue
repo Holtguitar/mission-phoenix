@@ -10,7 +10,7 @@
     >
       <a href="/">
         <img
-          src="../../public/Mission Phoenix Logo.png"
+          src="../../public/Mission-Phoenix-Logo.png"
           class="mission-phoenix-logo"
         />
       </a>
