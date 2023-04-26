@@ -212,7 +212,7 @@ export default {
   padding-top: 2.5%;
 }
 
-.too-many {
+/* .too-many {
   position: relative;
   width: 40vw;
   height: 15vh;
@@ -230,5 +230,5 @@ export default {
 
 #death-count {
   margin-right: 10px;
-}
+} */
 </style>

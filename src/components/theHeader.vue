@@ -83,17 +83,16 @@ export default {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 20vh;
-  background: url('/brushed-graphite.jpeg');
+  height: 15vh;
+  background-color: rgba(78, 78, 78, 0.805);
   margin: 0 auto;
   overflow: hidden;
   z-index: 1030;
   opacity: 0.99;
 }
-
 .mission-phoenix-logo {
   position: relative;
-  width: 50%;
+  width: 40%;
   top: 15%;
   left: 5%;
 }
@@ -103,10 +102,10 @@ export default {
   position: relative;
   color: white;
   position: absolute;
-  top: 25%;
+  top: 33.5%;
   left: 40%;
   width: 40%;
-  height: 50px;
+  height: 25%;
   display: flex;
   justify-content: space-between;
   font-size: 20px;
@@ -189,7 +188,7 @@ export default {
 /* Hamburger Icon */
 #nav-icon3 {
   width: 30px;
-  height: 20px;
+  height: 25%;
   position: fixed;
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);

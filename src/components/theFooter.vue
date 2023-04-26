@@ -23,8 +23,8 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 25vh;
-  background-color: rgb(47, 47, 47);
+  height: 15vh;
+  background-color: rgba(47, 47, 47, 0.785);
   color: whitesmoke;
   display: flex;
   flex-direction: column;
@@ -33,7 +33,6 @@
 
 .phoenix-gear__footer {
   position: relative;
-  /* background-color: blue; */
   height: 25%;
   left: 75%;
   top: 20%;

@@ -2,57 +2,57 @@
   <div class="home">
     <div class="overlay">
       <video
-        src="/river-video.mp4"
+        class="flag-video"
+        src="/american-flag.mp4"
+        loop
         autoplay
         muted
-        loop
-        style="
-          width: 120vw;
-          height: 120vh;
-          left: -10%;
-          position: relative;
-          filter: brightness(50%);
-          opacity: 0.5;
-        "
       ></video>
     </div>
     <div class="home-title">
-      <h1
+      <div>
+        <h1
+          class="not-in-view-stationary"
+          v-bind:class="{
+            'fade-in-view-stationary in-view': inViewStationary,
+          }"
+        >
+          Semper Orentiem
+          <hr />
+        </h1>
+        <h2
+          class="not-in-view"
+          v-bind:class="{
+            'fade-in-view in-view': inViewRising,
+          }"
+        >
+          ALWAYS RISING
+        </h2>
+      </div>
+      <div
         class="not-in-view-stationary"
         v-bind:class="{
-          'fade-in-view-stationary in-view': inViewStationary,
+          'fade-in-view-stationary in-view': inViewDelayed,
         }"
       >
-        Semper Orentiem
-        <hr />
-      </h1>
-      <h2
-        class="not-in-view"
+        <h3>Fighting Veteran Suicide</h3>
+        <h3>One Conversation at a Time</h3>
+      </div>
+      <div
+        class="join-button not-in-view-stationary"
         v-bind:class="{
-          'fade-in-view in-view': inViewRising,
+          'fade-in-view-stationary in-view': inViewDelayed,
         }"
       >
-        ALWAYS RISING
-      </h2>
+        <p class="join-p">Join The Fight</p>
+      </div>
     </div>
-    <img
-      src="/phoenix-flag.png"
-      class="phoenix-flag not-in-view-stationary"
-      v-bind:class="{
-        'fade-in-view-stationary in-view': inViewStationary,
-      }"
-    />
   </div>
-  <div
-    class="home-subtitle not-in-view-stationary"
-    v-bind:class="{
-      'fade-in-view-stationary in-view': inViewDelayed,
-    }"
-  >
-    <h2>Fighting Veteran Suicide</h2>
-    <h2>One Conversation at a Time</h2>
-  </div>
-  <div class="too-many">
+
+  <!-- <div class="too-many">
+    <h1 class="too-many-title">
+      We are here to help veterans fight the war within.
+    </h1>
     <h1 id="daily-death-count">
       <div class="daily-num">{{ this.dailyCount }}</div>
       <div>
@@ -67,7 +67,7 @@
         <u>Year</u>
       </div>
     </h1>
-  </div>
+  </div> -->
 
   <theFooter></theFooter>
 </template>
@@ -145,28 +145,35 @@ export default {
 </script>
 
 <style>
+.flag-video {
+  position: fixed;
+  top: 0;
+}
+
 .home {
   position: relative;
   width: 100vw;
   height: 100vh;
   display: flex;
+  color: whitesmoke;
 }
 
 .home-title {
   position: relative;
   width: 30vw;
-  height: 25vh;
-  top: 35%;
-  left: 5%;
-  /* background-color: red; */
+  height: 50vh;
+  top: 25%;
+  /* background-color: rgb(98, 0, 255); */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
 }
 
 .home-subtitle {
-  position: absolute;
-  /* background-color: red; */
-  width: 30vw;
-  top: 60%;
-  left: 5%;
+  position: relative;
+  top: 10%;
+  text-align: center;
   text-shadow: 1px 1px 1px rgba(82, 82, 82, 0.492);
 }
 
@@ -195,37 +202,57 @@ export default {
   margin-top: 3%;
 }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: #a4bed9;
-  opacity: 0.9;
-}
-
-.phoenix-flag {
+.join-p {
   position: relative;
-  width: 60vw;
-  height: 60vh;
-  left: 5%;
-  top: 25%;
-  /* left: -5%; */
-  filter: brightness(85%) sepia(25%);
-  /* filter: blur(4px); */
+  color: white;
+  top: -15%;
 }
 
-/* Fade In Animation */
+.join-p:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.join-button {
+  /* top: 80%; */
+  /* left: -18%; */
+  position: relative;
+  width: 40%;
+  height: 40px;
+  background: rgba(255, 0, 0, 0.773);
+  text-align: center;
+  left: 30%;
+  top: -10%;
+}
+.join-button:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+}
+.join-button:before {
+  content: '';
+  position: absolute;
+  right: -20px;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-left: 20px solid rgba(255, 0, 0, 0.773);
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+}
+
 /*          FADE IN ANIMATION            */
 .not-in-view-stationary {
-  /* opacity: 1; */
   opacity: 0;
   visibility: hidden;
 }
 
 .not-in-view {
-  /* opacity: 1; */
   transform: translateY(20vh);
   opacity: 0;
   visibility: hidden;
@@ -247,24 +274,29 @@ export default {
   visibility: visible;
 }
 
-.too-many {
+/* .too-many {
   position: relative;
-  width: 40vw;
-  height: 15vh;
-  left: 30%;
-  /* top: 20%; */
+  width: 100vw;
+  height: 70vh;
+  color: whitesmoke;
   text-align: center;
   font-family: 'Stardos Stencil', cursive;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  background-color: rgba(98, 103, 98, 0.528);
   display: none;
 }
 
 .too-many h1 {
-  height: 85px;
+  position: relative;
+  background-color: rgba(14, 30, 175, 0.819);
+  width: 25%;
+  left: 33.5%;
+  padding: 15px;
+  height: fit-content;
 }
 
-#death-count {
-  margin-right: 10px;
-}
+.too-many-title {
+  height: 150px !important;
+} */
 </style>
