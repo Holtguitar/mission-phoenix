@@ -46,6 +46,7 @@
       </template>
     </carousel>
   </div>
+
   <theFooter></theFooter>
 </template>
 
@@ -112,10 +113,9 @@ export default {
 <style>
 .carousel {
   position: relative;
-  width: 50vw;
+  width: 60%;
   height: 60vh;
-  left: 25%;
-  /* background-color: blue; */
+  left: 20%;
 }
 
 .carousel img {
@@ -123,13 +123,12 @@ export default {
   height: 90%;
   width: 100%;
   top: -5%;
-  /* background-color: blue; */
 }
 
 .carousel__item {
   position: relative;
   min-height: 50vh;
-  width: 50vw;
+  width: 100%;
   background-color: var(--vc-clr-primary);
   color: var(--vc-clr-white);
   font-size: 20px;
@@ -152,6 +151,8 @@ export default {
   position: relative;
   padding: 1%;
   height: 500px;
+  width: 100%;
+  margin-right: 1px;
 }
 
 .carousel__prev,
@@ -171,7 +172,7 @@ export default {
   position: relative;
   width: 100vw;
   height: 150vh;
-  top: 25%;
+  top: 30%;
 }
 
 .link-carousel-container h1 {
@@ -208,7 +209,8 @@ export default {
   left: 10%;
   width: 80vw;
   height: 50vh;
-  background-color: rgba(111, 111, 111, 0.262);
+  /* background-color: rgba(111, 111, 111, 0.944); */
+  box-shadow: 1px 1px 10px 10px rgba(41, 43, 89, 0.488);
   padding-top: 2.5%;
 }
 

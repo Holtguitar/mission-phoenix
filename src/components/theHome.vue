@@ -219,7 +219,7 @@ export default {
   position: relative;
   width: 40%;
   height: 40px;
-  background: rgba(255, 0, 0, 0.773);
+  background: rgba(162, 3, 3, 0.773);
   text-align: center;
   left: 30%;
   top: -10%;
@@ -241,7 +241,7 @@ export default {
   bottom: 0;
   width: 0;
   height: 0;
-  border-left: 20px solid rgba(255, 0, 0, 0.773);
+  border-left: 20px solid rgba(162, 3, 3, 0.773);
   border-top: 20px solid transparent;
   border-bottom: 20px solid transparent;
 }

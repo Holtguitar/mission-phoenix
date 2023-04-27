@@ -20,15 +20,15 @@
 
 .footer-bar {
   position: relative;
-  top: 0;
-  left: 0;
+  bottom: 0;
+  /* top: 100%; */
   width: 100vw;
   height: 15vh;
-  background-color: rgba(47, 47, 47, 0.785);
+  background-color: rgb(47, 47, 47);
   color: whitesmoke;
-  display: flex;
-  flex-direction: column;
-  overscroll-behavior-x: hidden;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* display: none; */
 }
 
 .phoenix-gear__footer {

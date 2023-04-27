@@ -201,6 +201,7 @@ export default {
   cursor: pointer;
   left: 87.5%;
   top: 5%;
+  height: 3%;
 }
 
 #nav-icon3 span {
