@@ -24,8 +24,6 @@
   top: 100%;
   width: 100vw;
   height: 15vh;
-  /* background-color: rgb(47, 47, 47); */
-
   background-color: rgba(78, 78, 78, 0.805);
   color: whitesmoke;
   display: flex;
