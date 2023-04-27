@@ -6,8 +6,8 @@
 
   <div class="event-modal" v-if="modalView">
   <div class="close-modal__x" @click="toggleModalView">&#x2715</div>
-    <h1 class="event-modal__title">{{ title }}</h1>
-    <hr/>
+    <h1 class="event-modal__title">{{ title }}  <hr/></h1>
+   
     <div class="event-modal__image-container" 
     v-for="(object, index) in referenceArray"
     >
@@ -114,12 +114,13 @@ export default {
   margin-top: 10%;
 }
 
+.event-modal__title {
+  margin-bottom: 10%;
+}
+
 .event-modal__image {
   max-width: 75% ;
   margin-bottom: 5%;
-}
-
-.event-modal__image-container {
 }
 
 .event-modal__image-label {

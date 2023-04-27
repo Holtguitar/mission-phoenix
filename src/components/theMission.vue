@@ -147,25 +147,10 @@ export default {
   position: relative;
 }
 
-.carousel__slide {
-  position: relative;
-  padding: 1%;
-  height: 500px;
-  width: 100%;
-  margin-right: 1px;
-}
-
 .carousel__prev,
 .carousel__next {
   box-sizing: content-box;
   color: white;
-}
-
-.link-carousel {
-  position: relative;
-  width: 75%;
-  height: 45%;
-  left: 12.5%;
 }
 
 .link-carousel-container {
@@ -173,6 +158,7 @@ export default {
   width: 100vw;
   height: 150vh;
   top: 30%;
+  /* display: none; */
 }
 
 .link-carousel-container h1 {
@@ -208,10 +194,11 @@ export default {
   top: 25%;
   left: 10%;
   width: 80vw;
-  height: 50vh;
+  height: fit-content;
   /* background-color: rgba(111, 111, 111, 0.944); */
   box-shadow: 1px 1px 10px 10px rgba(41, 43, 89, 0.488);
   padding-top: 2.5%;
+  padding-bottom: 2.5%;
 }
 
 /* .too-many {

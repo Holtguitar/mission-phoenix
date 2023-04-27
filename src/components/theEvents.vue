@@ -65,6 +65,8 @@ export default {
           referenceItems: [
             {
               imgSrc: '/12-outdoors-festival-main.png',
+              link: 'https://youtu.be/Ij-J4U1Lu6M',
+              imgLabel: 'Youtube Anouncement',
             },
             {
               imgSrc: '/12-outdoors-flier.jpeg',
