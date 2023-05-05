@@ -44,7 +44,9 @@
           'fade-in-view-stationary in-view': inViewDelayed,
         }"
       >
-        <p class="join-p">Join The Fight</p>
+        <p class="join-p">
+          <RouterLink to="/mission" id="join-link">Join the fight</RouterLink>
+        </p>
       </div>
     </div>
   </div>
@@ -208,14 +210,17 @@ export default {
   top: -15%;
 }
 
+#join-link {
+  text-decoration: none;
+  color: white;
+}
+
 .join-p:hover {
   cursor: pointer;
   text-decoration: underline;
 }
 
 .join-button {
-  /* top: 80%; */
-  /* left: -18%; */
   position: relative;
   width: 40%;
   height: 40px;
@@ -224,6 +229,7 @@ export default {
   left: 30%;
   top: -10%;
 }
+
 .join-button:after {
   content: '';
   position: absolute;

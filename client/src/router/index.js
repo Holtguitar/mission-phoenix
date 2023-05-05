@@ -8,6 +8,7 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: () => import("../views/HomeView.vue")
+    
     },
     {
       path: '/account',
@@ -28,6 +29,11 @@ const router = createRouter({
       path: '/gear',
       name: 'gear',
       component: () => import("../views/GearView.vue")
+    },
+    {
+      path: '/add-new-gear',
+      name: 'addNewGear',
+      component: () => import("../components/adminPages/gear/AddNewGear.vue")
     },
     {
       path: '/mission',

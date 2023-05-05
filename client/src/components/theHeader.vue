@@ -35,20 +35,21 @@
         Account
       </router-link>
     </div>
-    <div class="nav-bar__submenu hide" id="submenu-nav">
-      <router-link class="nav-item" id="team" to="/">Team</router-link>
-      <router-link class="nav-item" id="resources" to="resources">
-        Resources
-      </router-link>
-      <router-link class="nav-item" id="sponsors" to="sponsors">
-        Sponsors
-      </router-link>
+    <div class="nav-bar__submenu" id="submenu-nav">
+      <img src="/user-icon.png" />
+      <h3>Welcome, {{}}</h3>
     </div>
   </section>
 </template>
+
 <script>
+import users from '../components/modules/users'
 export default {
   components: {},
+  setup() {
+    const { state, SignOutUser, user, currentUser } = users()
+    return { state, SignOutUser, user, currentUser }
+  },
   data() {
     return {
       open: false,
@@ -102,13 +103,13 @@ export default {
   position: relative;
   color: white;
   position: absolute;
-  top: 33.5%;
+  top: 20%;
   left: 40%;
   width: 40%;
   height: 25%;
   display: flex;
   justify-content: space-between;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .nav-bar ul {
@@ -144,14 +145,17 @@ export default {
 
 .nav-bar__submenu {
   position: absolute;
-  display: flex;
-  top: 40%;
-  left: 55%;
-  width: 80px;
-  height: 80px;
-  background-color: whitesmoke;
+  /* display: flex; */
+  /* justify-content: space-between; */
+  top: 50%;
+  left: 65%;
+  width: 20%;
+  height: 25%;
+  /* background-color: whitesmoke; */
   color: rgb(50, 50, 50);
   padding: 5px;
+  display: flex;
+  flex-direction: row;
 }
 
 .nav-bar__submenu ul {
@@ -161,24 +165,20 @@ export default {
   margin-top: 10%;
 }
 
-.nav-bar__submenu li {
+.nav-bar__submenu img {
   position: relative;
-  margin-bottom: 5px;
-  float: left !important;
+  width: 7%;
+  margin: auto;
+  top: 0%;
 }
 
-.nav-bar__submenu a {
-  color: rgb(16, 16, 16);
-  text-decoration: none;
-}
-
-.nav-bar__submenu a:hover {
-  cursor: pointer;
-  color: rgb(175, 175, 175);
-}
-
-.nav-bar__submenu a:active {
-  color: rgb(164, 164, 164);
+.nav-bar__submenu h3 {
+  position: relative;
+  /* background-color: blue; */
+  margin: auto;
+  height: 85%;
+  width: 75%;
+  top: 5%;
 }
 
 .show {
@@ -200,7 +200,7 @@ export default {
   transition: 0.5s ease-in-out;
   cursor: pointer;
   left: 87.5%;
-  top: 5%;
+  top: 2.5%;
   height: 3%;
 }
 

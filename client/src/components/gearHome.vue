@@ -1,10 +1,14 @@
 <template>
   <div class="gear-home">
-    <h1>
+    <router-link to="/add-new-gear">Add New Gear</router-link>
+    <!-- <h1>
       Phoenix Gear
       <hr />
-    </h1>
+    </h1> -->
+    <img src="/public/gear/men/13-stars-1.jpeg" />
+    <img src="/public/gear/women/22-stars-2.jpeg" />
   </div>
+
   <theFooter></theFooter>
 </template>
 
