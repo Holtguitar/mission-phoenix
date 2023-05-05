@@ -41,53 +41,60 @@ const getGear = () => {
     });
 
 
-    const uploadImage = (images) => {
+
+    const uploadImage = async (images, category) => {
+
       const imageUrlsExport = [];
 
-      for (let i = 0; i < images.length; i++) {
-        // Create the file metadata
-        const metadata = {
-          contentType: "image/jpeg"
-        };
+      try {
+        let counter = 1;
+        images.forEach((e) => {
+          // Create the file metadata
+          const metadata = {
+            contentType: "image/jpeg"
+          };
+          
+          // Upload file and metadata to the object 'images/mountains.jpg'
+          const storageRef = refs(storage, `images/${category}/` + e[0].name);
+          const uploadTask = uploadBytesResumable(storageRef, e[0], metadata);
+  
+          // Listen for state changes, errors, and completion of the upload.
+          uploadTask.on('state_changed', 
+            (snapshot) => {
+              // Observe state change events such as progress, pause, and resume
+              // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+              const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log('Upload is ' + progress + '% done');
+              switch (snapshot.state) {
+                case 'paused':
+                  console.log('Upload is paused');
+                  break;
+                case 'running':
+                  // console.log('Upload is running');
+                  break;
+              }
+            }, (error) => {
+              console.error(error)
+              // Handle unsuccessful uploads
+            }, () => {
+              // Handle successful uploads on complete
+              getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                state.value.newImageURLS.push(downloadURL);
 
-        // Upload file and metadata to the object 'images/mountains.jpg'
-        const storageRef = refs(storage, 'images/' + images[i][0].name);
-        const uploadTask = uploadBytesResumable(storageRef, images[i][0], metadata);
+                if(counter === images.length) {
+                  newItem();
+                  // location.reload();
+                } 
 
-        // Listen for state changes, errors, and completion of the upload.
-        uploadTask.on('state_changed',
-          (snapshot) => {
-            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-            // const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          }, 
-          (error) => {
-            switch (error.code) {
-              case 'storage/unauthorized':
-                // User doesn't have permission to access the object
-                break;
-              case 'storage/canceled':
-                // User canceled the upload
-                break;
-
-              // ...
-
-              case 'storage/unknown':
-                // Unknown error occurred, inspect error.serverResponse
-                break;
+                counter++
+              });
             }
-          }, 
-          () => {
-            // Upload completed successfully, now we can get the download URL
-            getDownloadURL(uploadTask.snapshot.ref)
-            .then((downloadURL) => {
-              imageUrlsExport.push(downloadURL)
-            });
-          }
-        );
+          );
+        })
+      } catch (error) {
+        throw(error)
       }
     }
-
-    
 
     const GetAllGear = async () => {
         try {
@@ -110,20 +117,13 @@ const getGear = () => {
             // "auth-token": state.token
           },
           body: JSON.stringify({
-            // itemName: newItemName,
-            // sizes: newSizes,
-            // colors: newColors,
-            // prices: newPrices,
-            // imageURLS: newImageURLS,
-            // inStock: newInStock,
-            // category: newCategory     
-            itemName: "Test Name",
-            sizes: ["xs", "s"],
-            colors: ["red", "blue"],
-            prices: [0, 15],
+            itemName: state.value.newItemName,
+            sizes: state.value.newSizes,
+            colors: state.value.newColors,
+            prices: state.value.newPrices,
             imageURLS: state.value.newImageURLS,
             inStock: state.value.newInStock,
-            category: "mens"
+            category: state.value.newCategory
           }) 
         }
           fetch("http://localhost:3000/gear/new", 
@@ -183,8 +183,7 @@ const getGear = () => {
         GetItemById,
         item, 
         itemId,
-        uploadImage
-
+        uploadImage,
     }
 }
 
