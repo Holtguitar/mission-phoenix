@@ -12,7 +12,8 @@
     "firebase": "^9.21.0",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
-    "vue3-carousel": "^0.3.0"
+    "vue3-carousel": "^0.3.0",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",

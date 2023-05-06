@@ -1,5 +1,15 @@
 <template>
   <div class="accounts-home">
+    <div style="width: 500px; background-color: red;">
+      <h1
+        v-if="this.state.isLoading"
+        v-for="{ user, index } in this.$store.state.users"
+        :key="index"
+      >
+        Name: {{ user.firstName }}
+      </h1>
+      <h1 v-else>Loading...</h1>
+    </div>
     <h1>
       Join Us
     </h1>
@@ -87,11 +97,20 @@
 <script>
 import theFooter from './theFooter.vue'
 import users from './modules/users'
+import { useStore } from 'vuex'
 
 export default {
+  props: ['userName', 'firstName'],
   setup() {
     const { newUser, state, SignInUser, GetAllUsers, user } = users()
-    return { newUser, state, SignInUser, GetAllUsers, user }
+
+    return {
+      newUser,
+      state,
+      SignInUser,
+      GetAllUsers,
+      user,
+    }
   },
   components: {
     theFooter,
@@ -101,7 +120,14 @@ export default {
       confirmPassword: '',
       signInUserName: '',
       signInPassword: '',
+      store: useStore(),
     }
+  },
+  methods: {
+    getAllUsers() {
+      this.store.dispatch('GetAllUsers')
+      return this.store.state.users
+    },
   },
   computed: {
     passwordsMatch() {
@@ -114,6 +140,7 @@ export default {
   },
   mounted() {
     window.scrollTo(0, 0)
+    this.getAllUsers()
   },
 }
 </script>

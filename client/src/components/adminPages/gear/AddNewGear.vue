@@ -510,6 +510,9 @@ export default {
   components: {
     theFooter,
   },
+  mounted() {
+    window.scrollTo(0, 0)
+  },
 }
 </script>
 

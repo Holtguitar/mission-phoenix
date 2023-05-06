@@ -1,6 +1,6 @@
 import {ref, computed} from 'vue'
 import { useRoute, useRouter} from 'vue-router'
-// import store from "../store/store"
+
 
 const getUsers = () => {
 
@@ -8,6 +8,9 @@ const getUsers = () => {
     const router = useRouter();
 
     const userId = computed(() => route.params.id);
+
+    const user = ref({});
+    const users = ref({})
 
     const state = ref({
         newUserName: '',
@@ -20,7 +23,12 @@ const getUsers = () => {
         newsubscribedToEmails: false,
         currentUser: {},
         userLoggedIn: false,
-        users: {},
+        users: [],
+        userNames: [
+          {name: "Brandon"},
+          {name: "Sarah"}
+        ],
+        isLoading: true
     })
 
     const GetAllUsers = async () => {
@@ -29,6 +37,23 @@ const getUsers = () => {
             .then((res) => res.json())
             .then((data) => {
               state.value.users = data
+              // for(const id in data){
+              //   state.value.users.push({
+              //     userName: data[id].userName,
+              //     password: data[id].password,
+              //     firstName: data[id].firstName,
+              //     lastName: data[id].lastName,
+              //     emailAddress: data[id].emailAddress,
+              //     phoneNumber: data[id].phoneNumber,
+              //     vetStatus: data[id].vetStatus,
+              //     subscribedToEmails: data[id].subscribedToEmails
+              //   });
+              // }
+              
+        
+            }).then(() => {
+              state.value.isLoading = false;
+              console.log(state.value.users)
             })
         } catch(err) {
             console.error(err)
@@ -89,7 +114,7 @@ const getUsers = () => {
           router.push('/users')
       }
 
-    const user = ref({});
+    
 
     const GetUserById = async () => {
         try {
@@ -159,7 +184,7 @@ const getUsers = () => {
         newUser,
         deleteUser,
         editUser,
-        user, 
+        user,
         userId, 
         GetUserByEmail,
         GetUserById,
