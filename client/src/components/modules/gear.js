@@ -82,7 +82,7 @@ const getGear = () => {
                 state.value.newImageURLS.push(downloadURL);
 
                 if(counter === images.length) {
-                  newItem();
+                  newItem(state.value.newCategory);
                   location.reload();
                 } 
 
@@ -98,24 +98,20 @@ const getGear = () => {
 
     const GetAllGear = async () => {
         try {
-            await fetch('http://localhost:3000/gear')
+            await fetch('http://localhost:3000/gear/')
             .then((res) => res.json())
             .then((data) => {
-              state.value.gear.push(data)
+              state.value.gear = data
             })
         } catch(err) {
             console.error(err)
             // alert(err)
         }
-
-        state.value.gear.forEach((e)=> {
-          console.log(e[0])
-        })
     }
 
     const GetGearByCategory = async (categ) => {
       try {
-          await fetch(`http://localhost:3000/gear/${categ}/`)
+          await fetch(`http://localhost:3000/gear/`)
           .then((res) => res.json())
           .then((data) => {
             state.value.gear.push(data)
@@ -147,13 +143,13 @@ const getGear = () => {
             category: state.value.newCategory
           }) 
         }
-          fetch(`http://localhost:3000/gear/${categ}/new`, 
+          fetch(`http://localhost:3000/gear/new/`, 
           requestOptions
         ).then(GetAllGear())
     }
 
     const deleteItem = (_id, categ) => {
-        fetch(`http://localhost:3000/gear/${categ}/delete/${_id}`, { method: "DELETE"})
+        fetch(`http://localhost:3000/gear//delete/${_id}`, { method: "DELETE"})
             .then(GetAllGear())
     }
 

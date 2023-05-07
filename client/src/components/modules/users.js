@@ -37,20 +37,6 @@ const getUsers = () => {
             .then((res) => res.json())
             .then((data) => {
               state.value.users = data
-              // for(const id in data){
-              //   state.value.users.push({
-              //     userName: data[id].userName,
-              //     password: data[id].password,
-              //     firstName: data[id].firstName,
-              //     lastName: data[id].lastName,
-              //     emailAddress: data[id].emailAddress,
-              //     phoneNumber: data[id].phoneNumber,
-              //     vetStatus: data[id].vetStatus,
-              //     subscribedToEmails: data[id].subscribedToEmails
-              //   });
-              // }
-              
-        
             }).then(() => {
               state.value.isLoading = false;
               console.log(state.value.users)

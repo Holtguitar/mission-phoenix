@@ -1,10 +1,25 @@
 <template>
+  <!-- <router-link to="/add-new-gear">Add New Gear</router-link> -->
   <div class="gear-home">
-    <div v-for="{ item, index } in this.state.gear" :key="index">
-      <h1>{{ item }}</h1>
-      <h2>TEST</h2>
-    </div>
-    <router-link to="/add-new-gear">Add New Gear</router-link>
+    <!-- <div class="inventory-scroll">
+      <theGearItem
+        v-for="(item, index) in this.state.gear"
+        :key="item._id"
+        :itemName="item.itemName"
+        :prices="item.prices"
+        :images="item.imageURLS"
+        :colors="item.colors"
+      ></theGearItem>
+    </div> -->
+    <theGearFullItem
+      v-for="(item, index) in this.state.gear"
+      :key="item._id"
+      :itemName="item.itemName"
+      :prices="item.prices"
+      :images="item.imageURLS"
+      :colors="item.colors"
+      :sizes="item.sizes"
+    ></theGearFullItem>
   </div>
 
   <theFooter></theFooter>
@@ -13,14 +28,19 @@
 <script>
 import theFooter from './theFooter.vue'
 import gear from './modules/gear'
+import theGearItem from './gear/theGearItem.vue'
+import theGearFullItem from './gear/theGearFullItem.vue'
 
 export default {
   components: {
+    theGearFullItem,
+    theGearItem,
     theFooter,
   },
   data() {
     return {
       gearArray: [],
+      bgColor: '',
     }
   },
   setup() {
@@ -30,27 +50,35 @@ export default {
       state,
     }
   },
-  methods: {
-    loadGear() {
-      this.gearArray = this.state.gear
-      console.log('array: ', this.gearArray[0][1].itemName)
-    },
-  },
+  methods: {},
   mounted() {
     this.GetAllGear()
-    setTimeout(() => {
-      this.loadGear()
-    }, 5000)
     window.scrollTo(0, 0)
   },
 }
 </script>
 
 <style>
+.inventory-scroll {
+  position: relative;
+  width: 80vw;
+  padding-top: 5%;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding-left: 5%;
+  left: 5%;
+}
+
+.item-image {
+  width: 250px;
+}
+
 .gear-home {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  min-height: 100vh;
+  max-height: fit-content;
+  top: 15%;
 }
 
 .gear-home h1 {

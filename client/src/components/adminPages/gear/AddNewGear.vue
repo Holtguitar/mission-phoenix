@@ -478,6 +478,7 @@ export default {
       }
     },
     submitNewItem() {
+      alert('Add 55 char limit to item name!')
       this.state.newItemName = this.newInventory.newItemName
       this.state.newSizes = this.newInventory.newSizes
       this.state.newColors = this.newInventory.newColors

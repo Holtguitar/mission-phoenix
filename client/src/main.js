@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import * as dotenv from "dotenv"
 import store from "../src/components/store";
+import "./assets/main.css"
 
 const app = createApp(App)
 
