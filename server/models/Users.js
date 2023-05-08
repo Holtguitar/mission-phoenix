@@ -10,7 +10,9 @@ const UsersSchema = new mongoose.Schema({
     emailAddress: String,
     phoneNumber: String,
     adminUser: Boolean,
-    subscribedToEmails: Boolean
+    subscribedToEmails: Boolean,
+    purchases: Array,
+    shoppingCart: Array
 });
 
 module.exports = mongoose.model('user', UsersSchema);

@@ -18,6 +18,7 @@
       :prices="item.prices"
       :images="item.imageURLS"
       :colors="item.colors"
+      :backgrounds="item.backgrounds"
       :sizes="item.sizes"
     ></theGearFullItem>
   </div>

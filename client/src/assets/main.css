@@ -19,5 +19,6 @@ body {
   color: rgba(63, 56, 56, 0.956);
   font-family: 'Castoro Titling', cursive;
   background-color: rgba(223, 223, 223, 0.812) !important;
+  user-select: none;
 }
 

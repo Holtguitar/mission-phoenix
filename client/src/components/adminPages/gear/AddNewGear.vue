@@ -1,8 +1,8 @@
 <template>
-  <div class="new-item__page-header">
-    <h2>Create a New Item</h2>
-  </div>
   <div class="forms-container">
+    <div class="new-item__page-header">
+      <h2>Create a New Item</h2>
+    </div>
     <form
       class="inventory-form"
       method="POST"
@@ -19,6 +19,7 @@
               placeholder="Item Name"
               required
               v-model="this.newInventory.newItemName"
+              maxlength="55"
             />
           </div>
         </div>
@@ -246,32 +247,31 @@
           <div class="colors-container">
             <input
               class="color-input"
-              value="#FFFFFF"
-              type="color"
+              type="text"
+              placeholder="Color..."
               v-on:click="this.addColor(0, $event)"
             />
             <input
               class="color-input"
-              type="color"
-              value="#FFFFFF"
+              type="text"
               v-if="this.colorCount >= 2"
               v-on:change="this.addColor(1, $event)"
             />
             <input
               class="color-input"
-              type="color"
+              type="text"
               v-if="this.colorCount >= 3"
               v-on:change="this.addColor(2, $event)"
             />
             <input
               class="color-input"
-              type="color"
+              type="text"
               v-if="this.colorCount >= 4"
               v-on:change="this.addColor(3, $event)"
             />
             <input
               class="color-input"
-              type="color"
+              type="text"
               v-if="this.colorCount === 5"
               v-on:change="this.addColor(4, $event)"
             />
@@ -485,6 +485,7 @@ export default {
       this.state.newPrices = this.newInventory.newPrices
       this.state.newInStock = this.newInventory.newInStock
       this.state.newCategory = this.newInventory.newCategory
+
       setTimeout(() => {
         this.uploadImage(this.images, this.newInventory.newCategory)
       }, 1000)
@@ -522,9 +523,8 @@ export default {
   position: relative;
   width: 20%;
   height: 10%;
+  left: 40%;
   text-align: center;
-  left: 15%;
-  margin-top: 10%;
   box-shadow: 1px 1px 5px 5px rgba(41, 43, 89, 0.488);
   background-color: rgba(151, 151, 151, 0.101);
   color: rgba(63, 63, 74, 0.967);
@@ -532,16 +532,17 @@ export default {
 
 .forms-container {
   position: absolute;
-  margin: 0 auto;
-  left: 0;
-  top: 15%;
+  left: 0 !important;
+  margin-top: 5%;
+
   width: 100vw;
   height: 100vh;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  user-select: none;
   color: rgba(63, 63, 74, 0.967);
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .forms-container button {
@@ -707,8 +708,8 @@ export default {
   position: relative;
   height: 60vh;
   width: 35vw;
-  top: 10%;
-  left: 5%;
+  top: 5%;
+  left: 30.5%;
   text-align: center;
   padding: 2%;
   margin-bottom: 25px;
@@ -801,6 +802,7 @@ export default {
   top: 5%;
   text-align: center;
   box-shadow: 1px 1px 10px 10px rgba(41, 43, 89, 0.488);
+  display: none;
 }
 
 .preview-category {

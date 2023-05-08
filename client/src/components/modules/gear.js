@@ -161,12 +161,13 @@ const getGear = () => {
           },
           body: JSON.stringify({
            //Add all elements from state
-            itemName: newItemName,
-            sizes: newSizes,
-            colors: newColors,
-            prices: newPrices,
-            imageURLS: newImageURLS,
-            inStock: newInStock,
+           itemName: state.value.newItemName,
+           sizes: state.value.newSizes,
+           colors: state.value.newColors,
+           prices: state.value.newPrices,
+           imageURLS: state.value.newImageURLS,
+           inStock: state.value.newInStock,
+           category: state.value.newCategory
           }) 
         }
         fetch("http://localhost:3000/gear/update/" + itemId.value, 

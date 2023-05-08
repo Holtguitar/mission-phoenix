@@ -8,6 +8,7 @@ const getUsers = () => {
     const router = useRouter();
 
     const userId = computed(() => route.params.id);
+    console.log(userId)
 
     const user = ref({});
     const users = ref({})
@@ -21,13 +22,15 @@ const getUsers = () => {
         newphoneNumber: '',
         newVetStatus: false,
         newsubscribedToEmails: false,
+        newPurchases: [],
+        newShoppingCart: [],
         currentUser: {},
         userLoggedIn: false,
         users: [],
-        userNames: [
-          {name: "Brandon"},
-          {name: "Sarah"}
-        ],
+        // userNames: [
+        //   {name: "Brandon"},
+        //   {name: "Sarah"}
+        // ],
         isLoading: true
     })
 
@@ -62,7 +65,9 @@ const getUsers = () => {
             emailAddress: state.value.newemailAddress,
             phoneNumber: state.value.newphoneNumber,
             vetStatus: state.value.newVetStatus,
-            subscribedToEmails: state.value.newsubscribedToEmails
+            subscribedToEmails: state.value.newsubscribedToEmails,
+            purchases: [],
+            shoppingCart: []
           }) 
         }
           fetch("http://localhost:3000/users/new", 
@@ -75,7 +80,7 @@ const getUsers = () => {
             .then(GetAllUsers())
     }
 
-    const editUser = () => { 
+    const editUser = (userId) => { 
         const requestOptions = {
           method: "PUT",
           headers: {
@@ -90,10 +95,12 @@ const getUsers = () => {
             emailAddress: state.value.newemailAddress,
             phoneNumber: state.value.newphoneNumber,
             vetStatus: state.value.newVetStatus,
-            subscribedToEmails: state.value.newsubscribedToEmails
+            subscribedToEmails: state.value.newsubscribedToEmails,
+            purchases: state.value.newPurchases,
+            shoppingCart: state.value.newShoppingCart
           }) 
         }
-        fetch("http://localhost:3000/users/update/" + userId.value, 
+        fetch(`http://localhost:3000/users/update/${userId.value}`, 
         requestOptions)
           .then(res =>  res.body ) 
           .then(res => {console.log(res)}) 
@@ -102,9 +109,9 @@ const getUsers = () => {
 
     
 
-    const GetUserById = async () => {
+    const GetUserById = async (userId) => {
         try {
-            fetch("http://localhost:3000/users" + _id)
+            fetch(`http://localhost:3000/users/update/${userId.value}`)
             .then(res => res.json)
             .then(data => {
                user.value = data.filter(t => t._id === userId.value)
