@@ -4,6 +4,8 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const jwt = require("jsonwebtoken");
+const PORT = 3000
 
 //middleware
 // upload.any //use later for multi-image uploads. Make sure to change in app.post
@@ -28,14 +30,40 @@ mongoose.connect(uri, {
     console.log(error);
 });
 
+// JWT Handler
+app.post("/login?", (req, res) => {
+    const user = {
+        _id: req.body._id,
+        userName: req.body.userName,
+        password: req.body.password,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        emailAddress: req.body.emailAddress,
+        phoneNumber: req.body.phoneNumber,
+        vetStatus: req.body.vetStatus,
+        subscribedToEmails: req.body.subscribedToEmails,
+        purchases: req.body.purchases,
+        shoppingCart: req.body.shoppingCart
+    };
+
+    const token = jwt.sign(user, `${process.env.JWT_KEY}`);
+
+    res.json({
+        token,
+        user
+    });
+})
+
 //Routes
 const UsersRoute = require("./routes/users");
 const GearRoute = require("./routes/Gear");
 
+
 app.use("/users", UsersRoute);
 app.use("/gear", GearRoute);
 
+
 //Start Server
 app.listen(3000, () => {
-    console.log("Listening at port 3000");
+    console.log(`Listening on port ${PORT}`);
 });

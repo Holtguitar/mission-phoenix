@@ -18,9 +18,9 @@ router.post('/new', async (req, res) => {
   res.json(savedUser) // respond with json to our post endpoint
 });
 
-// Getter by id
-router.get('/get/:id', async (req, res) => {
-  const t = await User.findById({ _id : req.params.id })
+// Getter by username
+router.get('/get/userName', async (req, res) => {
+  const t = await User.findById({ userName : req.params.userName })
   res.json(t)
 })
 
