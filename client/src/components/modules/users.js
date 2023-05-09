@@ -8,9 +8,9 @@ const getUsers = () => {
     const router = useRouter();
 
     const userId = computed(() => route.params.id);
-    console.log(userId)
+ 
 
-    const user = ref({});
+    let user = ref({});
     const users = ref({})
 
     const state = ref({
@@ -27,10 +27,6 @@ const getUsers = () => {
         currentUser: {},
         userLoggedIn: false,
         users: [],
-        // userNames: [
-        //   {name: "Brandon"},
-        //   {name: "Sarah"}
-        // ],
         isLoading: true
     })
 
@@ -42,7 +38,6 @@ const getUsers = () => {
               state.value.users = data
             }).then(() => {
               state.value.isLoading = false;
-              console.log(state.value.users)
             })
         } catch(err) {
             console.error(err)
@@ -108,7 +103,6 @@ const getUsers = () => {
       }
 
     
-
     const GetUserById = async (userId) => {
         try {
             fetch(`http://localhost:3000/users/update/${userId.value}`)
@@ -122,34 +116,27 @@ const getUsers = () => {
     }
 
     const SignInUser =  async (userName, password) => {
+      let potentialUser;
         try {
           await fetch('http://localhost:3000/users')
           .then((res) => res.json())
           .then((data) => {
-            
-            // const attempt = data.filter(t => t.userName.toLowerCase() == userName.toLowerCase())
-            //  user.value = data.filter(t => t.userName === "Holtguitar");
-             state.userLoggedIn = true;
-             state.currentUser = data.filter(t => t.userName === "Holtguitar")
-             console.log(state.currentUser)
-            //  user.value = data.filter(t => t.userName == "holtguitar")
-            //  console.log(user.value)
-            // if(attempt.length === 1) {
-            //   if(attempt[0].password === password){
-            //     alert("Correct")
-            //     user.value = attempt[0];
-            //     state.currentUser = user.value;
-            //     console.log(state.currentUser)
-            //     state.userLoggedIn = true;
-            //   } else {
-            //     alert("incorrect")
-            //   }
-            // } else {
-            //   alert("User not found")
-            // }
+            // Compare username to entire array of users
+            potentialUser = data.filter((e) => e.userName.toLowerCase() == userName.toLowerCase());
+           
+            // check if passwords match
+            if(password === potentialUser[0].password){
+              alert("Correct")
+            } else {
+              alert("Incorrect")
+            }
+          }).then(() => {
+            user = potentialUser[0];
+            console.log(user)
           })
         } catch(err) {
             console.error(err)
+            alert("Something went wrong, please try again.")
       }
 
     }

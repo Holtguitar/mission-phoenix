@@ -223,58 +223,34 @@
           </div>
         </div>
         <div class="colors">
-          <h5>Colors</h5>
-          <div class="colors__buttons">
-            <div class="button-dec">
-              <button
-                class="buttons-left"
-                v-if="this.colorCount > 1"
-                @click.prevent="decreaseColorCount"
-              >
-                -
-              </button>
-            </div>
-            <div class="button-inc">
-              <button
-                class="buttons-right"
-                @click.prevent="increaseColorCount"
-                v-if="this.colorCount < 5"
-              >
-                +
-              </button>
-            </div>
-          </div>
+          <h5 class="colors-title">Colors</h5>
           <div class="colors-container">
-            <input
-              class="color-input"
-              type="text"
-              placeholder="Color..."
-              v-on:click="this.addColor(0, $event)"
-            />
-            <input
-              class="color-input"
-              type="text"
-              v-if="this.colorCount >= 2"
-              v-on:change="this.addColor(1, $event)"
-            />
-            <input
-              class="color-input"
-              type="text"
-              v-if="this.colorCount >= 3"
-              v-on:change="this.addColor(2, $event)"
-            />
-            <input
-              class="color-input"
-              type="text"
-              v-if="this.colorCount >= 4"
-              v-on:change="this.addColor(3, $event)"
-            />
-            <input
-              class="color-input"
-              type="text"
-              v-if="this.colorCount === 5"
-              v-on:change="this.addColor(4, $event)"
-            />
+            <form class="add-color">
+              <input
+                type="text"
+                class="add-color-input"
+                placeholder="New Color..."
+                v-model="this.newColor"
+              />
+              <button class="add-color-button" @click.prevent="this.addColor()">
+                Add Color
+              </button>
+            </form>
+            <div class="color-list">
+              <div v-for="(color, index) in this.newInventory.newColors">
+                <div class="color-item">
+                  <div class="color">{{ color }}</div>
+                  <div class="remove-color-container">
+                    <button
+                      class="remove-color"
+                      @click.prevent="this.removeColor(index)"
+                    >
+                      X
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -291,69 +267,6 @@
         </div>
       </div>
     </form>
-    <div class="inventory-preview">
-      <!-- <div class="preview-row-1">
-        <div class="preview-title">
-          <h2>{{ this.newInventory.newItemName }}</h2>
-        </div>
-
-        <div class="preview-category">
-          <h4>({{ this.newInventory.newCategory }})</h4>
-        </div>
-      </div>
-      <div class="preview-prices">
-        <h3 class="preview-min">${{ this.newInventory.newPrices.min }}</h3>
-        <h3>-</h3>
-        <h3 class="preview-max">${{ this.newInventory.newPrices.max }}</h3>
-      </div>
-      <div class="preview-inStock">
-        <p>
-          {{
-            this.newInventory.newInStock
-              ? 'Currently in Stock'
-              : 'Currently Out of Stock'
-          }}
-        </p>
-      </div>
-      <div class="preview-sizes">
-        <p
-          v-for="item in this.newInventory.newSizes"
-          style="margin-right: 15px;"
-        ></p>
-      </div>
-      <div class="preview-colors">
-        <div
-          class="preview-colors-item"
-          v-for="item in this.newInventory.newColors"
-          style="height: 50px; width: 50px;"
-          :style="`background-color: ` + item"
-        ></div>
-      </div>
-      <div class="preview-image__container">
-        <img
-          v-for="item in this.previewImages"
-          :src="item"
-          class="preview-image"
-        />
-      </div> -->
-      <div class="preview-row-1">
-        <div><h1>Title</h1></div>
-        <div><h3>(Category)</h3></div>
-        <div><h4>$ - $</h4></div>
-        <div><h4>In Stock</h4></div>
-      </div>
-      <div class="preview-row-2">
-        <div>colors colors colors</div>
-      </div>
-      <div class="preview-row-3">
-        <div>
-          <div><p>XS: $25.00</p></div>
-        </div>
-      </div>
-      <div class="preview-row-4">
-        <div>PICTURE</div>
-      </div>
-    </div>
   </div>
   <!-- <the-footer></the-footer> -->
 </template>
@@ -493,17 +406,17 @@ export default {
     cancelNewItem() {
       location.reload()
     },
-    addColor(index, event) {
-      if (this.newInventory.newColors.length < index) {
-        alert('Please add colors in order.')
-        if (this.newInventory.newColors.length === 0) {
-          this.colorCount = 1
-        } else {
-          this.colorCount = this.newInventory.newColors.length
-        }
-      } else {
-        this.newInventory.newColors[index] = event.target.value
+    addColor() {
+      if (this.newColor != '') {
+        this.newInventory.newColors.push(this.newColor)
+        this.newColor = ''
       }
+    },
+    removeColor(index) {
+      const newArr = this.newInventory.newColors.filter(
+        (e) => e !== this.newInventory.newColors[index],
+      )
+      this.newInventory.newColors = newArr
     },
     toggleColorForm() {
       this.colorFormOpen = !this.colorFormOpen
@@ -519,6 +432,11 @@ export default {
 </script>
 
 <style>
+.add-color {
+  position: relative;
+  height: 30%;
+  top: -10%;
+}
 .new-item__page-header {
   position: relative;
   width: 20%;
@@ -577,31 +495,34 @@ export default {
   height: 100%;
 }
 
-.color-input {
-  width: 50%;
+.add-color-input {
+  width: 75%;
   position: relative;
-  left: 25%;
-  margin-bottom: 2%;
+  /* left: 12.5%; */
+  /* margin-bottom: 2%; */
+}
+
+.add-color-button {
+  position: relative;
+  top: 15%;
 }
 
 .colors {
   position: relative;
   user-select: none;
-  width: 25%;
+  width: 35%;
   height: 100%;
-  left: 15%;
+  left: 10%;
   box-shadow: 1px 1px 5px 5px rgba(41, 43, 89, 0.488);
   background-color: whitesmoke;
+  overflow-y: scroll;
 }
 
-.colors__buttons {
-  position: relative;
-  height: 10%;
-  width: 50%;
-  left: 25%;
-  display: flex;
-  margin-right: 5%;
-  top: -5%;
+.color {
+  width: 100%;
+  height: 15px;
+  font-size: 15px;
+  margin-bottom: 5px;
 }
 
 .colors-container {
@@ -611,6 +532,34 @@ export default {
   top: 0;
   display: flex;
   flex-direction: column;
+}
+
+.color-item {
+  position: relative;
+  width: 90%;
+  left: 5%;
+  height: 50px;
+  background-color: rgb(205, 205, 205);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.remove-color {
+  position: relative;
+}
+
+.remove-color-container {
+  position: relative;
+  width: 25%;
+  left: 37.5%;
+  height: 20px;
+}
+
+.color-list {
+  position: relative;
+  height: fit-content;
 }
 
 .form-row-1 {
@@ -790,117 +739,5 @@ export default {
   top: 12.5%;
   border-radius: 10px;
   box-shadow: 1px 1px 3px 3px rgba(41, 43, 89, 0.488) !important;
-}
-
-/* Preview Container */
-
-.inventory-preview {
-  position: relative;
-  height: 90vh;
-  width: 45vw;
-  left: -5%;
-  top: 5%;
-  text-align: center;
-  box-shadow: 1px 1px 10px 10px rgba(41, 43, 89, 0.488);
-  display: none;
-}
-
-.preview-category {
-  position: relative;
-  background-color: rgb(0, 255, 106);
-  height: 50%;
-  top: -5%;
-}
-
-.preview-colors {
-  display: flex;
-  height: 50px;
-  background-color: purple;
-}
-
-.preview-colors-item {
-  border: grey 3px solid;
-}
-
-.preview-image__container {
-  height: 300px;
-  background-color: orange;
-  display: grid;
-  grid-template-columns: auto auto auto;
-  padding-left: 15%;
-  padding-top: 5%;
-}
-
-.preview-image {
-  width: 50%;
-}
-
-.preview-inStock {
-  background-color: red;
-  position: relative;
-  max-width: 100%;
-  height: 50px;
-}
-
-.preview-max {
-  margin-left: 15px;
-}
-
-.preview-min {
-  margin-right: 15px;
-}
-
-.preview-prices {
-  position: relative;
-  max-width: 50%;
-  height: 10%;
-  left: 50%;
-  top: -10%;
-  background-color: brown;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.preview-sizes {
-  position: relative;
-  background-color: rgb(116, 19, 35);
-  max-width: 100%;
-  height: 50px;
-  justify-content: center;
-  display: flex;
-}
-
-.preview-title {
-  position: relative;
-  max-width: 50%;
-  height: 10%;
-  background-color: blue;
-  padding: 5%;
-}
-
-.preview-row-1 {
-  position: relative;
-  height: 20%;
-  background-color: green;
-}
-
-.preview-row-2 {
-  position: relative;
-  height: 20%;
-  background-color: blue;
-}
-
-.preview-row-3 {
-  position: relative;
-  height: 20%;
-  background-color: purple;
-}
-
-.preview-row-4 {
-  position: relative;
-  width: 100%;
-  background-color: orange;
-  height: 35%;
 }
 </style>

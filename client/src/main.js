@@ -11,3 +11,17 @@ app.use(router)
 app.use(store)
 
 app.mount('#app')
+
+let currentUser;
+let isLoggedIn = false;
+window.addEventListener('beforeunload', () => {
+    if(store.state.userLoggedOn){
+        currentUser = store.state.currentUser
+        isLoggedIn = true;
+    }
+})
+
+window.addEventListener('load', () => {
+    console.log(currentUser)
+    console.log(isLoggedIn)
+})

@@ -35,23 +35,32 @@
         Account
       </router-link>
     </div>
-    <div class="nav-bar__submenu" id="submenu-nav">
+    <div class="nav-bar__submenu" id="submenu-nav" v-if="isLoggedIn">
       <img src="/user-icon.png" />
-      <h3>Welcome, {{}}</h3>
+      <!-- <h3>Welcome, {{ this.$store.state.currentUser.firstName }}</h3> -->
+      <h3>Welcome, {{ getFirstName }}</h3>
     </div>
   </section>
 </template>
 
 <script>
 import users from '../components/modules/users'
+import { useStore } from 'vuex'
+import { ref } from 'vue'
+import { mapGetters } from 'vuex'
+
 export default {
   components: {},
   setup() {
     const { state, SignOutUser, user, currentUser } = users()
     return { state, SignOutUser, user, currentUser }
   },
+  computed: {
+    ...mapGetters(['isLoggedIn', 'getFirstName']),
+  },
   data() {
     return {
+      store: useStore(),
       open: false,
       showMenu: false,
       inViewStationary: false,
@@ -61,6 +70,7 @@ export default {
     toggleHamburger() {
       this.open = !this.open
       this.showMenu = !this.showMenu
+      console.log(this.user)
     },
     toggleInViewStationary() {
       this.inViewStationary = true

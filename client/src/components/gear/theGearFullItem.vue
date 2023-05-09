@@ -18,10 +18,25 @@
       </div>
     </div>
     <div class="full-item-name-container">
-      <h2 class="full-item-name">{{ itemName }}</h2>
-      <h3>{{ this.displayPrice }}</h3>
+      <h2 class="full-item-name">
+        {{ itemName }}
+      </h2>
+      <hr />
     </div>
-    <div class="full-item-size-container">
+    <div class="display-price-container">
+      <div class="display-price">
+        <div class="price" v-if="displayPriceDefault">
+          {{
+            this.prices[0].min > 1
+              ? `$${this.prices[0].min} - $${this.prices[0].max}`
+              : `$${this.prices[0].max}`
+          }}
+        </div>
+        <div class="price" v-else>${{ this.displayPrice * this.quantity }}</div>
+      </div>
+    </div>
+    <div class="full-item-size-container" v-if="this.sizeArray.length > 1">
+      <label class="size-label">Select your size:</label>
       <div v-for="item in this.sizeArray" class="size-selector-container">
         <button class="size-selector-button" @click.prevent="this.size(item)">
           {{ item.size }}
@@ -29,20 +44,28 @@
       </div>
     </div>
     <div class="full-item-colors-container">
-      <div
-        class="color-container"
-        v-for="(color, index) in this.backgroundArray"
-        :style="[
-          color.backgroundColor,
-          color.active
-            ? 'box-shadow: 1px 1px 2px 2px rgba(41, 43, 89, 0.488)'
-            : '',
-        ]"
-        @click="changeActiveColor(index)"
-      ></div>
+      <div class="color-container">
+        <label class="color-title">Select your color:</label>
+        <select class="color-selector">
+          <option
+            v-for="(color, index) in this.colors"
+            :key="index"
+            value="color"
+          >
+            {{ color }}
+          </option>
+        </select>
+      </div>
     </div>
     <div class="quantity-selector-container">
-      <input class="quantity-selector" type="number" placeholder="1" />
+      <label class="quantity-label">Quantity:</label>
+      <input
+        class="quantity-selector"
+        type="number"
+        placeholder="1"
+        min="1"
+        v-model="this.quantity"
+      />
     </div>
     <div class="add-to-cart-container">
       <button class="add-to-cart" @click.prevent="this.addToCart()">
@@ -63,9 +86,11 @@ export default {
       imageIndexMax: this.images.length,
       sizeArray: this.sizes,
       priceRange: `$${this.prices[0].min} - $${this.prices[0].max}`,
-      displayPrice: `$${this.prices[0].min} - $${this.prices[0].max}`,
+      displayPriceDefault: true,
+      displayPrice: null,
       backgroundArray: [],
       activeColor: '',
+      quantity: 1,
     }
   },
   methods: {
@@ -102,7 +127,8 @@ export default {
       })
     },
     size(selected) {
-      this.displayPrice = `$${selected.price}`
+      this.displayPrice = selected.price
+      this.displayPriceDefault = false
     },
     addToCart() {},
     getSizes() {
@@ -149,7 +175,6 @@ export default {
 
 .add-to-cart:active {
   transform: scale(0.9);
-
   box-shadow: 1px 1px 3px 2px rgba(41, 43, 89, 0.488);
 }
 
@@ -158,35 +183,55 @@ export default {
   width: 40%;
   height: 5%;
   left: 45%;
-  top: 55%;
+  top: 65%;
   text-align: center;
   display: flex;
+  justify-content: center;
+}
+
+.color-container {
+  position: relative;
+  width: 100%;
+}
+
+.color-title {
+  position: relative;
+  top: 15%;
+}
+
+.color-selector {
+  position: relative;
+  top: 20%;
+}
+
+.display-price-container {
+  position: absolute;
+  width: 20%;
+  height: 5%;
+  left: 55%;
+  top: 25%;
+  justify-content: center;
+}
+
+.display-price {
+  position: relative;
+  top: 25%;
+  left: 25%;
+  height: 50%;
+  width: 50%;
   justify-content: center;
 }
 
 .full-item-colors-container {
   position: absolute;
-  width: 40%;
+  width: 20%;
   height: 10%;
-  left: 45%;
-  top: 25%;
+  left: 55%;
+  top: 33%;
   text-align: center;
   display: flex;
   justify-content: center;
-  padding-right: 2%;
-}
-
-.color-container {
-  position: relative;
-  width: 10%;
-  height: 80%;
-  top: 5%;
-  border: grey solid 2.5px;
-  margin-right: 2%;
-}
-
-.color-container:hover {
-  cursor: pointer;
+  box-shadow: 1px 1px 3px 2px rgba(41, 43, 89, 0.488);
 }
 
 .full-item-name-container {
@@ -201,12 +246,19 @@ export default {
   position: relative;
 }
 
+.size-label {
+  position: relative;
+  height: 45%;
+  top: 35%;
+  margin-right: 10px;
+}
+
 .full-item-size-container {
   position: absolute;
   width: 40%;
   height: 10%;
   left: 45%;
-  top: 35%;
+  top: 45%;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -230,7 +282,7 @@ export default {
   position: relative;
   height: 70%;
   width: 30%;
-  left: 15%;
+  left: 12%;
   top: 5%;
   border: rgba(99, 99, 99, 0.504) solid 2px;
   overflow: hidden;
@@ -267,7 +319,7 @@ export default {
   min-width: 30%;
   max-width: fit-content;
   top: 10%;
-  left: 15%;
+  left: 12%;
   display: flex;
   justify-content: space-between;
 }
@@ -289,14 +341,27 @@ export default {
   width: 25%;
 }
 
+.quantity-label {
+  height: 50%;
+  position: relative;
+  top: 25%;
+}
+
 .quantity-selector-container {
   position: absolute;
-  width: 20%;
+  width: 13%;
   height: 5%;
-  left: 55%;
-  top: 46.5%;
+  left: 58.5%;
+  top: 56%;
   text-align: center;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.price {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
 }
 </style>

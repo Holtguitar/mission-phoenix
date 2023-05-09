@@ -1,8 +1,5 @@
 <template>
   <div class="accounts-home">
-    <div v-for="(user, index) in this.state.users" :key="index">
-      {{ user.userName }}: {{ user.firstName }} {{ user.lastName }}
-    </div>
     <h1>
       Join Us
     </h1>
@@ -64,23 +61,26 @@
           type="text"
           placeholder="User Name"
           required
-          v-model="this.signInUserName"
+          v-model="this.login_form.userName"
         />
         <input
           type="password"
           placeholder="Password"
           required
-          v-model="this.signInPassword"
+          v-model="this.login_form.password"
         />
-        <input
+        <!-- <input
           type="submit"
           value="Sign In"
           @click.prevent="SignInUser(this.signInUserName, this.signInPassword)"
+        /> -->
+        <input
+          type="submit"
+          value="Sign In"
+          @click.prevent="
+            this.signInUser(this.signInUserName, this.signInPassword)
+          "
         />
-        <span>
-          <p>{{ this.signInPassword }}</p>
-          <p>{{ this.signInUserName }}</p>
-        </span>
       </form>
     </div>
   </div>
@@ -90,10 +90,10 @@
 <script>
 import theFooter from './theFooter.vue'
 import users from './modules/users'
-// import { useStore } from 'vuex'
+import { useStore } from 'vuex'
+import { ref } from 'vue'
 
 export default {
-  props: ['userName', 'firstName'],
   setup() {
     const { newUser, state, SignInUser, GetAllUsers, user } = users()
 
@@ -113,10 +113,15 @@ export default {
       confirmPassword: '',
       signInUserName: '',
       signInPassword: '',
-      // store: useStore(),
+      store: useStore(),
+      login_form: ref({}),
     }
   },
-  methods: {},
+  methods: {
+    signInUser() {
+      this.store.dispatch('SignInUser', this.login_form)
+    },
+  },
   computed: {
     passwordsMatch() {
       if (state.newPassword === this.confirmPassword) {
@@ -128,7 +133,7 @@ export default {
   },
   mounted() {
     window.scrollTo(0, 0)
-    this.GetAllUsers()
+    this.store.dispatch('GetAllUsers')
   },
 }
 </script>

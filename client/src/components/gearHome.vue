@@ -53,7 +53,7 @@ export default {
   },
   methods: {},
   mounted() {
-    this.GetAllGear()
+    // this.GetAllGear()
     window.scrollTo(0, 0)
   },
 }
