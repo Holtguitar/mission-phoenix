@@ -4,6 +4,18 @@ import router from "../../router/index";
 export default createStore({
     state: {
         users: [],
+        newUser: {
+            userName: '',
+            password: '',
+            firstName: '',
+            lastName: '',
+            emailAddress: '',
+            phoneNumber: '',
+            vetStatus: '',
+            subscribedToEmails: false,
+            purchases: [],
+            shoppingCart: [],
+        },
         currentUser: null,
         userLoggedOn: false,
         token: null
@@ -20,9 +32,16 @@ export default createStore({
         LOGOFF_USER(state){
             state.currentUser = {};
             state.userLoggedOn = false;
+            sessionStorage.clear()
         },
         GET_CURRENT_USER(state){
             return state.currentUser;
+        },
+        GET_USERS(state){
+            return state.users
+        },
+        RESET_NEW_USER(state){
+            state.newUser = {}
         }
     },
     actions: {
@@ -33,7 +52,6 @@ export default createStore({
                 .then((res) => res.json())
                 .then((data) => {
                     let users = [];
-
                     for(const id in data){
                         users.push({
                             userName: data[id].userName,
@@ -48,10 +66,7 @@ export default createStore({
                             shoppingCart: data[id].shoppingCart
                         });
                     }
-
                     usersToLoad = users;
-                  
-            
                 }).then(() => {
                   this.commit("SET_USERS", usersToLoad)
                 })
@@ -71,6 +86,7 @@ export default createStore({
                   )
                 }).then(() => {
                   if(potentialUser[0].password === details.password){
+                
                     // Send to server for JWT
                     // fetch("http://localhost:3000/login", {
                     //     method: "POST", 
@@ -82,10 +98,10 @@ export default createStore({
                     //     })
                     // }).then((res) => res.json())
                     // .then((data) => {
-                        
                     //     this.commit("LOGIN_USER", data.token, data.user)
                     // }).then(router.push("/"))
                     commit("LOGIN_USER", potentialUser[0])
+                    sessionStorage.setItem("username",potentialUser[0].userName)
                   } else {
                     alert("Username or password incorrect, please try again.")
                   }
@@ -96,23 +112,68 @@ export default createStore({
             }
             
         },
-        SignOutUser({commit}) {
+        SignOutUser({commit}, state) {
             this.commit("LOGOFF_USER")
+        },
+        NewUser({commit, dispatch}) {
+            dispatch("GetAllUsers").then(() => {
+                    let uniqueEmail = this.state.users.filter(
+                        (e) => e.emailAddress.toLowerCase() === this.state.newUser.emailAddress.toLowerCase(),
+                    )
+            
+                    let uniqueUserName = this.state.users.filter(
+                        (e) => e.userName.toLowerCase() === this.state.newUser.userName.toLowerCase(),
+                    )
+                  
+                    if(uniqueUserName.length > 0) {
+                        alert("Username is already in use.")
+                    } else if(uniqueEmail.length > 0 ) {
+                        alert("Email is already in use.")
+                    } else {
+                        const requestOptions = {
+                            method: "POST",
+                            headers: {
+                              "Content-Type": "application/json"
+                              // "auth-token": state.token
+                            },
+                            body: JSON.stringify({
+                              userName: this.state.newUser.userName,
+                              password: this.state.newUser.password,
+                              firstName: this.state.newUser.firstName,
+                              lastName: this.state.newUser.lastName,
+                              emailAddress: this.state.newUser.emailAddress,
+                              phoneNumber: this.state.newUser.phoneNumber,
+                              vetStatus: this.state.newUser.vetStatus,
+                              subscribedToEmails: this.state.newUser.subscribedToEmails,
+                              purchases: this.state.newUser.purchases,
+                              shoppingCart: this.state.newUser.shoppingCart
+                            }) 
+                        }
+                        fetch("http://localhost:3000/users/new", requestOptions)
+                            .then (() => {
+                                this.state.currentUser = this.state.newUser;
+                                this.state.userLoggedOn = true;
+                                this.state.newUser = {};
+                            }
+                        ).then(() => {
+                            router.push("/")
+                        })
+                    }
+            })   
         },
         GetCurrentUser(){
             return this.state.currentUser;
-        }
-
+        },
     },
     getters: {
         isLoggedIn(state){
             return state.userLoggedOn
         }, 
         getFirstName(state){
-            if(state.userLoggedOn){
+            // if(state.userLoggedOn){
                 return state.currentUser.firstName
-            }
-        }
+            // }
+        },
     }
 
 })

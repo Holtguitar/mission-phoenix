@@ -36,9 +36,14 @@
       </router-link>
     </div>
     <div class="nav-bar__submenu" id="submenu-nav" v-if="isLoggedIn">
-      <img src="/user-icon.png" />
-      <!-- <h3>Welcome, {{ this.$store.state.currentUser.firstName }}</h3> -->
-      <h3>Welcome, {{ getFirstName }}</h3>
+      <h3 class="welcome-user">
+        Welcome, {{ this.$store.state.currentUser.firstName }}
+      </h3>
+      <img class="shopping-cart" src="/public/icons/shopping-cart.png" />
+      <div>
+        <!-- <h3>{{ this.$store.currentUser.shoppingCart.length }}</h3> -->
+        <h3 class="shopping-cart__count">10</h3>
+      </div>
     </div>
   </section>
 </template>
@@ -70,7 +75,6 @@ export default {
     toggleHamburger() {
       this.open = !this.open
       this.showMenu = !this.showMenu
-      console.log(this.user)
     },
     toggleInViewStationary() {
       this.inViewStationary = true
@@ -155,13 +159,10 @@ export default {
 
 .nav-bar__submenu {
   position: absolute;
-  /* display: flex; */
-  /* justify-content: space-between; */
   top: 50%;
-  left: 65%;
-  width: 20%;
-  height: 25%;
-  /* background-color: whitesmoke; */
+  left: 30%;
+  width: 60%;
+  height: 50%;
   color: rgb(50, 50, 50);
   padding: 5px;
   display: flex;
@@ -175,20 +176,38 @@ export default {
   margin-top: 10%;
 }
 
-.nav-bar__submenu img {
-  position: relative;
-  width: 7%;
+.nav-bar__submenu .account-icon {
+  position: absolute;
+  width: 4%;
+  top: 10%;
+  left: 80%;
   margin: auto;
-  top: 0%;
 }
 
-.nav-bar__submenu h3 {
+.nav-bar__submenu .shopping-cart {
   position: relative;
-  /* background-color: blue; */
-  margin: auto;
-  height: 85%;
-  width: 75%;
+  width: 7%;
   top: 5%;
+  height: 75%;
+  left: 92.5%;
+}
+
+.nav-bar__submenu .shopping-cart__count {
+  color: rgb(135, 0, 0);
+  position: absolute;
+  width: 4%;
+  left: 94%;
+  top: -9%;
+  text-align: center;
+}
+
+.nav-bar__submenu .welcome-user {
+  position: absolute;
+  margin: auto;
+  height: 50%;
+  width: 30%;
+  left: 50%;
+  top: 25%;
 }
 
 .show {
@@ -301,5 +320,9 @@ export default {
   opacity: 1;
   transform: none;
   visibility: visible;
+}
+
+.shopping-cart {
+  width: 50px;
 }
 </style>

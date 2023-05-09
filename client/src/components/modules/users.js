@@ -1,12 +1,13 @@
 import {ref, computed} from 'vue'
 import { useRoute, useRouter} from 'vue-router'
+import {useStore} from "vuex"
 
 
 const getUsers = () => {
 
     const route = useRoute();
     const router = useRouter();
-
+    const store = useStore()
     const userId = computed(() => route.params.id);
  
 
@@ -20,8 +21,8 @@ const getUsers = () => {
         newLastName: '',
         newemailAddress: '',
         newphoneNumber: '',
-        newVetStatus: false,
-        newsubscribedToEmails: false,
+        newVetStatus: '',
+        newSubscribedToEmails: false,
         newPurchases: [],
         newShoppingCart: [],
         currentUser: {},
@@ -46,6 +47,19 @@ const getUsers = () => {
     }
 
     const newUser = () => { 
+      let uniqueEmail = state.value.users.filter(
+        (e) => e.emailAddress.toLowerCase() === state.value.newemailAddress.toLowerCase(),
+      )
+
+      let uniqueUserName = state.value.users.filter(
+        (e) => e.userName.toLowerCase() === state.value.newUserName.toLowerCase(),
+      )
+      
+      if(uniqueUserName.length > 0) {
+        alert("Username is already in use.")
+      } else if(uniqueEmail.length > 0 ) {
+        alert("Email is already in use.")
+      } else {
         const requestOptions = {
           method: "POST",
           headers: {
@@ -60,14 +74,19 @@ const getUsers = () => {
             emailAddress: state.value.newemailAddress,
             phoneNumber: state.value.newphoneNumber,
             vetStatus: state.value.newVetStatus,
-            subscribedToEmails: state.value.newsubscribedToEmails,
+            subscribedToEmails: state.value.newSubscribedToEmails,
             purchases: [],
             shoppingCart: []
           }) 
         }
           fetch("http://localhost:3000/users/new", 
           requestOptions
-        ).then(GetAllUsers())
+        ).then(
+          setTimeout(() => {
+            SignInUser(state.value.newUserName, state.value.newPassword)
+          }, 1000)
+        )
+      }  
     }
 
     const deleteUser = (_id) => {
@@ -90,7 +109,7 @@ const getUsers = () => {
             emailAddress: state.value.newemailAddress,
             phoneNumber: state.value.newphoneNumber,
             vetStatus: state.value.newVetStatus,
-            subscribedToEmails: state.value.newsubscribedToEmails,
+            subscribedToEmails: state.value.newSubscribedToEmails,
             purchases: state.value.newPurchases,
             shoppingCart: state.value.newShoppingCart
           }) 
@@ -126,13 +145,12 @@ const getUsers = () => {
            
             // check if passwords match
             if(password === potentialUser[0].password){
-              alert("Correct")
+              store.state.userLoggedIn = true;
+              store.state.currentUser = potentialUser[0];
+              router.push("/")
             } else {
-              alert("Incorrect")
+              alert("Password is incorrect. Please try again")
             }
-          }).then(() => {
-            user = potentialUser[0];
-            console.log(user)
           })
         } catch(err) {
             console.error(err)
@@ -158,6 +176,18 @@ const getUsers = () => {
       }
     }
 
+    const ConfirmUnique = async () => {
+      let similarEmail, similarUserName
+      await GetAllUsers()
+      setTimeout(() => {
+        
+        
+      }, 1000)
+      
+      
+      
+    }
+
     return {
         state,
         GetAllUsers,
@@ -169,7 +199,8 @@ const getUsers = () => {
         GetUserByEmail,
         GetUserById,
         SignInUser,
-        SignOutUser
+        SignOutUser,
+        ConfirmUnique
     }
 }
 

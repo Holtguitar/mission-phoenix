@@ -15,5 +15,3 @@ const { GetAllGear } = gear()
 GetAllUsers()
 GetAllGear()
 </script>
-
-<style scoped></style>

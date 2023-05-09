@@ -1,87 +1,147 @@
 <template>
-  <div class="accounts-home">
-    <h1>
+  <div class="accounts-home" v-if="!this.$store.state.userLoggedOn">
+    <h1 class="accounts-home__title">
       Join Us
     </h1>
+    <p v-if="!this.signIn" class="sign-in-toggle">
+      Already have an account?
+      <u @click="this.toggleSignIn()">Sign In</u>
+    </p>
+    <p v-else class="sign-in-toggle">
+      <u @click="this.toggleSignIn()">Register</u>
+      for a new account.
+    </p>
+    <hr />
     <br />
-    <div class="register__form-container">
-      <h2>New Here? Create an account.</h2>
+    <div v-if="!this.signIn" class="register__form-container">
+      <h2 class="register__form-title">New Here? Create an account.</h2>
       <form class="register__form">
-        <input
-          type="text"
-          placeholder="First Name"
-          v-model="state.newFirstName"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Last Name"
-          v-model="state.newLastName"
-          required
-        />
-        <input
-          type="text"
-          placeholder="User Name"
-          v-model="state.newUserName"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          v-model="state.newPassword"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          v-model="this.confirmPassword"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Email Address (optional)"
-          v-model="state.newemailAddress"
-        />
-        <input
-          type="text"
-          placeholder="Phone Number (optional)"
-          v-model="state.newphoneNumber"
-        />
+        <div class="register__form-row-1">
+          <input
+            type="text"
+            placeholder="First Name"
+            v-model="this.$store.state.newUser.firstName"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            v-model="this.$store.state.newUser.lastName"
+            required
+          />
+          <input
+            type="text"
+            placeholder="User Name"
+            v-model="this.$store.state.newUser.userName"
+            required
+          />
+        </div>
+        <div class="register__form-row-2">
+          <input
+            type="password"
+            placeholder="Password"
+            v-model="this.$store.state.newUser.password"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            v-model="this.confirmPassword"
+            required
+          />
+        </div>
+        <div class="register__form-row-3">
+          <input
+            type="text"
+            placeholder="Email Address (optional)"
+            v-model="this.$store.state.newUser.emailAddress"
+          />
+          <input
+            type="text"
+            placeholder="Phone Number (optional)"
+            v-model="this.$store.state.newUser.phoneNumber"
+          />
+        </div>
+        <div class="register__form-row-4">
+          <div>
+            <label for="vet-status">Veteran Affiliation</label>
+            <select
+              class="vet-select"
+              name="vet-status"
+              v-model="this.$store.state.newUser.vetStatus"
+            >
+              <option>Veteran</option>
+              <option>Current Service Member</option>
+              <option>Veteran Spouse/Family</option>
+              <option>Veteran Supporter</option>
+            </select>
+          </div>
+          <div>
+            <input
+              class="subscribe-check"
+              type="checkbox"
+              v-model="this.$store.state.newUser.subscribedToEmails"
+              name="subscribed-to-email"
+            />
+            <label for="subscribed-to-email">Subsribe to Emails</label>
+          </div>
+
+          <div>
+            <input
+              type="submit"
+              value="Create Account"
+              class="register-form-button"
+              @click.prevent="this.attemptNewUser()"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div v-else class="sign-in__form-container">
+      <h2>
+        Welcome back! Sign in here.
+      </h2>
+      <form class="sign-in__form">
+        <div class="sign-in__form-row-1">
+          <input
+            type="text"
+            placeholder="User Name"
+            required
+            v-model="this.login_form.userName"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            required
+            v-model="this.login_form.password"
+          />
+        </div>
         <input
           type="submit"
-          value="Create Account"
-          @click.prevent="newUser()"
+          value="Sign In"
+          class="sign-in-button"
+          @click.prevent="this.signInUser()"
         />
       </form>
     </div>
-    <div class="sign-in__form-container">
-      <h2>Welcome back! Sign in here.</h2>
-      <form class="sign-in__form">
-        <input
-          type="text"
-          placeholder="User Name"
-          required
-          v-model="this.login_form.userName"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          required
-          v-model="this.login_form.password"
-        />
-        <!-- <input
-          type="submit"
-          value="Sign In"
-          @click.prevent="SignInUser(this.signInUserName, this.signInPassword)"
-        /> -->
-        <input
-          type="submit"
-          value="Sign In"
-          @click.prevent="
-            this.signInUser(this.signInUserName, this.signInPassword)
-          "
-        />
-      </form>
+  </div>
+  <div v-else class="accounts-home">
+    <h1>Account Info</h1>
+    <hr />
+    <button @click.prevent="this.signOut()">Sign Out</button>
+    <div class="account-info">
+      <div class="user-name">
+        <h3>
+          {{ this.$store.state.currentUser.firstName }}
+          {{ this.$store.state.currentUser.lastName }}
+        </h3>
+      </div>
+      <div class="user-email">
+        <h3>{{ this.$store.state.currentUser.emailAddress }}</h3>
+      </div>
+      <div class="vet-status">
+        <h3>Veteran Status: {{ this.$store.state.currentUser.vetStatus }}</h3>
+      </div>
     </div>
   </div>
   <theFooter></theFooter>
@@ -95,7 +155,14 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    const { newUser, state, SignInUser, GetAllUsers, user } = users()
+    const {
+      newUser,
+      state,
+      SignInUser,
+      GetAllUsers,
+      user,
+      ConfirmUnique,
+    } = users()
 
     return {
       newUser,
@@ -103,6 +170,7 @@ export default {
       SignInUser,
       GetAllUsers,
       user,
+      ConfirmUnique,
     }
   },
   components: {
@@ -115,11 +183,22 @@ export default {
       signInPassword: '',
       store: useStore(),
       login_form: ref({}),
+      signIn: false,
+      store: useStore(),
     }
   },
   methods: {
     signInUser() {
       this.store.dispatch('SignInUser', this.login_form)
+    },
+    attemptNewUser() {
+      this.store.dispatch('NewUser')
+    },
+    signOut() {
+      this.store.dispatch('SignOutUser')
+    },
+    toggleSignIn() {
+      this.signIn = !this.signIn
     },
   },
   computed: {
@@ -134,6 +213,8 @@ export default {
   mounted() {
     window.scrollTo(0, 0)
     this.store.dispatch('GetAllUsers')
+    this.GetAllUsers()
+    this.signIn = false
   },
 }
 </script>
@@ -144,12 +225,11 @@ export default {
   width: 100%;
   top: 15%;
   height: fit-content;
-  /* height: 100%; */
 }
 
-.accounts-home h1 {
+.accounts-home__title {
   position: relative;
-  top: 25%;
+  top: 20%;
   text-align: center;
 }
 
@@ -158,48 +238,143 @@ export default {
   margin-top: 3%;
 }
 
+.sign-in-toggle {
+  position: relative;
+  width: 50%;
+  height: 10%;
+  left: 25%;
+  text-align: center;
+}
+
+.sign-in-toggle u:hover {
+  cursor: pointer;
+}
 /* Register Form */
 .register__form-container {
-  position: relative;
+  position: absolute;
   width: 50vw;
-  height: 65hv;
+  height: 65vh;
   text-align: center;
-  padding: 10px;
-  box-shadow: 1px 1px 10px 10px rgba(41, 43, 89, 0.488);
   left: 25%;
-  top: 0;
-  margin-bottom: 50px;
+  box-shadow: 1px 1px 10px 10px rgba(41, 43, 89, 0.488);
+}
+
+.register__form-container input {
+  height: 30%;
+  border-radius: 2px;
+  position: relative;
+  top: 20%;
+  padding-left: 5px;
+  border: grey solid 1px;
 }
 
 .register__form {
   position: relative;
-  display: grid;
-  grid-template-columns: auto auto;
-  gap: 10px;
+  height: 85%;
+  width: 100%;
 }
 
-.register__form-container button {
-  margin: 15px;
-  width: 155px;
+.register-form-button {
+  position: relative;
+  width: 30%;
+  top: -2% !important;
+  height: 50% !important;
+  color: rgb(81, 81, 81) !important;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 1px 1px 2px 2px rgba(41, 43, 89, 0.488);
 }
 
-/* Register Form */
+.register-form-button:hover {
+  cursor: pointer;
+}
+
+.register-form-button:active {
+  transform: scale(0.97);
+}
+
+.register__form-title {
+  position: relative;
+  width: 100%;
+  height: 5%;
+  top: 0%;
+}
+
+.register__form-row-1 {
+  position: relative;
+  height: 20%;
+  width: 90%;
+  left: 5%;
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+}
+
+.register__form-row-2 {
+  position: relative;
+  height: 20%;
+  width: 90%;
+  left: 5%;
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+}
+
+.register__form-row-3 {
+  position: relative;
+  height: 20%;
+  width: 90%;
+  left: 5%;
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+}
+
+.register__form-row-4 {
+  position: relative;
+  height: 40%;
+  width: 90%;
+  left: 5%;
+  padding-top: 1%;
+}
+
+.register__form-row-4 div {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  height: 33%;
+  width: 100%;
+}
+
+.subscribe-check {
+  position: relative;
+  top: -1% !important;
+}
+
+.vet-select {
+  height: 35%;
+}
+
+/* Sign in Form */
+
 .sign-in__form-container {
   position: relative;
-  width: 50vw;
-  height: 65hv;
+  width: 30vw;
+  height: 20vh;
   text-align: center;
   padding: 10px;
   box-shadow: 1px 1px 10px 10px rgba(41, 43, 89, 0.488);
-  left: 25%;
+  left: 35%;
   top: 0;
 }
 
 .sign-in__form {
   position: relative;
-  display: grid;
-  grid-template-columns: auto auto;
-  gap: 10px;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .sign-in__form-container button {
@@ -207,10 +382,42 @@ export default {
   width: 155px;
 }
 
+.sign-in__form-row-1 {
+  position: relative;
+  width: 90%;
+  height: 35%;
+  left: 5%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sign-in__form-row-1 input {
+  position: relative;
+  padding-left: 2.5%;
+}
+
+.sign-in-button {
+  position: relative;
+  width: 30%;
+  height: 35%;
+  left: 35%;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 1px 1px 2px 2px rgba(41, 43, 89, 0.488);
+  color: rgb(81, 81, 81) !important;
+}
+
+.sign-in-button:hover {
+  cursor: pointer;
+}
+
+.sign-in-button:active {
+  transform: scale(0.98);
+}
+
 .users {
   position: relative;
   height: 100vw;
-  background-color: red;
   width: 100vw;
   top: 50%;
 }
