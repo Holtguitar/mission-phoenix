@@ -46,11 +46,11 @@
     <div class="full-item-colors-container">
       <div class="color-container">
         <label class="color-title">Select your color:</label>
-        <select class="color-selector">
+        <select class="color-selector" v-model="this.selectedColor">
           <option
             v-for="(color, index) in this.colors"
             :key="index"
-            value="color"
+            :value="color"
           >
             {{ color }}
           </option>
@@ -58,7 +58,7 @@
       </div>
     </div>
     <div class="quantity-selector-container">
-      <label class="quantity-label">Quantity:</label>
+      <label class="quantity-label" @change="">Quantity:</label>
       <input
         class="quantity-selector"
         type="number"
@@ -77,7 +77,15 @@
 
 <script>
 export default {
-  props: ['itemName', 'prices', 'sizes', 'images', 'colors', 'backgrounds'],
+  props: [
+    '_id',
+    'itemName',
+    'prices',
+    'sizes',
+    'images',
+    'colors',
+    'backgrounds',
+  ],
   data() {
     return {
       imageArray: [],
@@ -89,19 +97,12 @@ export default {
       displayPriceDefault: true,
       displayPrice: null,
       backgroundArray: [],
-      activeColor: '',
       quantity: 1,
+      selectedColor: '',
+      selectedSize: '',
     }
   },
   methods: {
-    changeActiveColor(index) {
-      this.backgroundArray.forEach((e) => {
-        e.active = false
-      })
-
-      this.backgroundArray[index].active = true
-      this.activeColor = this.colors[index]
-    },
     changeActiveImage(index) {
       this.imageArray.forEach((e) => {
         e.active = false
@@ -126,11 +127,25 @@ export default {
         })
       })
     },
+    setColor($event) {
+      console.log($event)
+    },
     size(selected) {
       this.displayPrice = selected.price
       this.displayPriceDefault = false
+      this.selectedSize = selected.size
     },
-    addToCart() {},
+    addToCart() {
+      const addToCart = {
+        id: this._id,
+        item: this.itemName,
+        color: this.selectedColor,
+        size: this.selectedSize,
+        price: this.displayPrice * this.quantity,
+      }
+
+      this.$store.dispatch('AddToCart', addToCart)
+    },
     getSizes() {
       const newArr = []
       for (const object in this.sizes[0]) {
@@ -155,6 +170,7 @@ export default {
     this.backgroundSetter()
     this.imageSetter()
     this.changeActiveImage(0)
+    // this.$store.dispatch('SignInUserWithSessionStorage')
   },
 }
 </script>

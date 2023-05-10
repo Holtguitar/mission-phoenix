@@ -42,6 +42,9 @@ export default createStore({
         },
         RESET_NEW_USER(state){
             state.newUser = {}
+        },
+        ADD_TO_CART(state, cartItem){
+            state.currentUser.shoppingCart.push(cartItem)
         }
     },
     actions: {
@@ -75,6 +78,20 @@ export default createStore({
                 // alert(err)
             }
         },
+        async SignInByUserName({commit}, userName)  {
+            try {
+                
+                await fetch('http://localhost:3000/users')
+                .then((res) => res.json())
+                .then((data) => {
+                    let cachedUser = data.filter((e) => e.userName === userName);
+                    this.commit("LOGIN_USER", cachedUser[0])
+                })
+            } catch(err) {
+                console.error(err)
+                // alert(err)
+            }
+        },
         async SignInUser({commit}, details){
             try {
                 let potentialUser;
@@ -99,7 +116,11 @@ export default createStore({
                     // }).then((res) => res.json())
                     // .then((data) => {
                     //     this.commit("LOGIN_USER", data.token, data.user)
-                    // }).then(router.push("/"))
+                    //     sessionStorage.setItem("username", data.token)
+                        
+                    // }).then(
+                    //     // router.push("/")
+                    // )
                     commit("LOGIN_USER", potentialUser[0])
                     sessionStorage.setItem("username",potentialUser[0].userName)
                   } else {
@@ -114,6 +135,14 @@ export default createStore({
         },
         SignOutUser({commit}, state) {
             this.commit("LOGOFF_USER")
+        },
+        SignInUserWithSessionStorage({dispatch, commit}){
+            const sessionUserName = sessionStorage.getItem('username')
+            if(sessionUserName){
+                this.dispatch("SignInByUserName", sessionUserName)
+            } else {
+                this.commit("LOGOFF_USER")
+            }
         },
         NewUser({commit, dispatch}) {
             dispatch("GetAllUsers").then(() => {
@@ -164,6 +193,49 @@ export default createStore({
         GetCurrentUser(){
             return this.state.currentUser;
         },
+        AddToCart({commit}, cartItem){
+            // const editUser = {
+            //     userName: this.state.currentUser.userName,
+            //     password: this.state.currentUser.password,
+            //     firstName: this.state.currentUser.firstName,
+            //     lastName: this.state.currentUser.lastName,
+            //     emailAddress: this.state.currentUser.emailAddress,
+            //     phoneNumber: this.state.currentUser.phoneNumber,
+            //     vetStatus: this.state.currentUser.vetStatus,
+            //     subscribedToEmails: this.state.currentUser.subscribedToEmails,
+            //     purchases: this.state.currentUser.purchases,
+            //     shoppingCart: this.state.currentUser.shoppingCart
+            // }
+            this.commit("ADD_TO_CART", cartItem)
+            console.log(this.state.currentUser)
+
+            const requestOptions = {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json"
+                  // "auth-token": state.token
+                },
+                body: JSON.stringify({
+                    userName: this.state.currentUser.userName,
+                    password: this.state.currentUser.password,
+                    firstName: this.state.currentUser.firstName,
+                    lastName: this.state.currentUser.lastName,
+                    emailAddress: this.state.currentUser.emailAddress,
+                    phoneNumber: this.state.currentUser.phoneNumber,
+                    vetStatus: this.state.currentUser.vetStatus,
+                    subscribedToEmails: this.state.currentUser.subscribedToEmails,
+                    purchases: this.state.currentUser.purchases,
+                    shoppingCart: this.state.currentUser.shoppingCart
+                }) 
+              }
+              fetch(`http://localhost:3000/users/update/${this.state.currentUser._id}`, 
+              requestOptions)
+                .then(
+                    res => res.json()
+                )
+                // router.push('/users')
+        },
+        RemoveFromCart({commit}, cartItem){}
     },
     getters: {
         isLoggedIn(state){

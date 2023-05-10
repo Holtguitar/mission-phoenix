@@ -209,11 +209,17 @@ export default {
         return false
       }
     },
+    getUser() {
+      // this.state.
+    },
+  },
+  created() {
+    // this.GetAllUsers()
   },
   mounted() {
     window.scrollTo(0, 0)
     this.store.dispatch('GetAllUsers')
-    this.GetAllUsers()
+    this.store.dispatch('SignInUserWithSessionStorage')
     this.signIn = false
   },
 }

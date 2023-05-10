@@ -32,19 +32,7 @@ mongoose.connect(uri, {
 
 // JWT Handler
 app.post("/login?", (req, res) => {
-    const user = {
-        _id: req.body._id,
-        userName: req.body.userName,
-        password: req.body.password,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        emailAddress: req.body.emailAddress,
-        phoneNumber: req.body.phoneNumber,
-        vetStatus: req.body.vetStatus,
-        subscribedToEmails: req.body.subscribedToEmails,
-        purchases: req.body.purchases,
-        shoppingCart: req.body.shoppingCart
-    };
+    const user = req.body.user
 
     const token = jwt.sign(user, `${process.env.JWT_KEY}`);
 

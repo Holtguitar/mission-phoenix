@@ -41,8 +41,9 @@
       </h3>
       <img class="shopping-cart" src="/public/icons/shopping-cart.png" />
       <div>
-        <!-- <h3>{{ this.$store.currentUser.shoppingCart.length }}</h3> -->
-        <h3 class="shopping-cart__count">10</h3>
+        <h3 class="shopping-cart__count">
+          {{ this.$store.state.currentUser.shoppingCart.length }}
+        </h3>
       </div>
     </div>
   </section>
@@ -69,6 +70,7 @@ export default {
       open: false,
       showMenu: false,
       inViewStationary: false,
+      currentUser: this.$store.dispatch('GetCurrentUser'),
     }
   },
   methods: {
@@ -84,6 +86,10 @@ export default {
     setTimeout(() => {
       this.toggleInViewStationary()
     }, 100)
+  },
+  created() {
+    this.$store.dispatch('GetAllUsers')
+    this.$store.dispatch('SignInUserWithSessionStorage')
   },
 }
 </script>

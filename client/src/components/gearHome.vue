@@ -11,16 +11,49 @@
         :colors="item.colors"
       ></theGearItem>
     </div> -->
-    <theGearFullItem
+    <!-- <theGearFullItem
       v-for="(item, index) in this.state.gear"
       :key="item._id"
+      :_id="item._id"
       :itemName="item.itemName"
       :prices="item.prices"
       :images="item.imageURLS"
       :colors="item.colors"
       :backgrounds="item.backgrounds"
       :sizes="item.sizes"
-    ></theGearFullItem>
+    ></theGearFullItem> -->
+    <h1>Phoenix Gear</h1>
+    <hr />
+    <br />
+    <div class="link-container">
+      <div class="men-container">
+        <div class="image-container">
+          <img
+            class="link-image"
+            src="../../public/gear/men/America-strong-1.jpeg"
+          />
+        </div>
+        <div class="label-container">Men</div>
+      </div>
+      <div class="women-container">
+        <div class="image-container">
+          <img
+            class="link-image"
+            src="../../public/gear/women/be-the-gen-1.jpeg"
+          />
+        </div>
+        <div class="label-container">Women</div>
+      </div>
+      <div class="accessories-container">
+        <div class="image-container">
+          <img
+            class="link-image"
+            src="../../public/gear/accessories/hat-1.jpeg"
+          />
+        </div>
+        <div class="label-container">Accessories</div>
+      </div>
+    </div>
   </div>
 
   <theFooter></theFooter>
@@ -91,5 +124,45 @@ export default {
 .gear-home hr {
   width: 15%;
   margin-top: 3%;
+}
+
+.label-container {
+  position: relative;
+  height: 25%;
+  text-align: center;
+  font-size: 25px;
+  color: white;
+  top: -15%;
+}
+
+.link-container {
+  width: 70vw;
+  height: 50vh;
+  left: 15%;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  /* background-color: blue; */
+}
+
+.image-container {
+  position: relative;
+  height: 50%;
+  /* top: 25%; */
+  background-color: green;
+  overflow: hidden;
+}
+
+.link-image {
+  position: relative;
+  width: 100%;
+}
+
+.men-container,
+.women-container,
+.accessories-container {
+  position: relative;
+  width: 20%;
+  height: 100%;
 }
 </style>
