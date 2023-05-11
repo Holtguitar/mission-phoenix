@@ -28,10 +28,12 @@
       <router-link class="nav-item" id="mission" to="mission">
         Mission
       </router-link>
-      <router-link class="nav-item" id="gear" to="gear">Gear</router-link>
-      <router-link class="nav-item" id="events" to="events">Events</router-link>
-      <router-link class="nav-item" id="blog" to="blogs">Blog</router-link>
-      <router-link class="nav-item" id="account" to="account">
+      <router-link class="nav-item" id="gear" to="/gear">Gear</router-link>
+      <router-link class="nav-item" id="events" to="/events">
+        Events
+      </router-link>
+      <router-link class="nav-item" id="blog" to="/blogs">Blog</router-link>
+      <router-link class="nav-item" id="account" to="/account">
         Account
       </router-link>
     </div>
@@ -39,11 +41,14 @@
       <h3 class="welcome-user">
         Welcome, {{ this.$store.state.currentUser.firstName }}
       </h3>
-      <img class="shopping-cart" src="/public/icons/shopping-bag.png" />
-      <div>
-        <h3 class="shopping-cart__count">
-          {{ this.$store.state.currentUser.shoppingCart.length }}
-        </h3>
+      <div class="shopping-cart">
+        <img
+          class="shopping-cart__image"
+          src="/public/icons/shopping-bag.png"
+        />
+        <div class="shopping-cart__count-container">
+          <h3>{{ this.$store.state.currentUser.shoppingCart.length }}</h3>
+        </div>
       </div>
     </div>
   </section>
@@ -114,7 +119,7 @@ export default {
 .mission-phoenix-logo {
   position: relative;
   width: 40%;
-  top: 15%;
+  top: 20%;
   left: 5%;
 }
 
@@ -190,19 +195,25 @@ export default {
   margin: auto;
 }
 
-.nav-bar__submenu .shopping-cart {
+.shopping-cart {
   position: relative;
-  width: 5%;
-  top: -5%;
-  height: 75%;
   left: 94%;
 }
 
-.nav-bar__submenu .shopping-cart__count {
+.shopping-cart:hover {
+  cursor: pointer;
+}
+
+.shopping-cart__image {
+  width: 100%;
+  opacity: 0.7;
+}
+
+.shopping-cart__count-container {
   color: rgb(135, 0, 0);
   position: absolute;
-  width: 4%;
-  left: 94%;
+  width: 55%;
+  left: 22.5%;
   top: 0%;
   text-align: center;
 }
@@ -210,9 +221,11 @@ export default {
 .nav-bar__submenu .welcome-user {
   position: absolute;
   margin: auto;
+  text-align: end;
   height: 50%;
-  width: 30%;
-  left: 50%;
+  /* width: 30%; */
+  width: fit-content;
+  left: 60%;
   top: 25%;
 }
 

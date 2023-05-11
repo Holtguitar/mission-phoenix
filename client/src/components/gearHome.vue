@@ -19,10 +19,17 @@
       :prices="item.prices"
       :images="item.imageURLS"
       :colors="item.colors"
-      :backgrounds="item.backgrounds"
       :sizes="item.sizes"
     ></theGearFullItem> -->
     <h1>Phoenix Gear</h1>
+    <router-link
+      v-if="this.$store.state.currentUser.userName === 'holtguitar'"
+      to="add-new-gear"
+      class="add-gear-link"
+    >
+      Add New Gear
+    </router-link>
+
     <hr />
     <br />
     <div class="link-container">
@@ -34,7 +41,7 @@
               src="../../public/gear/men/America-strong-1.jpeg"
             />
           </div>
-          <div class="label-container">
+          <div id="label-container">
             Men
           </div>
         </router-link>
@@ -47,19 +54,19 @@
               src="../../public/gear/women/be-the-gen-1.jpeg"
             />
           </div>
-          <div class="label-container">Women</div>
+          <div id="label-container">Women</div>
         </router-link>
       </div>
       <div class="accessories-container">
-        <router-link to="gear-accessories">
+        <RouterLink to="gear-accessories">
           <div class="image-container">
             <img
               class="link-image"
               src="../../public/gear/accessories/hat-1.jpeg"
             />
           </div>
-          <div class="label-container">Accessories</div>
-        </router-link>
+          <div id="label-container">Accessories</div>
+        </RouterLink>
       </div>
     </div>
   </div>
@@ -72,6 +79,7 @@ import theFooter from './theFooter.vue'
 import gear from './modules/gear'
 import theGearItem from './gear/theGearItem.vue'
 import theGearFullItem from './gear/theGearFullItem.vue'
+import { useStore } from 'vuex'
 
 export default {
   components: {
@@ -83,6 +91,7 @@ export default {
     return {
       gearArray: [],
       bgColor: '',
+      store: useStore(),
     }
   },
   setup() {
@@ -96,11 +105,22 @@ export default {
   mounted() {
     this.GetAllGear()
     window.scrollTo(0, 0)
+    this.store.dispatch('GetAllUsers')
+    this.store.dispatch('SignInUserWithSessionStorage')
   },
 }
 </script>
 
 <style>
+.add-gear-link {
+  text-decoration: none;
+  color: rgb(80, 80, 80);
+  font-size: 20px;
+}
+
+.add-gear-link:hover {
+  text-decoration: underline;
+}
 .inventory-scroll {
   position: relative;
   width: 80vw;
@@ -121,6 +141,7 @@ export default {
   min-height: 100vh;
   max-height: fit-content;
   top: 15%;
+  text-align: center;
 }
 
 .gear-home h1 {
@@ -134,7 +155,7 @@ export default {
   margin-top: 3%;
 }
 
-.label-container {
+#label-container {
   position: relative;
   height: 25%;
   text-align: center;

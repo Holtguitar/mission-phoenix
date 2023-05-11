@@ -1,27 +1,33 @@
 <template>
-  <div class="inventory-item">
-    <div class="inventory-row-1">
-      <div class="inventory-image-container">
-        <img
-          class="inventory-image"
-          :src="images[this.imageIndex]"
-          @mouseenter="this.increaseIndex"
-          @mouseleave="this.decreaseIndex"
-        />
+  <RouterLink :to="{ name: 'gearFullItem', params: { id: _id } }">
+    <div class="inventory-item">
+      <div class="inventory-row-1">
+        <div class="inventory-image-container">
+          <img
+            class="inventory-image"
+            :src="images[this.imageIndex]"
+            @mouseenter="this.increaseIndex"
+            @mouseleave="this.decreaseIndex"
+          />
+        </div>
+      </div>
+      <div class="inventory-row-2">
+        <div class="price-range">
+          ${{ prices[0].min }} - ${{ prices[0].max }}
+        </div>
+      </div>
+      <div class="inventory-row-3">
+        <div class="inventory-name">{{ itemName }}</div>
       </div>
     </div>
-    <div class="inventory-row-2">
-      <div class="price-range">${{ prices[0].min }} - ${{ prices[0].max }}</div>
-    </div>
-    <div class="inventory-row-3">
-      <div class="inventory-name">{{ itemName }}</div>
-    </div>
-  </div>
+  </RouterLink>
 </template>
 
 <script>
+import { useRoute } from 'vue-router'
 export default {
   props: ['_id', 'itemName', 'prices', 'sizes', 'images', 'colors'],
+
   data() {
     return {
       bgColors: this.colors,

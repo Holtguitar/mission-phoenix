@@ -38,6 +38,7 @@ const getGear = () => {
       newInStock: true,
       newCategory: '',     
       gear: [],
+      currentItem: {}
     });
 
 
@@ -176,16 +177,18 @@ const getGear = () => {
 
     const item = ref({});
 
-    const GetItemById = async () => {
-        try {
-            fetch("http://localhost:3000/gear" + _id)
-            .then(res => res.json)
-            .then(data => {
-               item.value = data.filter(t => t._id === itemId.value)
-            })
-        } catch(err) {
-            // alert(err)
-        }
+    const GetGearById = async (_id) => {
+      try {
+        await fetch('http://localhost:3000/gear/')
+        .then((res) => res.json())
+        .then((data) => {
+          const item = data.filter((e) => e._id === _id)
+          state.value.currentItem = item[0]
+        })
+    } catch(err) {
+        console.error(err)
+        // alert(err)
+    }
     }
 
 
@@ -195,7 +198,7 @@ const getGear = () => {
         newItem,
         deleteItem,
         editItem,
-        GetItemById,
+        GetGearById,
         GetGearByCategory,
         item, 
         itemId,

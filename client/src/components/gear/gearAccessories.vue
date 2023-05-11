@@ -7,6 +7,7 @@
     <theGearItem
       v-for="(item, index) in this.state.gear"
       :key="item._id"
+      :_id="item._id"
       :itemName="item.itemName"
       :prices="item.prices"
       :images="item.imageURLS"

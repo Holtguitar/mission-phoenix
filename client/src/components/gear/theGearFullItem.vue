@@ -1,10 +1,10 @@
 <template>
   <div class="full-inventory-item">
     <div class="full-main-image-container">
-      <img :src="this.activeImage" class="full-main-image" />
+      <!-- <img :src="this.activeImage" class="full-main-image" /> -->
     </div>
     <div class="full-sub-images">
-      <div
+      <!-- <div
         v-if="this.images.length > 1"
         class="full-sub-image-container"
         v-for="(image, index) in this.images"
@@ -15,38 +15,39 @@
           :src="image"
           @click="this.changeActiveImage(index)"
         />
-      </div>
+      </div> -->
     </div>
     <div class="full-item-name-container">
       <h2 class="full-item-name">
-        {{ itemName }}
+        {{ state.currentItem.itemName }}
       </h2>
       <hr />
+      {{}}
     </div>
     <div class="display-price-container">
       <div class="display-price">
-        <div class="price" v-if="displayPriceDefault">
+        <!-- <div class="price" v-if="displayPriceDefault">
           {{
             this.prices[0].min > 1
               ? `$${this.prices[0].min} - $${this.prices[0].max}`
               : `$${this.prices[0].max}`
           }}
         </div>
-        <div class="price" v-else>${{ this.displayPrice * this.quantity }}</div>
+        <div class="price" v-else>${{ this.displayPrice * this.quantity }}</div> -->
       </div>
     </div>
-    <div class="full-item-size-container" v-if="this.sizeArray.length > 1">
+    <!-- <div class="full-item-size-container" v-if="this.sizeArray.length > 1">
       <label class="size-label">Select your size:</label>
       <div v-for="item in this.sizeArray" class="size-selector-container">
         <button class="size-selector-button" @click.prevent="this.size(item)">
           {{ item.size }}
         </button>
       </div>
-    </div>
+    </div> -->
     <div class="full-item-colors-container">
       <div class="color-container">
         <label class="color-title">Select your color:</label>
-        <select class="color-selector" v-model="this.selectedColor">
+        <!-- <select class="color-selector" v-model="this.selectedColor">
           <option
             v-for="(color, index) in this.colors"
             :key="index"
@@ -54,18 +55,18 @@
           >
             {{ color }}
           </option>
-        </select>
+        </select> -->
       </div>
     </div>
     <div class="quantity-selector-container">
-      <label class="quantity-label" @change="">Quantity:</label>
+      <!-- <label class="quantity-label" @change="">Quantity:</label>
       <input
         class="quantity-selector"
         type="number"
         placeholder="1"
         min="1"
         v-model="this.quantity"
-      />
+      /> -->
     </div>
     <div class="add-to-cart-container">
       <button class="add-to-cart" @click.prevent="this.addToCart()">
@@ -76,31 +77,39 @@
 </template>
 
 <script>
+import { useRoute } from 'vue-router'
+import gear from '../modules/gear'
 export default {
-  props: [
-    '_id',
-    'itemName',
-    'prices',
-    'sizes',
-    'images',
-    'colors',
-    'backgrounds',
-  ],
+  props: ['_id', 'itemName', 'prices', 'sizes', 'images', 'colors'],
+  setup() {
+    const { GetGearById, GetAllGear, state } = gear()
+    const route = useRoute()
+    const id = route.params.id
+    // const currentItem = GetGearById(id)
+    return { id, GetGearById, GetAllGear, state }
+  },
   data() {
     return {
-      imageArray: [],
-      activeImage: this.images[0],
-      imageIndex: 0,
-      imageIndexMax: this.images.length,
-      sizeArray: this.sizes,
-      priceRange: `$${this.prices[0].min} - $${this.prices[0].max}`,
-      displayPriceDefault: true,
-      displayPrice: null,
-      backgroundArray: [],
-      quantity: 1,
-      selectedColor: '',
-      selectedSize: '',
+      currentItem: {},
+      imageArray: this.state.currentItem.imageURLS,
+      // imageIndex: 0,
+      // imageIndexMax: this.imageArray.length,
+      // sizeArray: state.currentItem.sizes,
+      // priceRange: `$${this.state.currentItem.prices[0].min} - $${this.state.currentItem.prices[0].max}`,
+      // displayPriceDefault: true,
+      // displayPrice: null,
+      // backgroundArray: [],
+      // quantity: 1,
+      // selectedColor: '',
+      // selectedSize: '',
     }
+  },
+  computed: {
+    selectedSizes() {
+      this.sizeArray.forEach((e) => {
+        console.log('size: ', e)
+      })
+    },
   },
   methods: {
     changeActiveImage(index) {
@@ -110,6 +119,9 @@ export default {
 
       this.imageArray[index].active = true
       this.activeImage = this.images[index]
+    },
+    getCurrentItem() {
+      this.currentItem = this.GetGearById(this.id)
     },
     backgroundSetter() {
       this.colors.forEach((e) => {
@@ -157,19 +169,13 @@ export default {
       this.sizeArray = newArr
     },
   },
-  computed: {
-    selectedSizes() {
-      this.sizeArray.forEach((e) => {
-        console.log('size: ', e)
-      })
-    },
-  },
   mounted() {
     window.scrollTo(0, 0)
-    this.getSizes()
-    this.backgroundSetter()
-    this.imageSetter()
-    this.changeActiveImage(0)
+    this.getCurrentItem()
+    console.log(this.imageArray)
+    // this.getSizes()
+    // this.imageSetter()
+    // this.changeActiveImage(0)
     // this.$store.dispatch('SignInUserWithSessionStorage')
   },
 }

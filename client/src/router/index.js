@@ -1,8 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import theGearFullItem from '../components/gear/theGearFullItem.vue'
 // import {HomeView, AccountView, BlogView, EventView, GearView, MissionView, ResourcesView, SponsorsView, TeamView} from '../views/'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  gearItem: {
+    template:'<theGearFullItem></theGearFullItem>',
+    props:['id']
+  },
   routes: [
     {
       path: '/',
@@ -14,6 +19,11 @@ const router = createRouter({
       path: '/account',
       name: 'account',
       component: () => import("../views/AccountView.vue")
+    },
+    {
+      path: '/add-new-gear',
+      name: 'addNewGear',
+      component: () => import("../components/adminPages/gear/AddNewGear.vue")
     },
     {
       path: '/blogs',
@@ -31,9 +41,27 @@ const router = createRouter({
       component: () => import("../views/GearView.vue")
     },
     {
-      path: '/add-new-gear',
-      name: 'addNewGear',
-      component: () => import("../components/adminPages/gear/AddNewGear.vue")
+      path: '/gear-accessories',
+      name: 'gearAccessories',
+      component: () => import("../components/gear/gearAccessories.vue")
+    },
+    {
+
+      path: '/gear/:id',
+      name: 'gearFullItem',
+      props: true,
+      component: () => import("../components/gear/theGearFullItem.vue")
+
+    },
+    {
+      path: '/gear-men',
+      name: 'gearMen',
+      component: () => import("../components/gear/gearMen.vue")
+    },
+    {
+      path: '/gear-women',
+      name: 'gearWomen',
+      component: () => import("../components/gear/gearWomen.vue")
     },
     {
       path: '/mission',
@@ -54,21 +82,6 @@ const router = createRouter({
       path: '/team',
       name: 'team',
       component: () => import("../views/TeamView.vue")
-    },
-    {
-      path: '/gear-men',
-      name: 'gearMen',
-      component: () => import("../components/gear/gearMen.vue")
-    },
-    {
-      path: '/gear-women',
-      name: 'gearWomen',
-      component: () => import("../components/gear/gearWomen.vue")
-    },
-    {
-      path: '/gear-accessories',
-      name: 'gearAccessories',
-      component: () => import("../components/gear/gearAccessories.vue")
     },
 
   ]
