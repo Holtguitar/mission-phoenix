@@ -54,7 +54,23 @@ const router = createRouter({
       path: '/team',
       name: 'team',
       component: () => import("../views/TeamView.vue")
-    }
+    },
+    {
+      path: '/gear-men',
+      name: 'gearMen',
+      component: () => import("../components/gear/gearMen.vue")
+    },
+    {
+      path: '/gear-women',
+      name: 'gearWomen',
+      component: () => import("../components/gear/gearWomen.vue")
+    },
+    {
+      path: '/gear-accessories',
+      name: 'gearAccessories',
+      component: () => import("../components/gear/gearAccessories.vue")
+    },
+
   ]
 })
 

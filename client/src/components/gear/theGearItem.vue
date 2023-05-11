@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  props: ['itemName', 'prices', 'sizes', 'images', 'colors'],
+  props: ['_id', 'itemName', 'prices', 'sizes', 'images', 'colors'],
   data() {
     return {
       bgColors: this.colors,

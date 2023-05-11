@@ -114,17 +114,14 @@ const getGear = () => {
           await fetch(`http://localhost:3000/gear/`)
           .then((res) => res.json())
           .then((data) => {
-            state.value.gear.push(data)
+            const mensGear = data.filter((e) => e.category === categ);
+            state.value.gear =  mensGear;
           })
       } catch(err) {
           console.error(err)
           // alert(err)
       }
-
-      state.value.gear.forEach((e)=> {
-        console.log(e[0])
-      })
-  }
+    }
 
     const newItem = (categ) => { 
         const requestOptions = {
@@ -199,6 +196,7 @@ const getGear = () => {
         deleteItem,
         editItem,
         GetItemById,
+        GetGearByCategory,
         item, 
         itemId,
         uploadImage,

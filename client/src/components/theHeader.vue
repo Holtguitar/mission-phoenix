@@ -39,7 +39,7 @@
       <h3 class="welcome-user">
         Welcome, {{ this.$store.state.currentUser.firstName }}
       </h3>
-      <img class="shopping-cart" src="/public/icons/shopping-cart.png" />
+      <img class="shopping-cart" src="/public/icons/shopping-bag.png" />
       <div>
         <h3 class="shopping-cart__count">
           {{ this.$store.state.currentUser.shoppingCart.length }}
@@ -192,10 +192,10 @@ export default {
 
 .nav-bar__submenu .shopping-cart {
   position: relative;
-  width: 7%;
-  top: 5%;
+  width: 5%;
+  top: -5%;
   height: 75%;
-  left: 92.5%;
+  left: 94%;
 }
 
 .nav-bar__submenu .shopping-cart__count {
@@ -203,7 +203,7 @@ export default {
   position: absolute;
   width: 4%;
   left: 94%;
-  top: -9%;
+  top: 0%;
   text-align: center;
 }
 

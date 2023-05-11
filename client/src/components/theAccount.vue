@@ -132,12 +132,16 @@
     <div class="account-info">
       <div class="user-name">
         <h3>
+          Name:
           {{ this.$store.state.currentUser.firstName }}
           {{ this.$store.state.currentUser.lastName }}
         </h3>
       </div>
       <div class="user-email">
-        <h3>{{ this.$store.state.currentUser.emailAddress }}</h3>
+        <h3>Email: {{ this.$store.state.currentUser.emailAddress }}</h3>
+      </div>
+      <div>
+        <h3>Phone: {{ this.$store.state.currentUser.phoneNumber }}</h3>
       </div>
       <div class="vet-status">
         <h3>Veteran Status: {{ this.$store.state.currentUser.vetStatus }}</h3>
@@ -231,6 +235,7 @@ export default {
   width: 100%;
   top: 15%;
   height: fit-content;
+  text-align: center;
 }
 
 .accounts-home__title {
