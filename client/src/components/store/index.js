@@ -194,20 +194,7 @@ export default createStore({
             return this.state.currentUser;
         },
         AddToCart({commit}, cartItem){
-            // const editUser = {
-            //     userName: this.state.currentUser.userName,
-            //     password: this.state.currentUser.password,
-            //     firstName: this.state.currentUser.firstName,
-            //     lastName: this.state.currentUser.lastName,
-            //     emailAddress: this.state.currentUser.emailAddress,
-            //     phoneNumber: this.state.currentUser.phoneNumber,
-            //     vetStatus: this.state.currentUser.vetStatus,
-            //     subscribedToEmails: this.state.currentUser.subscribedToEmails,
-            //     purchases: this.state.currentUser.purchases,
-            //     shoppingCart: this.state.currentUser.shoppingCart
-            // }
             this.commit("ADD_TO_CART", cartItem)
-            console.log(this.state.currentUser)
 
             const requestOptions = {
                 method: "PUT",

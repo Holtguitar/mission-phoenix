@@ -1,4 +1,6 @@
 <template>
+  <RouterLink to="/gear"><h3 class="back-link">Back</h3></RouterLink>
+
   <div class="page-title">
     <h1>Accessories</h1>
     <hr />
@@ -39,6 +41,20 @@ export default {
 </script>
 
 <style>
+.back-link {
+  position: absolute;
+  width: 5%;
+  height: 5%;
+  margin-top: 10%;
+  left: 15%;
+  text-decoration: none;
+  color: rgba(1, 1, 1, 0.627);
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
 .gear-inventory__accessories {
   width: 100vw;
   left: 0%;

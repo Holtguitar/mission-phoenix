@@ -45,10 +45,20 @@
         }"
       >
         <p class="join-p">
-          <RouterLink to="/mission" id="join-link">Join the fight</RouterLink>
+          <RouterLink to="/account" id="join-link">Join the fight</RouterLink>
         </p>
       </div>
     </div>
+    <div class="down-scroll">
+      <img
+        v-for="(item, index) in this.arrowArray"
+        src="../../public/icons/down-arrow.png"
+        class="down-arrow-icon"
+        :class="item.faded ? 'faded' : ''"
+      />
+    </div>
+    <div class="section-2"></div>
+    <div class="section-3"></div>
   </div>
 
   <!-- <div class="too-many">
@@ -83,6 +93,12 @@ export default {
   },
   data() {
     return {
+      fadedIndex: 0,
+      arrowArray: [
+        { source: '../../public/icons/down-arrow.png', faded: true },
+        { source: '../../public/icons/down-arrow.png', faded: false },
+        { source: '../../public/icons/down-arrow.png', faded: false },
+      ],
       inViewStationary: false,
       inViewRising: false,
       inViewDelayed: false,
@@ -122,6 +138,17 @@ export default {
 
       let timer = setInterval(myFunction, 0.4)
     },
+    arrowCycle() {
+      this.arrowArray.forEach((e) => (e.faded = false))
+
+      if (this.fadedIndex === 2) {
+        this.fadedIndex = 0
+      } else {
+        this.fadedIndex++
+      }
+
+      this.arrowArray[this.fadedIndex].faded = true
+    },
   },
   mounted() {
     window.scrollTo(0, 0)
@@ -142,13 +169,37 @@ export default {
       this.increaseDailyCount()
       this.increaseYearlyCount()
     }, 500)
+
+    setInterval(this.arrowCycle, 500)
   },
 }
 </script>
 
 <style>
+.down-scroll {
+  position: absolute;
+  width: 10%;
+  height: 20%;
+  left: 10%;
+  top: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.down-arrow-icon {
+  filter: brightness(80%);
+  width: 100%;
+  height: 30%;
+  margin-bottom: -10%;
+  opacity: 0.5;
+}
+
+.faded {
+  opacity: 1;
+}
+
 .flag-video {
-  position: fixed;
+  position: absolute;
   top: 0;
 }
 
@@ -165,7 +216,6 @@ export default {
   width: 30vw;
   height: 50vh;
   top: 25%;
-  /* background-color: rgb(98, 0, 255); */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -240,6 +290,7 @@ export default {
   border-top: 20px solid transparent;
   border-bottom: 20px solid transparent;
 }
+
 .join-button:before {
   content: '';
   position: absolute;
@@ -250,6 +301,14 @@ export default {
   border-left: 20px solid rgba(162, 3, 3, 0.773);
   border-top: 20px solid transparent;
   border-bottom: 20px solid transparent;
+}
+
+.overlay {
+  position: absolute;
+  margin: auto auto;
+  margin-top: -5%;
+  height: 120vh;
+  width: 100vw;
 }
 
 /*          FADE IN ANIMATION            */
@@ -278,6 +337,24 @@ export default {
   opacity: 1;
   transform: none;
   visibility: visible;
+}
+
+.section-2 {
+  position: absolute;
+  height: 110vh;
+  width: 100vw;
+  top: 110vh;
+  background-color: red;
+  border-radius: 5% 50% 20% 5%;
+}
+
+.section-3 {
+  position: absolute;
+  height: 110vh;
+  width: 100vw;
+  top: 220vh;
+  background-color: rgb(0, 21, 255);
+  border-radius: 50% 5% 50% 5%;
 }
 
 /* .too-many {

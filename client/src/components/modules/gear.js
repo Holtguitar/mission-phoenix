@@ -182,8 +182,8 @@ const getGear = () => {
         await fetch('http://localhost:3000/gear/')
         .then((res) => res.json())
         .then((data) => {
-          const item = data.filter((e) => e._id === _id)
-          state.value.currentItem = item[0]
+          const thisItem = data.filter((e) => e._id === _id)
+          state.value.currentItem = thisItem[0]
         })
     } catch(err) {
         console.error(err)
