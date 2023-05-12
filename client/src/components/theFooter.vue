@@ -20,7 +20,8 @@
 
 .footer-bar {
   position: relative;
-  bottom: 0;
+  bottom: 0%;
+  /* margin-top: 50px; */
   top: 100%;
   width: 100vw;
   height: 15vh;
