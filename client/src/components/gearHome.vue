@@ -160,15 +160,17 @@ export default {
   height: 25%;
   text-align: center;
   font-size: 25px;
-  color: white;
-  top: -15%;
-  text-decoration: none !important;
+  top: 5%;
+  /* color: white; */
+  /* top: -15%; */
+  color: rgb(63, 63, 63);
+  text-decoration: underline;
 }
 
 .link-container {
-  width: 70vw;
+  width: 80vw;
   height: 50vh;
-  left: 15%;
+  left: 10%;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -177,12 +179,17 @@ export default {
 
 .image-container {
   position: relative;
-  height: 50%;
+  /* background-color: green; */
+  width: 100%;
+  height: 60%;
+  /* height: 50%; */
+  /* width: 25%; */
   overflow: hidden;
 }
 
 .link-image {
   position: relative;
+  /* display: none; */
   width: 100%;
 }
 

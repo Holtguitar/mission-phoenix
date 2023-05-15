@@ -81,6 +81,7 @@ export default {
   height: 40vh;
   box-shadow: 1px 1px 7px 7px rgba(41, 43, 89, 0.488);
   background-color: white;
+  text-decoration: none;
 }
 
 .inventory-name {

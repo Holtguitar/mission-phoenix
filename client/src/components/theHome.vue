@@ -49,7 +49,7 @@
         </p>
       </div>
     </div>
-    <div class="down-scroll">
+    <div class="down-scroll" @click="goto('section-2')">
       <img
         v-if="inViewDelayed"
         v-for="(item, index) in this.arrowArray"
@@ -59,83 +59,98 @@
       />
     </div>
   </div>
-  <svg viewBox="0 0 500 200" class="border-1">
-    <path
-      d="M 0 30 C 150 100 280 0 500 20 L 500 0 L 0 0"
-      fill="rgba(103, 1, 1)"
-    ></path>
-  </svg>
-  <div class="section-2">
-    <div class="section-image-container">
-      <img src="../../public/funeral-flag.png" />
-    </div>
-    <div class="section-header-container">
-      <h1 class="section-header">Connect</h1>
+
+  <div class="section-2" ref="section-2">
+    <svg viewBox="0 5 500 30" class="border-1">
+      <path
+        d="M 0 30 C 100 50 500 0 500 10 L 500 0 L 0 0"
+        fill="rgb(103, 1, 1)"
+      ></path>
+    </svg>
+    <div class="section-container">
+      <div class="section-image-container">
+        <img src="../../public/icons/connect.png" />
+      </div>
+      <div class="section-header-container">
+        <h1 class="section-header">Connect</h1>
+      </div>
     </div>
   </div>
-  <svg viewBox="0 0 500 200" class="border-2">
-    <path
-      d="M 0 30 C 150 100 280 0 500 20 L 500 0 L 0 0"
-      fill="rgb(27, 25, 135)"
-    ></path>
-  </svg>
+
   <div class="section-3">
-    <div class="section-header-container">
-      <h1 class="section-header">Counsel</h1>
-    </div>
-    <div class="section-image-container">
-      <img src="../../public/funeral-flag.png" />
+    <svg viewBox="0 5 500 30" class="border-2">
+      <path
+        d="M 0 30 C 100 50 500 0 500 10 L 500 0 L 0 0"
+        fill="rgb(11, 10, 99)"
+      ></path>
+    </svg>
+    <div class="section-container">
+      <div class="section-header-container">
+        <h1 class="section-header">Counsel</h1>
+      </div>
+      <div class="section-image-container">
+        <img src="../../public/icons/counsel.png" />
+      </div>
     </div>
   </div>
-  <svg viewBox="0 0 500 200" class="border-3">
-    <path
-      d="M 0 30 C 150 100 280 0 500 20 L 500 0 L 0 0"
-      fill="rgba(103, 1, 1)"
-    ></path>
-  </svg>
+
   <div class="section-4">
-    <div class="section-image-container">
-      <img src="../../public/funeral-flag.png" />
-    </div>
-    <div class="section-header-container">
-      <h1 class="section-header">Equip</h1>
+    <svg viewBox="0 5 500 30" class="border-3">
+      <path
+        d="M 0 30 C 100 50 500 0 500 10 L 500 0 L 0 0"
+        fill="rgb(103, 1, 1)"
+      ></path>
+    </svg>
+    <div class="section-container">
+      <div class="section-image-container">
+        <img src="../../public/icons/equip.png" />
+      </div>
+      <div class="section-header-container">
+        <h1 class="section-header">Equip</h1>
+      </div>
     </div>
   </div>
-  <svg viewBox="0 0 500 200" class="border-4">
-    <path
-      d="M 0 30 C 150 100 280 0 500 20 L 500 0 L 0 0"
-      fill="rgb(27, 25, 135)"
-    ></path>
-  </svg>
+
   <div class="section-5">
-    <div class="section-header-container">
-      <h1 class="section-header">Restore</h1>
-    </div>
-    <div class="section-image-container">
-      <img src="../../public/funeral-flag.png" />
+    <svg viewBox="0 5 500 30" class="border-4">
+      <path
+        d="M 0 30 C 100 50 500 0 500 10 L 500 0 L 0 0"
+        fill="rgb(11, 10, 99)"
+      ></path>
+    </svg>
+    <div class="section-container">
+      <div class="section-header-container">
+        <h1 class="section-header">Restore</h1>
+      </div>
+      <div class="section-image-container">
+        <img src="../../public/icons/restore.png" />
+      </div>
     </div>
   </div>
-  <svg viewBox="0 0 500 200" class="border-5">
-    <path
-      d="M 0 30 C 150 100 280 0 500 20 L 500 0 L 0 0"
-      fill="rgba(103, 1, 1)"
-    ></path>
-  </svg>
+
   <div class="section-6">
-    <div class="section-image-container">
-      <img src="../../public/funeral-flag.png" />
-    </div>
-    <div class="section-header-container">
-      <h1 class="section-header">Rise</h1>
-      <img class="ring-flare" src="../../public/icons/ring-flare.png" />
+    <svg viewBox="0 5 500 30" class="border-5">
+      <path
+        d="M 0 30 C 100 50 500 0 500 10 L 500 0 L 0 0"
+        fill="rgb(103, 1, 1)"
+      ></path>
+    </svg>
+    <div class="section-container">
+      <div class="section-image-container">
+        <img src="../../public/icons/rise.png" />
+      </div>
+      <div class="section-header-container">
+        <h1 class="section-header">Rise</h1>
+        <!-- <img class="ring-flare" src="../../public/icons/ring-flare.png" /> -->
+      </div>
     </div>
   </div>
-  <svg viewBox="0 0 500 200" class="border-6">
+  <!-- <svg viewBox="0 0 500 200" class="border-6">
     <path
       d="M 0 30 C 150 100 280 0 500 20 L 500 0 L 0 0"
       fill="rgba(78, 78, 78)"
     ></path>
-  </svg>
+  </svg> -->
   <div class="section-7">
     <div></div>
     <div></div>
@@ -187,6 +202,12 @@ export default {
     }
   },
   methods: {
+    goto(refName) {
+      var element = this.$refs[refName]
+      var top = element.offsetTop
+      window.scrollTo(0, top)
+      console.log('click')
+    },
     toggleInViewStationary() {
       this.inViewStationary = true
     },
@@ -258,54 +279,57 @@ export default {
 <style>
 .border-1 {
   position: relative;
-  top: -55%;
+  top: -10%;
   transform: rotate(180deg);
   transform: rotateX(180deg);
 }
 
 .border-2 {
   position: relative;
-  top: -30%;
+  top: -10%;
   transform: rotate(180deg);
-  /* transform: rotateX(180deg); */
 }
 
 .border-3 {
   position: relative;
-  top: 0%;
+  top: -10%;
   transform: rotate(180deg);
   transform: rotateX(180deg);
 }
 
 .border-4 {
   position: relative;
-  top: 25%;
+  top: -10%;
   transform: rotate(180deg);
-  /* transform: rotateX(180deg); */
 }
 
 .border-5 {
   position: relative;
-  top: 50%;
+  top: -10%;
   transform: rotate(180deg);
   transform: rotateX(180deg);
 }
 
 .border-6 {
   position: relative;
-  top: 72%;
+  top: -10%;
   transform: rotate(180deg);
-  /* transform: rotateX(180deg); */
 }
 
 .down-scroll {
-  position: absolute;
+  position: relative;
   width: 5%;
   height: 10%;
-  left: 92.25%;
   top: 90%;
+  left: 55%;
+  /* left: 92.25%; */
+  /* top: 90%; */
   display: flex;
   flex-direction: column;
+}
+
+.down-scroll:hover {
+  cursor: pointer;
 }
 
 .down-arrow-icon {
@@ -314,6 +338,10 @@ export default {
   height: 30%;
   margin-bottom: -10%;
   opacity: 0.5;
+}
+
+.down-arrow-icon:hover {
+  cursor: pointer;
 }
 
 .faded {
@@ -472,89 +500,92 @@ export default {
   width: 100%;
   left: 0%;
   top: -125%;
-  /* background-color: blue; */
-  /* top: -100%; */
+}
+
+.rotate {
+  transition: 5s ease-in;
+  transform: rotate(90deg);
 }
 
 .section-2,
 .section-3,
 .section-4,
 .section-5,
+.section-6,
+.section-7 {
+  position: relative;
+  filter: sepia(45%);
+  width: 100vw;
+  height: 100vh;
+}
+
+.section-2 {
+  top: 10%;
+  background-color: rgb(103, 1, 1);
+}
+
+.section-3 {
+  background-color: rgb(11, 10, 99);
+}
+
+.section-4 {
+  background-color: rgb(103, 1, 1);
+}
+
+.section-5 {
+  background-color: rgb(11, 10, 99);
+}
+
 .section-6 {
+  background-color: rgb(103, 1, 1);
+}
+
+.section-7 {
+  background-color: rgba(78, 78, 78);
+}
+
+.section-container {
+  width: 100%;
+  height: 75%;
+  top: 12.5%;
+  /* background-color: purple; */
   display: flex;
   justify-content: center;
   gap: 5%;
 }
 
-.section-2 {
-  position: absolute;
-  background-color: rgb(103, 1, 1);
-  width: 100vw;
-  height: 100vh;
-  top: 115%;
-}
-
-.section-3 {
-  position: absolute;
-  background-color: rgb(27, 25, 135);
-  width: 100vw;
-  height: 100vh;
-  top: 215%;
-}
-
-.section-4 {
-  position: absolute;
-  background-color: rgb(103, 1, 1);
-  width: 100vw;
-  height: 100vh;
-  top: 315%;
-}
-
-.section-5 {
-  position: absolute;
-  background-color: rgb(27, 25, 135);
-  width: 100vw;
-  height: 100vh;
-  top: 415%;
-}
-
-.section-6 {
-  position: absolute;
-  background-color: rgb(103, 1, 1);
-  width: 100vw;
-  height: 100vh;
-  top: 515%;
-}
-
-.section-7 {
-  position: absolute;
-  height: 100vh;
-  width: 100vw;
-  top: 615%;
-  background-color: rgba(78, 78, 78);
-}
-
 .section-header-container {
   position: relative;
-  /* background-color: rgba(78, 78, 78, 0.805); */
-  height: 10%;
-  width: 40%;
+  height: 12.5%;
+  width: 25%;
   top: 40%;
   text-align: center;
   color: whitesmoke;
+  border: solid 2px whitesmoke;
+}
+
+.select-header-container {
+  cursor: pointer;
 }
 
 .section-image-container {
   position: relative;
-  background-color: purple;
-  height: 40%;
-  width: 40%;
+  /* background-color: purple; */
+  height: 50%;
+  width: 35%;
   top: 20%;
 }
 
 .section-image-container img {
-  /* display: none; */
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
+
+.select-image-container img:hover {
+  cursor: pointer;
+}
+
 /* .too-many {
   position: relative;
   width: 100vw;

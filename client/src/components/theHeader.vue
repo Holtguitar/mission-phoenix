@@ -73,7 +73,7 @@ export default {
     return {
       store: useStore(),
       open: false,
-      showMenu: false,
+      showMenu: true,
       inViewStationary: false,
       currentUser: this.$store.dispatch('GetCurrentUser'),
     }
@@ -250,6 +250,7 @@ export default {
   left: 87.5%;
   top: 2.5%;
   height: 3%;
+  display: none;
 }
 
 #nav-icon3 span {
