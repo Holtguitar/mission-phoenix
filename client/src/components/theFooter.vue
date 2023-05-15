@@ -22,7 +22,8 @@
   position: relative;
   bottom: 0%;
   /* margin-top: 50px; */
-  top: 100%;
+  /* top: 100%; */
+  bottom: 0%;
   width: 100vw;
   height: 15vh;
   background-color: rgba(78, 78, 78, 0.805);

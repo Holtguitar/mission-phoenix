@@ -2,25 +2,28 @@
   <div class="accounts-section">
     <theAccount></theAccount>
   </div>
+  <!-- <theFooter></theFooter> -->
 </template>
 
 <script>
 import theAccount from '../components/theAccount.vue'
 
+import theFooter from '../components/theFooter.vue'
+
 export default {
   components: {
     theAccount,
+    theFooter,
   },
 }
 </script>
 
 <style>
 .accounts-section {
-  position: absolute;
-  top: 25%;
+  position: relative;
+  margin-top: 10%;
   left: 0;
   width: 100vw;
-  height: 100vh;
-  /* background-color: red; */
+  min-height: 100vh;
 }
 </style>

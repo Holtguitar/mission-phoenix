@@ -1,5 +1,5 @@
 <template>
-  <div class="mission-section">
+  <div class="mission-home">
     <theMission></theMission>
   </div>
 </template>
@@ -15,11 +15,17 @@ export default {
 </script>
 
 <style>
-.mission-section {
-  position: absolute;
-  top: 25%;
-  left: 0;
+.mission-home {
+  position: relative;
+  /* left: -6.25% !important; */
+  left: 0% !important;
+  top: 15%;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  height: fit-content;
+  /* background-color: blue; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>

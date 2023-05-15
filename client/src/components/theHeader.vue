@@ -23,33 +23,263 @@
       <span></span>
     </div>
     <!-- <button @click="this.toggleInViewStationary">CLICK</button> -->
-    <div class="nav-bar" id="nav-bar" v-if="this.showMenu">
-      <!-- <router-link class="nav-item" id="home" to="/">Home</router-link> -->
-      <router-link class="nav-item" id="mission" to="mission">
-        Mission
-      </router-link>
-      <router-link class="nav-item" id="gear" to="/gear">Gear</router-link>
-      <router-link class="nav-item" id="events" to="/events">
-        Events
-      </router-link>
-      <router-link class="nav-item" id="blog" to="/blogs">Blog</router-link>
-      <router-link class="nav-item" id="account" to="/account">
-        Account
-      </router-link>
-    </div>
-    <div class="nav-bar__submenu" id="submenu-nav" v-if="isLoggedIn">
-      <h3 class="welcome-user">
-        Welcome, {{ this.$store.state.currentUser.firstName }}
-      </h3>
-      <div class="shopping-cart">
-        <img
-          class="shopping-cart__image"
-          src="/public/icons/shopping-bag.png"
-        />
-        <div class="shopping-cart__count-container">
-          <h3>{{ this.$store.state.currentUser.shoppingCart.length }}</h3>
+    <div class="navigation-container">
+      <div class="nav-bar">
+        <router-link
+          class="nav-item"
+          id="mission"
+          to="mission"
+          @mouseover="
+            ;(this.showSubMission = true),
+              (this.showSubAccount = false),
+              (this.showSubGear = false)
+          "
+        >
+          Mission
+          <img
+            class="submenu-down-arrow"
+            src="../../public/icons/down-arrow.png"
+          />
+        </router-link>
+        <router-link
+          class="nav-item"
+          id="gear"
+          to="/gear"
+          @mouseover="
+            ;(this.showSubMission = false),
+              (this.showSubAccount = false),
+              (this.showSubGear = true)
+          "
+        >
+          Gear
+          <img
+            class="submenu-down-arrow"
+            src="../../public/icons/down-arrow.png"
+          />
+        </router-link>
+        <router-link
+          class="nav-item"
+          id="events"
+          to="/events"
+          @mouseover="
+            ;(this.showSubMission = false),
+              (this.showSubAccount = false),
+              (this.showSubGear = false)
+          "
+        >
+          Events
+        </router-link>
+        <router-link
+          class="nav-item"
+          id="blog"
+          to="/blogs"
+          @mouseover="
+            ;(this.showSubMission = false),
+              (this.showSubAccount = false),
+              (this.showSubGear = false)
+          "
+        >
+          Blog
+        </router-link>
+        <router-link
+          class="nav-item"
+          id="account"
+          to="/account"
+          @mouseover="
+            ;(this.showSubMission = false),
+              (this.showSubAccount = true),
+              (this.showSubGear = false)
+          "
+        >
+          Account
+          <img
+            class="submenu-down-arrow"
+            src="../../public/icons/down-arrow.png"
+          />
+        </router-link>
+      </div>
+      <div class="subnav-bar">
+        <div
+          class="subnav-item"
+          id="submenu-mission"
+          v-if="this.showSubMission"
+          @mouseleave="
+            ;(this.showSubMission = false),
+              (this.showSubAccount = false),
+              (this.showSubGear = false)
+          "
+        >
+          <router-link class="nav-item" to="/">Donate</router-link>
+          <router-link class="nav-item" to="/">Sponsors</router-link>
+          <router-link class="nav-item" to="/">Our Team</router-link>
+          <router-link class="nav-item" to="/">Resources</router-link>
+        </div>
+        <div
+          class="subnav-item"
+          id="submenu-gear"
+          v-if="this.showSubGear"
+          @mouseleave="
+            ;(this.showSubMission = false),
+              (this.showSubAccount = false),
+              (this.showSubGear = false)
+          "
+        >
+          <router-link class="nav-item" to="/">Men</router-link>
+          <router-link class="nav-item" to="/">Women</router-link>
+          <router-link class="nav-item" to="/">Accessories</router-link>
+          <router-link class="nav-item" to="/">Shopping Cart</router-link>
+        </div>
+        <div
+          class="subnav-item"
+          id="submenu-account"
+          v-if="this.showSubAccount"
+          @mouseleave="
+            ;(this.showSubMission = false),
+              (this.showSubAccount = false),
+              (this.showSubGear = false)
+          "
+        >
+          <router-link class="nav-item" to="/">
+            Account Info
+          </router-link>
+          <router-link class="nav-item" to="/">Shopping Cart</router-link>
+          <router-link class="nav-item" to="/">Purchase History</router-link>
         </div>
       </div>
+      <!-- <div class="nav-bar" id="nav-bar" v-if="this.showMenu">
+        <router-link
+          class="nav-item"
+          id="mission"
+          to="mission"
+          @mouseover="
+            ;(this.showSubMission = true),
+              (this.showSubAccount = false),
+              (this.showSubGear = false)
+          "
+        >
+          Mission
+          <img
+            class="submenu-down-arrow"
+            src="../../public/icons/down-arrow.png"
+          />
+        </router-link>
+        <router-link
+          class="nav-item"
+          id="gear"
+          to="/gear"
+          @mouseover="
+            ;(this.showSubMission = false),
+              (this.showSubAccount = false),
+              (this.showSubGear = true)
+          "
+        >
+          Gear
+          <img
+            class="submenu-down-arrow"
+            src="../../public/icons/down-arrow.png"
+          />
+        </router-link>
+        <router-link
+          class="nav-item"
+          id="events"
+          to="/events"
+          @mouseover="
+            ;(this.showSubMission = false),
+              (this.showSubAccount = false),
+              (this.showSubGear = false)
+          "
+        >
+          Events
+        </router-link>
+        <router-link
+          class="nav-item"
+          id="blog"
+          to="/blogs"
+          @mouseover="
+            ;(this.showSubMission = false),
+              (this.showSubAccount = false),
+              (this.showSubGear = false)
+          "
+        >
+          Blog
+        </router-link>
+        <router-link
+          class="nav-item"
+          id="account"
+          to="/account"
+          @mouseover="
+            ;(this.showSubMission = false),
+              (this.showSubAccount = true),
+              (this.showSubGear = false)
+          "
+        >
+          Account
+          <img
+            class="submenu-down-arrow"
+            src="../../public/icons/down-arrow.png"
+          />
+        </router-link>
+      </div>
+      <div class="nav-bar__submenu" id="submenu-nav" v-if="isLoggedIn">
+        <h3 class="welcome-user">
+          Welcome, {{ this.$store.state.currentUser.firstName }}
+        </h3>
+        <div class="shopping-cart">
+          <img
+            class="shopping-cart__image"
+            src="/public/icons/shopping-bag.png"
+          />
+          <div class="shopping-cart__count-container">
+            <h3>{{ this.$store.state.currentUser.shoppingCart.length }}</h3>
+          </div>
+        </div>
+      </div>
+      <div
+        class="nav-bar__submenu-mission"
+        id="submenu-mission"
+        v-if="this.showSubMission"
+        @mouseleave="
+          ;(this.showSubMission = false),
+            (this.showSubAccount = false),
+            (this.showSubGear = false)
+        "
+      >
+        <router-link class="nav-item" to="/">Donate</router-link>
+        <router-link class="nav-item" to="/">Sponsors</router-link>
+        <router-link class="nav-item" to="/">Our Team</router-link>
+        <router-link class="nav-item" to="/">Resources</router-link>
+      </div>
+      <div
+        class="nav-bar__submenu-mission"
+        id="submenu-gear"
+        v-if="this.showSubGear"
+        @mouseleave="
+          ;(this.showSubMission = false),
+            (this.showSubAccount = false),
+            (this.showSubGear = false)
+        "
+      >
+        <router-link class="nav-item" to="/">Men</router-link>
+        <router-link class="nav-item" to="/">Women</router-link>
+        <router-link class="nav-item" to="/">Accessories</router-link>
+        <router-link class="nav-item" to="/">Shopping Cart</router-link>
+      </div>
+      <div
+        class="nav-bar__submenu-mission"
+        id="submenu-account"
+        v-if="this.showSubAccount"
+        @mouseleave="
+          ;(this.showSubMission = false),
+            (this.showSubAccount = false),
+            (this.showSubGear = false)
+        "
+      >
+        <router-link class="nav-item" to="/">
+          Account Info
+        </router-link>
+        <router-link class="nav-item" to="/">Shopping Cart</router-link>
+        <router-link class="nav-item" to="/">Purchase History</router-link>
+      </div> -->
     </div>
   </section>
 </template>
@@ -76,6 +306,9 @@ export default {
       showMenu: true,
       inViewStationary: false,
       currentUser: this.$store.dispatch('GetCurrentUser'),
+      showSubMission: false,
+      showSubAccount: false,
+      showSubGear: false,
     }
   },
   methods: {
@@ -116,6 +349,7 @@ export default {
   z-index: 1030;
   opacity: 0.99;
 }
+
 .mission-phoenix-logo {
   position: relative;
   width: 40%;
@@ -124,48 +358,67 @@ export default {
 }
 
 /* NAV BAR */
+.navigation-container {
+  width: 50%;
+  height: 75%;
+  position: absolute;
+  top: 12.5%;
+  left: 45%;
+}
+
 .nav-bar {
   position: relative;
-  color: white;
-  position: absolute;
-  top: 20%;
-  left: 40%;
-  width: 40%;
-  height: 25%;
+  width: 100%;
+  height: 50%;
   display: flex;
   justify-content: space-between;
-  font-size: 15px;
+  overflow: hidden;
 }
 
-.nav-bar ul {
-  position: relative;
-  list-style: none;
-  display: flex;
-  height: 100px;
-  top: 0%;
+.submenu-down-arrow {
+  width: 15%;
 }
 
-.nav-bar li {
-  position: relative;
-  margin-left: 15%;
-  width: 200px;
-  text-align: center;
-  margin-left: 0%;
-  top: 15%;
-}
-
-.nav-bar a {
+.nav-item {
   color: white;
   text-decoration: none;
+  height: 100%;
+  width: 20%;
+  padding: 2%;
+  text-align: center;
 }
 
 .nav-bar a:hover {
   cursor: pointer;
-  color: rgb(175, 175, 175);
+  background-color: rgb(120, 120, 120);
 }
 
 .nav-bar a:active {
   color: rgb(164, 164, 164);
+}
+
+/* Subnav Bar */
+.subnav-bar {
+  position: relative;
+  width: 100%;
+  height: 50%;
+  /* display: flex; */
+}
+
+.subnav-item {
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  gap: 2.5%;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(120, 120, 120);
+}
+
+.subnav-item a {
+  height: 25%;
+  position: relative;
+  width: 25%;
 }
 
 .nav-bar__submenu {
@@ -193,6 +446,43 @@ export default {
   top: 10%;
   left: 80%;
   margin: auto;
+}
+
+.nav-bar__submenu-mission {
+  /* width: 45%;
+  height: 50%;
+  background-color: rgb(113, 113, 113);
+  border: solid 1px grey;
+  color: whitesmoke;
+  position: relative;
+  top: -45%;
+  left: 40%; */
+
+  position: relative;
+  color: white;
+  position: absolute;
+  top: 45%;
+  left: 40%;
+  width: 40%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  font-size: 15px;
+  background-color: rgb(120, 120, 120);
+  gap: 10%;
+  /* display: none; */
+}
+
+.nav-bar__submenu-mission a {
+  text-decoration: none;
+  color: whitesmoke;
+  position: relative;
+  height: 30%;
+  top: 35%;
+}
+
+.nav-bar__submenu-mission a:hover {
+  color: rgb(175, 175, 175);
 }
 
 .shopping-cart {

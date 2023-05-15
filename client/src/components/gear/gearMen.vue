@@ -1,6 +1,5 @@
 <template>
-  <RouterLink to="/gear"><h3 class="back-link">Back</h3></RouterLink>
-
+  <theBackButtonGear></theBackButtonGear>
   <div class="page-title">
     <h1>Men's Clothing</h1>
     <hr />
@@ -21,6 +20,7 @@
 <script>
 import theGearItem from './theGearItem.vue'
 import gear from '../modules/gear'
+import theBackButtonGear from '../base-buttons/theBackButtonGear.vue'
 
 export default {
   setup() {
@@ -32,6 +32,7 @@ export default {
     return {}
   },
   components: {
+    theBackButtonGear,
     theGearItem,
   },
   mounted() {

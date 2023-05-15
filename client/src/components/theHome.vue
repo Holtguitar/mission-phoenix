@@ -141,19 +141,13 @@
       </div>
       <div class="section-header-container">
         <h1 class="section-header">Rise</h1>
-        <!-- <img class="ring-flare" src="../../public/icons/ring-flare.png" /> -->
       </div>
     </div>
   </div>
-  <!-- <svg viewBox="0 0 500 200" class="border-6">
-    <path
-      d="M 0 30 C 150 100 280 0 500 20 L 500 0 L 0 0"
-      fill="rgba(78, 78, 78)"
-    ></path>
-  </svg> -->
   <div class="section-7">
-    <div></div>
-    <div></div>
+    <div class="section-7-header__container">
+      <div class="section-7-header">Too Many Have Already Lost The Battle</div>
+    </div>
   </div>
 
   <!-- <div class="too-many">
@@ -176,7 +170,7 @@
     </h1>
   </div> -->
 
-  <!-- <theFooter></theFooter> -->
+  <theFooter></theFooter>
 </template>
 
 <script>
@@ -206,7 +200,6 @@ export default {
       var element = this.$refs[refName]
       var top = element.offsetTop
       window.scrollTo(0, top)
-      console.log('click')
     },
     toggleInViewStationary() {
       this.inViewStationary = true
@@ -363,6 +356,7 @@ export default {
   height: 100vh;
   display: flex;
   color: whitesmoke;
+  scroll-behavior: smooth;
 }
 
 .home-title {
@@ -511,8 +505,7 @@ export default {
 .section-3,
 .section-4,
 .section-5,
-.section-6,
-.section-7 {
+.section-6 {
   position: relative;
   filter: sepia(45%);
   width: 100vw;
@@ -541,7 +534,36 @@ export default {
 }
 
 .section-7 {
-  background-color: rgba(78, 78, 78);
+  background-color: rgb(114, 114, 114);
+  position: relative;
+  filter: sepia(45%);
+  width: 100vw;
+  height: 150vh;
+  /* height: fit-content; */
+  top: -5%;
+  margin-bottom: -3%;
+}
+
+.section-7-header__container {
+  position: relative;
+  width: 70%;
+  height: 15%;
+  left: 15%;
+  top: 5%;
+  color: whitesmoke;
+  background-color: rgba(0, 0, 96, 0.196);
+  text-align: center;
+  border-radius: 5px;
+}
+
+.section-7-header {
+  width: 100%;
+  height: 50%;
+  /* background-color: green; */
+  font-size: 35px;
+  top: 35%;
+  position: absolute;
+  text-decoration: underline;
 }
 
 .section-container {
@@ -551,13 +573,13 @@ export default {
   /* background-color: purple; */
   display: flex;
   justify-content: center;
-  gap: 5%;
+  gap: 10%;
 }
 
 .section-header-container {
   position: relative;
   height: 12.5%;
-  width: 25%;
+  width: 20%;
   top: 40%;
   text-align: center;
   color: whitesmoke;
@@ -568,12 +590,21 @@ export default {
   cursor: pointer;
 }
 
+.section-header-container:hover,
+.section-image-container:hover {
+  cursor: pointer;
+}
+
 .section-image-container {
   position: relative;
   /* background-color: purple; */
   height: 50%;
   width: 35%;
   top: 20%;
+
+  border-radius: 200px;
+  box-shadow: 1px 1px 5px 5px rgba(90, 90, 139, 0.31);
+  overflow: hidden;
 }
 
 .section-image-container img {

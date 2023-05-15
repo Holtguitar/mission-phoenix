@@ -5,6 +5,7 @@ import * as dotenv from "dotenv"
 import store from "../src/components/store";
 import "./assets/main.css"
 
+
 const app = createApp(App)
 
 app.use(router)

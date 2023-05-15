@@ -83,7 +83,7 @@
               v-model="this.$store.state.newUser.subscribedToEmails"
               name="subscribed-to-email"
             />
-            <label for="subscribed-to-email">Subsribe to Emails</label>
+            <label>Subsribe to our news letter</label>
           </div>
 
           <div>
@@ -232,10 +232,12 @@ export default {
 <style>
 .accounts-home {
   position: relative;
-  width: 100%;
-  top: 15%;
+  width: 75%;
+  min-height: 100vh;
+  left: 12.5%;
   height: fit-content;
   text-align: center;
+  top: 25px;
 }
 
 .accounts-home__title {
@@ -246,7 +248,8 @@ export default {
 
 .accounts-home hr {
   width: 15%;
-  margin-top: 3%;
+  margin-top: 2%;
+  margin-bottom: 20px;
 }
 
 .sign-in-toggle {
@@ -263,10 +266,11 @@ export default {
 /* Register Form */
 .register__form-container {
   position: absolute;
-  width: 50vw;
+  width: 75%;
   height: 65vh;
   text-align: center;
-  left: 25%;
+  left: 12.5%;
+  padding-top: 2.5%;
   box-shadow: 1px 1px 10px 10px rgba(41, 43, 89, 0.488);
 }
 
@@ -371,12 +375,12 @@ export default {
 
 .sign-in__form-container {
   position: relative;
-  width: 30vw;
+  width: 40%;
   height: 20vh;
   text-align: center;
   padding: 10px;
   box-shadow: 1px 1px 10px 10px rgba(41, 43, 89, 0.488);
-  left: 35%;
+  left: 30%;
   top: 0;
 }
 
@@ -386,6 +390,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 5%;
 }
 
 .sign-in__form-container button {
@@ -399,7 +404,8 @@ export default {
   height: 35%;
   left: 5%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 5%;
 }
 
 .sign-in__form-row-1 input {

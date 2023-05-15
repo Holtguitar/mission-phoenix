@@ -15,38 +15,45 @@
       </div>
     </h1>
   </div> -->
-  <div class="mission-statement__container">
-    <h1>Our Mission;</h1>
-    <hr />
-    <h2>
-      To identify and eradicate the stigma of combat related PTSD that is taking
-      so many of our veteran's lives;
-      <br />
-      <br />
-      To train veterans to RISE out of the ashes of their trauma and pain
-      through comprehensive programs, events and hands on training;
-      <br />
-      <br />
-      To offer HOPE in the form of counseling, career opportunities and focused
-      conversation;
-    </h2>
+  <div class="the-mission">
+    <div class="mission-statement__container">
+      <div class="mission-statement__header">
+        <h1>Our Mission;</h1>
+        <hr />
+      </div>
+      <div class="mission-statement__body">
+        <h2>
+          To identify and eradicate the stigma of combat related PTSD that is
+          taking so many of our veteran's lives;
+          <br />
+          <br />
+          To train veterans to RISE out of the ashes of their trauma and pain
+          through comprehensive programs, events and hands on training;
+          <br />
+          <br />
+          To offer HOPE in the form of counseling, career opportunities and
+          focused conversation;
+        </h2>
+      </div>
+    </div>
+    <div class="link-carousel__container">
+      <div class="link-coarousel__header">
+        <h1>Quick Reference Links</h1>
+        <hr />
+      </div>
+
+      <carousel :items-to-show="1">
+        <slide v-for="slide in this.slides" :key="slide">
+          <img :src="slide.source" />
+        </slide>
+
+        <template #addons>
+          <navigation />
+          <pagination />
+        </template>
+      </carousel>
+    </div>
   </div>
-  <div class="link-carousel-container">
-    <h1>Quick Reference Links</h1>
-    <hr />
-
-    <carousel :items-to-show="1">
-      <slide v-for="slide in this.slides" :key="slide">
-        <img :src="slide.source" />
-      </slide>
-
-      <template #addons>
-        <navigation />
-        <pagination />
-      </template>
-    </carousel>
-  </div>
-
   <theFooter></theFooter>
 </template>
 
@@ -153,52 +160,54 @@ export default {
   color: white;
 }
 
-.link-carousel-container {
+.link-carousel__container {
   position: relative;
   width: 100vw;
   height: 150vh;
-  top: 30%;
-  /* display: none; */
 }
 
-.link-carousel-container h1 {
-  position: relative;
-  width: 100vw;
-  text-align: center;
-}
-
-.link-carousel-container hr {
-  width: 15%;
-}
-
-.mission-statement__container h1 {
+.link-coarousel__header h1 {
   position: relative;
   width: 100%;
-  text-align: center;
 }
 
-.mission-statement__container h2 {
+.link-coarousel__header hr {
+  width: 25%;
+}
+
+.link-coarousel__header {
+  width: 50%;
+  left: 25%;
   position: relative;
-  width: 80%;
-  text-align: center;
-  left: 10%;
 }
 
-.mission-statement__container hr {
+.mission-statement__header {
+  width: 100%;
+  height: 10%;
+  top: 7%;
+  position: relative;
+}
+
+.mission-statement__body {
+  width: 80%;
+  height: 75%;
+  left: 10%;
+  top: 10%;
+  position: relative;
+}
+
+.mission-statement__header hr {
   width: 15%;
-  margin-top: 3%;
 }
 
 .mission-statement__container {
   position: relative;
-  top: 25%;
+  margin-top: 10% !important;
+  margin-bottom: 10%;
   left: 10%;
   width: 80vw;
-  height: fit-content;
-  /* background-color: rgba(111, 111, 111, 0.944); */
+  height: 60vh;
   box-shadow: 1px 1px 10px 10px rgba(41, 43, 89, 0.488);
-  padding-top: 2.5%;
-  padding-bottom: 2.5%;
 }
 
 /* .too-many {
@@ -220,4 +229,14 @@ export default {
 #death-count {
   margin-right: 10px;
 } */
+
+.the-mission {
+  position: relative;
+  /* left: -6.25% !important; */
+  top: 15%;
+  width: 100vw;
+  min-height: 100vh;
+  height: fit-content;
+  text-align: center;
+}
 </style>
