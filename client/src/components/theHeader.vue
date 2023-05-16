@@ -1,5 +1,12 @@
 <template>
-  <section class="header">
+  <section
+    class="header"
+    @click="
+      ;(this.showSubMission = false),
+        (this.showSubAccount = false),
+        (this.showSubGear = false)
+    "
+  >
     <div
       class="mission-phoenix-logo not-in-view-stationary"
       v-bind:class="{
@@ -12,6 +19,7 @@
         <img src="/Mission-Phoenix-Logo.png" class="mission-phoenix-logo" />
       </a>
     </div>
+    <!-- Hamburger, used to show menu in mobile view -->
     <div
       id="nav-icon3"
       v-bind:class="{ open: open }"
@@ -22,8 +30,8 @@
       <span></span>
       <span></span>
     </div>
-    <!-- <button @click="this.toggleInViewStationary">CLICK</button> -->
     <div class="navigation-container">
+      <!-- Main nav item -->
       <div class="nav-bar">
         <router-link
           class="nav-item"
@@ -98,6 +106,7 @@
           />
         </router-link>
       </div>
+      <!-- Submenus, shown on hover of parent element -->
       <div class="subnav-bar">
         <div
           class="subnav-item"
@@ -110,9 +119,9 @@
           "
         >
           <router-link class="nav-item" to="/">Donate</router-link>
-          <router-link class="nav-item" to="/">Sponsors</router-link>
-          <router-link class="nav-item" to="/">Our Team</router-link>
-          <router-link class="nav-item" to="/">Resources</router-link>
+          <router-link class="nav-item" to="/sponsors">Sponsors</router-link>
+          <router-link class="nav-item" to="/team">Our Team</router-link>
+          <router-link class="nav-item" to="/resources">Resources</router-link>
         </div>
         <div
           class="subnav-item"
@@ -124,10 +133,14 @@
               (this.showSubGear = false)
           "
         >
-          <router-link class="nav-item" to="/">Men</router-link>
-          <router-link class="nav-item" to="/">Women</router-link>
-          <router-link class="nav-item" to="/">Accessories</router-link>
-          <router-link class="nav-item" to="/">Shopping Cart</router-link>
+          <router-link class="nav-item" to="/gear-men">Men</router-link>
+          <router-link class="nav-item" to="/gear-women">Women</router-link>
+          <router-link class="nav-item" to="/gear-accessories">
+            Accessories
+          </router-link>
+          <router-link class="nav-item" to="/shopping-cart">
+            Shopping Cart
+          </router-link>
         </div>
         <div
           class="subnav-item"
@@ -139,147 +152,50 @@
               (this.showSubGear = false)
           "
         >
-          <router-link class="nav-item" to="/">
+          <router-link class="nav-item" to="/account">
             Account Info
           </router-link>
-          <router-link class="nav-item" to="/">Shopping Cart</router-link>
+          <router-link class="nav-item" to="/shopping-cart">
+            Shopping Cart
+          </router-link>
           <router-link class="nav-item" to="/">Purchase History</router-link>
         </div>
       </div>
-      <!-- <div class="nav-bar" id="nav-bar" v-if="this.showMenu">
-        <router-link
-          class="nav-item"
-          id="mission"
-          to="mission"
-          @mouseover="
-            ;(this.showSubMission = true),
-              (this.showSubAccount = false),
-              (this.showSubGear = false)
-          "
-        >
-          Mission
-          <img
-            class="submenu-down-arrow"
-            src="../../public/icons/down-arrow.png"
-          />
-        </router-link>
-        <router-link
-          class="nav-item"
-          id="gear"
-          to="/gear"
-          @mouseover="
-            ;(this.showSubMission = false),
-              (this.showSubAccount = false),
-              (this.showSubGear = true)
-          "
-        >
-          Gear
-          <img
-            class="submenu-down-arrow"
-            src="../../public/icons/down-arrow.png"
-          />
-        </router-link>
-        <router-link
-          class="nav-item"
-          id="events"
-          to="/events"
-          @mouseover="
-            ;(this.showSubMission = false),
-              (this.showSubAccount = false),
-              (this.showSubGear = false)
-          "
-        >
-          Events
-        </router-link>
-        <router-link
-          class="nav-item"
-          id="blog"
-          to="/blogs"
-          @mouseover="
-            ;(this.showSubMission = false),
-              (this.showSubAccount = false),
-              (this.showSubGear = false)
-          "
-        >
-          Blog
-        </router-link>
-        <router-link
-          class="nav-item"
-          id="account"
-          to="/account"
-          @mouseover="
-            ;(this.showSubMission = false),
-              (this.showSubAccount = true),
-              (this.showSubGear = false)
-          "
-        >
-          Account
-          <img
-            class="submenu-down-arrow"
-            src="../../public/icons/down-arrow.png"
-          />
-        </router-link>
-      </div>
-      <div class="nav-bar__submenu" id="submenu-nav" v-if="isLoggedIn">
-        <h3 class="welcome-user">
-          Welcome, {{ this.$store.state.currentUser.firstName }}
-        </h3>
-        <div class="shopping-cart">
-          <img
-            class="shopping-cart__image"
-            src="/public/icons/shopping-bag.png"
-          />
-          <div class="shopping-cart__count-container">
-            <h3>{{ this.$store.state.currentUser.shoppingCart.length }}</h3>
+    </div>
+    <div
+      class="welcome-container"
+      id="welcome-container"
+      v-bind:class="{ collapsed: welcomeCollapsed }"
+    >
+      <div class="welcome-header" v-if="!this.welcomeCollapsed">
+        <div class="welcome-header__text">
+          <router-link to="/account" v-if="!isLoggedIn">
+            Sign In
+          </router-link>
+          <div v-else>
+            Welcome, {{ this.$store.state.currentUser.firstName }}
           </div>
         </div>
       </div>
-      <div
-        class="nav-bar__submenu-mission"
-        id="submenu-mission"
-        v-if="this.showSubMission"
-        @mouseleave="
-          ;(this.showSubMission = false),
-            (this.showSubAccount = false),
-            (this.showSubGear = false)
-        "
-      >
-        <router-link class="nav-item" to="/">Donate</router-link>
-        <router-link class="nav-item" to="/">Sponsors</router-link>
-        <router-link class="nav-item" to="/">Our Team</router-link>
-        <router-link class="nav-item" to="/">Resources</router-link>
+      <div class="shopping-cart__container" v-if="!this.welcomeCollapsed">
+        <div class="shopping-cart__image-container">
+          <img
+            src="../../public/icons/shopping-bag.png"
+            class="shopping-cart__image"
+          />
+        </div>
+        <div class="shopping-cart__count-container">
+          15
+        </div>
       </div>
-      <div
-        class="nav-bar__submenu-mission"
-        id="submenu-gear"
-        v-if="this.showSubGear"
-        @mouseleave="
-          ;(this.showSubMission = false),
-            (this.showSubAccount = false),
-            (this.showSubGear = false)
-        "
-      >
-        <router-link class="nav-item" to="/">Men</router-link>
-        <router-link class="nav-item" to="/">Women</router-link>
-        <router-link class="nav-item" to="/">Accessories</router-link>
-        <router-link class="nav-item" to="/">Shopping Cart</router-link>
+      <div class="collapse-arrow__container" @click="this.toggleWelcomeHeader">
+        <img
+          class="collapse-arrow__image"
+          id="collapse-arrow__image"
+          src="../../public/icons/down-arrow.png"
+          v-bind:class="{ flipped: welcomeCollapsed }"
+        />
       </div>
-      <div
-        class="nav-bar__submenu-mission"
-        id="submenu-account"
-        v-if="this.showSubAccount"
-        @mouseleave="
-          ;(this.showSubMission = false),
-            (this.showSubAccount = false),
-            (this.showSubGear = false)
-        "
-      >
-        <router-link class="nav-item" to="/">
-          Account Info
-        </router-link>
-        <router-link class="nav-item" to="/">Shopping Cart</router-link>
-        <router-link class="nav-item" to="/">Purchase History</router-link>
-      </div> -->
     </div>
   </section>
 </template>
@@ -309,6 +225,7 @@ export default {
       showSubMission: false,
       showSubAccount: false,
       showSubGear: false,
+      welcomeCollapsed: true,
     }
   },
   methods: {
@@ -319,20 +236,40 @@ export default {
     toggleInViewStationary() {
       this.inViewStationary = true
     },
+    toggleWelcomeHeader() {
+      this.welcomeCollapsed = !this.welcomeCollapsed
+    },
+  },
+  beforeUnmount() {
+    document.removeEventListener('click', () => {
+      ;(this.showSubMission = false),
+        (this.showSubAccount = false),
+        (this.showSubGear = false)
+    })
   },
   mounted() {
+    this.store.dispatch('GetAllUsers')
+    this.store.dispatch('SignInUserWithSessionStorage')
+    // console.log(this.store.state.currentUser)
+
     setTimeout(() => {
       this.toggleInViewStationary()
     }, 100)
-  },
-  created() {
-    this.$store.dispatch('GetAllUsers')
-    this.$store.dispatch('SignInUserWithSessionStorage')
+
+    document.addEventListener('click', () => {
+      ;(this.showSubMission = false),
+        (this.showSubAccount = false),
+        (this.showSubGear = false)
+    })
   },
 }
 </script>
 
 <style>
+.show {
+  display: block;
+}
+
 .hide {
   display: none !important;
 }
@@ -345,7 +282,6 @@ export default {
   height: 15vh;
   background-color: rgba(78, 78, 78, 0.805);
   margin: 0 auto;
-  overflow: hidden;
   z-index: 1030;
   opacity: 0.99;
 }
@@ -421,106 +357,110 @@ export default {
   width: 25%;
 }
 
-.nav-bar__submenu {
-  position: absolute;
-  top: 50%;
-  left: 30%;
-  width: 60%;
-  height: 50%;
-  color: rgb(50, 50, 50);
-  padding: 5px;
-  display: flex;
-  flex-direction: row;
+/* Welcome Container */
+
+#welcome-container.collapsed {
+  transition: width 0.5s ease-in-out;
+  will-change: width;
+  width: 3%;
 }
 
-.nav-bar__submenu ul {
-  position: relative;
-  list-style: none;
-  padding-left: 0%;
-  margin-top: 10%;
+#welcome-container {
+  transition: width 0.5s ease-in-out;
+  will-change: width;
 }
 
-.nav-bar__submenu .account-icon {
+.collapse-arrow__container {
   position: absolute;
-  width: 4%;
+  height: 40px;
+  width: 45px;
   top: 10%;
-  left: 80%;
-  margin: auto;
+  right: 0;
+  bottom: 0;
 }
 
-.nav-bar__submenu-mission {
-  /* width: 45%;
-  height: 50%;
-  background-color: rgb(113, 113, 113);
-  border: solid 1px grey;
-  color: whitesmoke;
-  position: relative;
-  top: -45%;
-  left: 40%; */
-
-  position: relative;
-  color: white;
-  position: absolute;
-  top: 45%;
-  left: 40%;
-  width: 40%;
-  height: 40%;
-  display: flex;
-  justify-content: center;
-  font-size: 15px;
-  background-color: rgb(120, 120, 120);
-  gap: 10%;
-  /* display: none; */
-}
-
-.nav-bar__submenu-mission a {
-  text-decoration: none;
-  color: whitesmoke;
-  position: relative;
-  height: 30%;
-  top: 35%;
-}
-
-.nav-bar__submenu-mission a:hover {
-  color: rgb(175, 175, 175);
-}
-
-.shopping-cart {
-  position: relative;
-  left: 94%;
-}
-
-.shopping-cart:hover {
+.collapse-arrow__container:hover {
   cursor: pointer;
 }
 
-.shopping-cart__image {
-  width: 100%;
-  opacity: 0.7;
+.collapse-arrow__image {
+  width: 50%;
+  position: relative;
+  top: 25%;
+  left: 25%;
+  rotate: 90deg;
+}
+
+#collapse-arrow__image {
+  transition: rotate 0.5s ease-in-out;
+  will-change: rotate;
+  rotate: 90deg;
+}
+
+#collapse-arrow__image.flipped {
+  transition: rotate 0.5s ease-in-out;
+  will-change: rotate;
+  rotate: 270deg;
+}
+
+.shopping-cart__container {
+  position: relative;
+  height: 100%;
+  width: 10%;
+  left: -5%;
+}
+
+.shopping-cart__container:hover {
+  cursor: pointer;
 }
 
 .shopping-cart__count-container {
-  color: rgb(135, 0, 0);
-  position: absolute;
-  width: 55%;
-  left: 22.5%;
-  top: 0%;
-  text-align: center;
-}
-
-.nav-bar__submenu .welcome-user {
-  position: absolute;
-  margin: auto;
-  text-align: end;
+  position: relative;
   height: 50%;
-  /* width: 30%; */
-  width: fit-content;
-  left: 60%;
-  top: 25%;
+  width: 50%;
+  top: -60%;
+  left: 25%;
+  text-align: center;
+  color: rgb(118, 0, 0);
 }
 
-.show {
-  display: block;
+.shopping-cart__image-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.shopping-cart__image {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.welcome-container {
+  position: absolute;
+  width: 30%;
+  height: 40%;
+  right: 5%;
+  top: 100%;
+  background-color: rgba(78, 78, 78, 0.805);
+  border-top: 1px solid grey;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.welcome-header {
+  position: relative;
+  height: 100%;
+  width: 75%;
+}
+
+.welcome-header__text {
+  position: relative;
+  height: 50%;
+  width: 100%;
+  top: 30%;
+  color: whitesmoke;
 }
 
 /* Hamburger Icon */
@@ -630,9 +570,5 @@ export default {
   opacity: 1;
   transform: none;
   visibility: visible;
-}
-
-.shopping-cart {
-  width: 50px;
 }
 </style>

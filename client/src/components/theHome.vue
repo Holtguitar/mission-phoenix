@@ -311,12 +311,10 @@ export default {
 
 .down-scroll {
   position: relative;
-  width: 5%;
+  width: 3.5%;
   height: 10%;
   top: 90%;
   left: 55%;
-  /* left: 92.25%; */
-  /* top: 90%; */
   display: flex;
   flex-direction: column;
 }

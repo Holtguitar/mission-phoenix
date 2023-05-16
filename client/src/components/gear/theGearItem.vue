@@ -17,7 +17,9 @@
         </div>
       </div>
       <div class="inventory-row-3">
-        <div class="inventory-name">{{ itemName }}</div>
+        <div class="inventory-name">
+          {{ itemName.length > 10 ? `${itemName.slice(0, 12)}...` : itemName }}
+        </div>
       </div>
     </div>
   </RouterLink>
@@ -89,7 +91,7 @@ export default {
   color: rgb(76, 76, 76);
   height: 100%;
   width: 100%;
-  font-size: 25px;
+  font-size: 20px;
   text-align: center;
 }
 

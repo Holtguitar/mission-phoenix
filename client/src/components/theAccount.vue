@@ -196,7 +196,33 @@ export default {
       this.store.dispatch('SignInUser', this.login_form)
     },
     attemptNewUser() {
-      this.store.dispatch('NewUser')
+      if (this.$store.state.newUser.userName !== '') {
+        if (
+          this.$store.state.newUser.firstName !== '' &&
+          this.$store.state.newUser.lastName !== ''
+        ) {
+          if (
+            this.$store.state.newUser.password !== '' &&
+            this.confirmPassword !== ''
+          ) {
+            if (this.$store.state.newUser.password === this.confirmPassword) {
+              if (this.$store.state.newUser.password.length > 7) {
+                this.store.dispatch('NewUser')
+              } else {
+                alert('Password must be longer than 7 characters.')
+              }
+            } else {
+              alert('Passwords do not match.')
+            }
+          } else {
+            alert('Passwords cannot be blank.')
+          }
+        } else {
+          alert('Name cannot be blank.')
+        }
+      } else {
+        alert('Username cannot be blank.')
+      }
     },
     signOut() {
       this.store.dispatch('SignOutUser')
@@ -250,6 +276,10 @@ export default {
   width: 15%;
   margin-top: 2%;
   margin-bottom: 20px;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 .sign-in-toggle {

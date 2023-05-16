@@ -1,5 +1,5 @@
 <template>
-  <RouterLink to="/gear"><h3 class="back-link">Back</h3></RouterLink>
+  <div class="back-button"><theBackButtonGear></theBackButtonGear></div>
 
   <div class="page-title">
     <h1>Women's Clothing</h1>
@@ -21,6 +21,7 @@
 <script>
 import theGearItem from './theGearItem.vue'
 import gear from '../modules/gear'
+import theBackButtonGear from '../base-buttons/theBackButtonGear.vue'
 
 export default {
   setup() {
@@ -33,6 +34,7 @@ export default {
   },
   components: {
     theGearItem,
+    theBackButtonGear,
   },
   mounted() {
     this.GetGearByCategory('women')
@@ -41,12 +43,13 @@ export default {
 </script>
 
 <style>
-.back-link {
-  position: absolute;
+.back-button {
+  position: relative;
   width: 5%;
   height: 5%;
-  margin-top: 10%;
-  left: 15%;
+  margin-top: 15%;
+  margin-bottom: -10%;
+  left: 20%;
   text-decoration: none;
   color: rgba(1, 1, 1, 0.627);
 }
@@ -68,7 +71,7 @@ export default {
 }
 
 .page-title {
-  width: 100%;
+  width: 100vw;
   height: 15%;
   position: relative;
   margin-top: 10%;

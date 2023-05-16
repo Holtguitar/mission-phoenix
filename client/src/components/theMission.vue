@@ -202,7 +202,7 @@ export default {
 
 .mission-statement__container {
   position: relative;
-  margin-top: 10% !important;
+  margin-top: 15% !important;
   margin-bottom: 10%;
   left: 10%;
   width: 80vw;
@@ -232,8 +232,7 @@ export default {
 
 .the-mission {
   position: relative;
-  /* left: -6.25% !important; */
-  top: 15%;
+  top: 0;
   width: 100vw;
   min-height: 100vh;
   height: fit-content;

@@ -8,7 +8,7 @@ const GearSchema = new mongoose.Schema({
     prices: Array,
     imageURLS: Array,
     inStock: Boolean,
-    category: String
+    category: String,
 });
 
 module.exports = mongoose.model('gear', GearSchema);

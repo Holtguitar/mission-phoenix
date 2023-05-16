@@ -1,5 +1,5 @@
 <template>
-  <theBackButtonGear></theBackButtonGear>
+  <div class="back-button"><theBackButtonGear></theBackButtonGear></div>
   <div class="page-title">
     <h1>Men's Clothing</h1>
     <hr />
@@ -42,12 +42,13 @@ export default {
 </script>
 
 <style>
-.back-link {
-  position: absolute;
+.back-button {
+  position: relative;
   width: 5%;
   height: 5%;
-  margin-top: 10%;
-  left: 15%;
+  margin-top: 15%;
+  margin-bottom: -10%;
+  left: 20%;
   text-decoration: none;
   color: rgba(1, 1, 1, 0.627);
 }
@@ -69,7 +70,7 @@ export default {
 }
 
 .page-title {
-  width: 100%;
+  width: 100vw;
   height: 15%;
   position: relative;
   margin-top: 10%;
