@@ -18,7 +18,8 @@ export default createStore({
         },
         currentUser: null,
         userLoggedOn: false,
-        token: null
+        token: null,
+        guestCart: []
     },
     mutations: {
         SET_USERS(state, users){
@@ -32,19 +33,30 @@ export default createStore({
         LOGOFF_USER(state){
             state.currentUser = {};
             state.userLoggedOn = false;
-            sessionStorage.clear()
+            sessionStorage.clear();
         },
         GET_CURRENT_USER(state){
             return state.currentUser;
         },
         GET_USERS(state){
-            return state.users
+            return state.users;
         },
         RESET_NEW_USER(state){
-            state.newUser = {}
+            state.newUser = {};
         },
         ADD_TO_CART(state, cartItem){
-            state.currentUser.shoppingCart.push(cartItem)
+            state.currentUser.shoppingCart.push(cartItem);
+        },
+        ADD_TO_GUEST_CART(state, cartItem){
+            state.guestCart.push(cartItem);
+        },
+        REMOVE_FROM_CART(state, itemID){
+            let array = state.currentUser.shoppingCart.filter((e) => e.cartID !== itemID);
+            state.currentUser.shoppingCart = array;
+        },
+        REMOVE_FROM_GUEST_CART(state, itemID){
+            let array = state.guestCart.filter((e) => e.cartID !== itemID);
+            state.guestCart = array;
         }
     },
     actions: {
@@ -194,35 +206,71 @@ export default createStore({
             return this.state.currentUser;
         },
         AddToCart({commit}, cartItem){
-            this.commit("ADD_TO_CART", cartItem)
+            if(this.state.userLoggedOn){
+                this.commit("ADD_TO_CART", cartItem);
 
-            const requestOptions = {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json"
-                  // "auth-token": state.token
-                },
-                body: JSON.stringify({
-                    userName: this.state.currentUser.userName,
-                    password: this.state.currentUser.password,
-                    firstName: this.state.currentUser.firstName,
-                    lastName: this.state.currentUser.lastName,
-                    emailAddress: this.state.currentUser.emailAddress,
-                    phoneNumber: this.state.currentUser.phoneNumber,
-                    vetStatus: this.state.currentUser.vetStatus,
-                    subscribedToEmails: this.state.currentUser.subscribedToEmails,
-                    purchases: this.state.currentUser.purchases,
-                    shoppingCart: this.state.currentUser.shoppingCart
-                }) 
-              }
-              fetch(`http://localhost:3000/users/update/${this.state.currentUser._id}`, 
-              requestOptions)
-                .then(
-                    res => res.json()
-                )
-                // router.push('/users')
+                const requestOptions = {
+                    method: "PUT",
+                    headers: {
+                      "Content-Type": "application/json"
+                      // "auth-token": state.token
+                    },
+                    body: JSON.stringify({
+                        userName: this.state.currentUser.userName,
+                        password: this.state.currentUser.password,
+                        firstName: this.state.currentUser.firstName,
+                        lastName: this.state.currentUser.lastName,
+                        emailAddress: this.state.currentUser.emailAddress,
+                        phoneNumber: this.state.currentUser.phoneNumber,
+                        vetStatus: this.state.currentUser.vetStatus,
+                        subscribedToEmails: this.state.currentUser.subscribedToEmails,
+                        purchases: this.state.currentUser.purchases,
+                        shoppingCart: this.state.currentUser.shoppingCart
+                    }) 
+                  }
+                  fetch(`http://localhost:3000/users/update/${this.state.currentUser._id}`, 
+                  requestOptions)
+                    .then(
+                        res => res.json()
+                    )
+                    // router.push('/users')
+            } else {
+                this.commit("ADD_TO_GUEST_CART", cartItem);
+            }
         },
-        RemoveFromCart({commit}, cartItem){}
+        RemoveFromCart({commit}, id){
+            if(this.state.userLoggedOn){
+                this.commit("REMOVE_FROM_CART", id);
+
+                const requestOptions = {
+                    method: "PUT",
+                    headers: {
+                      "Content-Type": "application/json"
+                      // "auth-token": state.token
+                    },
+                    body: JSON.stringify({
+                        userName: this.state.currentUser.userName,
+                        password: this.state.currentUser.password,
+                        firstName: this.state.currentUser.firstName,
+                        lastName: this.state.currentUser.lastName,
+                        emailAddress: this.state.currentUser.emailAddress,
+                        phoneNumber: this.state.currentUser.phoneNumber,
+                        vetStatus: this.state.currentUser.vetStatus,
+                        subscribedToEmails: this.state.currentUser.subscribedToEmails,
+                        purchases: this.state.currentUser.purchases,
+                        shoppingCart: this.state.currentUser.shoppingCart
+                    }) 
+                  }
+                  fetch(`http://localhost:3000/users/update/${this.state.currentUser._id}`, 
+                  requestOptions)
+                    .then(
+                        res => res.json()
+                    )
+                    // router.push('/users')
+            } else {
+                this.commit("REMOVE_FROM_GUEST_CART", id);
+            }
+        }
     },
     getters: {
         isLoggedIn(state){

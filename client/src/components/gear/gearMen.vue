@@ -1,5 +1,7 @@
 <template>
-  <div class="back-button"><theBackButtonGear></theBackButtonGear></div>
+  <div class="back-button">
+    <theBackButtonGear :path="`/gear`"></theBackButtonGear>
+  </div>
   <div class="page-title">
     <h1>Men's Clothing</h1>
     <hr />

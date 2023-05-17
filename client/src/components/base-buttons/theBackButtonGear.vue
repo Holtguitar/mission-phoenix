@@ -1,9 +1,11 @@
 <template>
-  <router-link to="/gear">Back</router-link>
+  <router-link :to="{ path }">Back</router-link>
 </template>
 
 <script>
-export default {}
+export default {
+  props: ['path'],
+}
 </script>
 
 <style>

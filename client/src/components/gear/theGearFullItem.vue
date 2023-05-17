@@ -1,5 +1,4 @@
 <template>
-  <!-- <h2>{{ this.currentItem._id }}</h2> -->
   <theGearFullItemTemplate
     :key="this.state.currentItem._id"
     :_id="this.state.currentItem._id"

@@ -1,7 +1,7 @@
 <template>
   <div class="full-inventory-item" v-if="this.images">
     <h3 class="full-inventory-back-link">
-      Back
+      <theBackButtonGear :path="`/gear-${this.category}`"></theBackButtonGear>
     </h3>
     <div class="full-main-image-container">
       <img :src="this.activeImage" class="full-main-image" />
@@ -81,8 +81,12 @@
 <script>
 import { useRoute } from 'vue-router'
 import gear from '../modules/gear'
+import theBackButtonGear from '../base-buttons/theBackButtonGear.vue'
 export default {
   props: ['_id', 'itemName', 'prices', 'sizes', 'images', 'colors', 'category'],
+  components: {
+    theBackButtonGear,
+  },
   data() {
     return {
       imageArray: [],
@@ -151,6 +155,8 @@ export default {
         color: this.selectedColor,
         size: this.selectedSize,
         price: this.displayPrice * this.quantity,
+        imageURL: this.images[0],
+        quantity: this.quantity,
         cartID: this.generateString(32),
       }
 

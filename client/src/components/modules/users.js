@@ -176,17 +176,12 @@ const getUsers = () => {
       }
     }
 
-    const ConfirmUnique = async () => {
-      let similarEmail, similarUserName
-      await GetAllUsers()
-      setTimeout(() => {
-        
-        
-      }, 1000)
-      
-      
-      
-    }
+    // const ConfirmUnique = async () => {
+    //   let similarEmail, similarUserName
+    //   await GetAllUsers()
+    //   setTimeout(() => {
+    //   }, 1000)
+    // }
 
     return {
         state,
@@ -200,7 +195,7 @@ const getUsers = () => {
         GetUserById,
         SignInUser,
         SignOutUser,
-        ConfirmUnique
+        // ConfirmUnique
     }
 }
 

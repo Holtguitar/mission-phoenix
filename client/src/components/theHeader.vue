@@ -178,15 +178,23 @@
         </div>
       </div>
       <div class="shopping-cart__container" v-if="!this.welcomeCollapsed">
-        <div class="shopping-cart__image-container">
-          <img
-            src="../../public/icons/shopping-bag.png"
-            class="shopping-cart__image"
-          />
-        </div>
-        <div class="shopping-cart__count-container">
-          15
-        </div>
+        <router-link to="/shopping-cart">
+          <div class="shopping-cart__image-container">
+            <img
+              src="../../public/icons/shopping-bag.png"
+              class="shopping-cart__image"
+            />
+          </div>
+          <div
+            class="shopping-cart__count-container"
+            v-if="this.$store.state.userLoggedOn"
+          >
+            {{ this.$store.state.currentUser.shoppingCart.length }}
+          </div>
+          <div v-else class="shopping-cart__count-container">
+            {{ this.$store.state.guestCart.length }}
+          </div>
+        </router-link>
       </div>
       <div class="collapse-arrow__container" @click="this.toggleWelcomeHeader">
         <img

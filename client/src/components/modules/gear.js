@@ -184,6 +184,7 @@ const getGear = () => {
         .then((data) => {
           const thisItem = data.filter((e) => e._id === _id)
           state.value.currentItem = thisItem[0]
+          
         })
     } catch(err) {
         console.error(err)

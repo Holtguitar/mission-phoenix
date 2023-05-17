@@ -2,35 +2,40 @@
   <div class="item-holder">
     <div class="remove-item" @click="removeItem(cartID)">&#10005</div>
     <div class="item-image__container">
-      <img src="../../../public/gear/men/13-Stars-01.jpeg" class="item-image" />
+      <router-link :to="`/gear/${this.itemID}`"><img :src="this.imagePreview" class="item-image" /></router-link>
     </div>
-    <div class="item-name">{{ itemName }}</div>
+    <router-link :to="`/gear/${this.itemID}`"><div class="item-name">{{ itemName}}</div></router-link>
     <div class="item-details">
-      <div class="size">{{ size }}</div>
-      <div class="color">{{ color }}</div>
-      <div class="quantity">{{ quantity }}</div>
-      <div class="price">{{ price }}</div>
+      <div class="size" v-if="size !== ''">Size: {{ size }}</div>
+      <div class="color" v-if="color !== ''">Color: {{ color }}</div>
+      <div class="quantity">Quantity: {{ quantity }}</div>
+      <div class="price">Total: {{ price }}</div>
     </div>
   </div>
 </template>
 <script>
+import { useStore } from 'vuex';
 export default {
-  props: ['itemName', 'size', 'color', 'quantity', 'price', 'imageURL', 'cartID'],
+  props: ['itemName', 'size', 'color', 'quantity', 'price', 'image', 'cartID', 'itemID'],
   data(){
-    return{}
+    return{
+      imagePreview: this.image,
+      store: useStore()
+    }
   },
   methods: {
     removeItem(id){
-        console.log(id)
+      this.store.dispatch("RemoveFromCart", id)
     }
+  },
+  mounted(){
   }
 }
 </script>
 <style>
 .item-details {
   width: 50%;
-  display: flex;
-  justify-content: center;
+  padding-top: 5%;
 }
 
 .item-holder {
@@ -43,17 +48,22 @@ export default {
   gap: 2.5%;
   box-shadow: 1px 1px 7px 7px rgba(41, 43, 89, 0.488);
   margin-bottom: 25px;
+  overflow: hidden;
+  background-color: white;
+  padding: 10px;
+ 
 }
 
 .item-image__container {
   position: relative;
-  width: 15%;
+  width: 50%;
+  overflow: hidden;
+  text-align: center;
 }
 
 .item-image {
-  width: 100%;
+  max-width: 100%;
   position: relative;
-  top: 15%;
 }
 
 .item-name {
@@ -68,12 +78,13 @@ export default {
 .color,
 .price,
 .quantity {
-  width: 25%;
-  height: 25%;
-  top: 37.5%;
+  width: 55%;
+  height: 20%;
+  left: 22.5%;
   text-align: center;
   position: relative;
 }
+
 
 .remove-item {
   width: 25px;
