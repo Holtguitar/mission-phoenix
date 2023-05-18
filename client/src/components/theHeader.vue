@@ -44,10 +44,7 @@
           "
         >
           Mission
-          <img
-            class="submenu-down-arrow"
-            src="../../public/icons/down-arrow.png"
-          />
+          <img class="submenu-down-arrow" src="/icons/down-arrow.png" />
         </router-link>
         <router-link
           class="nav-item"
@@ -60,10 +57,7 @@
           "
         >
           Gear
-          <img
-            class="submenu-down-arrow"
-            src="../../public/icons/down-arrow.png"
-          />
+          <img class="submenu-down-arrow" src="/icons/down-arrow.png" />
         </router-link>
         <router-link
           class="nav-item"
@@ -100,10 +94,7 @@
           "
         >
           Account
-          <img
-            class="submenu-down-arrow"
-            src="../../public/icons/down-arrow.png"
-          />
+          <img class="submenu-down-arrow" src="/icons/down-arrow.png" />
         </router-link>
       </div>
       <!-- Submenus, shown on hover of parent element -->
@@ -180,10 +171,7 @@
       <div class="shopping-cart__container" v-if="!this.welcomeCollapsed">
         <router-link to="/shopping-cart">
           <div class="shopping-cart__image-container">
-            <img
-              src="../../public/icons/shopping-bag.png"
-              class="shopping-cart__image"
-            />
+            <img src="/icons/shopping-bag.png" class="shopping-cart__image" />
           </div>
           <div
             class="shopping-cart__count-container"
@@ -200,7 +188,7 @@
         <img
           class="collapse-arrow__image"
           id="collapse-arrow__image"
-          src="../../public/icons/down-arrow.png"
+          src="/icons/down-arrow.png"
           v-bind:class="{ flipped: welcomeCollapsed }"
         />
       </div>

@@ -36,10 +36,7 @@
       <div class="men-container">
         <router-link to="gear-men">
           <div class="image-container">
-            <img
-              class="link-image"
-              src="../../public/gear/men/America-strong-1.jpeg"
-            />
+            <img class="link-image" src="/gear/men/America-strong-1.jpeg" />
           </div>
           <div id="label-container">
             Men
@@ -49,10 +46,7 @@
       <div class="women-container">
         <router-link to="gear-women">
           <div class="image-container">
-            <img
-              class="link-image"
-              src="../../public/gear/women/be-the-gen-1.jpeg"
-            />
+            <img class="link-image" src="/gear/women/be-the-gen-1.jpeg" />
           </div>
           <div id="label-container">Women</div>
         </router-link>
@@ -60,10 +54,7 @@
       <div class="accessories-container">
         <RouterLink to="gear-accessories">
           <div class="image-container">
-            <img
-              class="link-image"
-              src="../../public/gear/accessories/hat-1.jpeg"
-            />
+            <img class="link-image" src="/gear/accessories/hat-1.jpeg" />
           </div>
           <div id="label-container">Accessories</div>
         </RouterLink>
