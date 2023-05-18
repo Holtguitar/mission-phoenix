@@ -43,7 +43,7 @@ app.post("/login?", (req, res) => {
 })
 
 //Routes
-const UsersRoute = require("./routes/users");
+const UsersRoute = require("./routes/Users");
 const GearRoute = require("./routes/Gear");
 
 
