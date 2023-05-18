@@ -46,7 +46,7 @@
       <div class="women-container">
         <router-link to="gear-women">
           <div class="image-container">
-            <img class="link-image" src="/gear/women/be-the-gen-1.jpeg" />
+            <img class="link-image" src="/gear/women/Be-the-gen-1.jpeg" />
           </div>
           <div id="label-container">Women</div>
         </router-link>
