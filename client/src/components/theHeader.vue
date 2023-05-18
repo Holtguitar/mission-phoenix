@@ -373,6 +373,7 @@ export default {
   top: 10%;
   right: 0;
   bottom: 0;
+  text-align: center;
 }
 
 .collapse-arrow__container:hover {
@@ -382,8 +383,8 @@ export default {
 .collapse-arrow__image {
   width: 50%;
   position: relative;
-  top: 25%;
-  left: 25%;
+  top: 30%;
+  left: 5%;
   rotate: 90deg;
 }
 
