@@ -2,6 +2,7 @@ import {ref, computed} from 'vue'
 import { useRoute, useRouter} from 'vue-router'
 import {useStore} from "vuex"
 
+const listeningServer = 'https://mission-phoenix.onrender.com'
 
 const getUsers = () => {
 
@@ -33,7 +34,7 @@ const getUsers = () => {
 
     const GetAllUsers = async () => {
         try {
-            await fetch('http://localhost:3000/users')
+            await fetch(`${listeningServer}/users`)
             .then((res) => res.json())
             .then((data) => {
               state.value.users = data
@@ -79,7 +80,7 @@ const getUsers = () => {
             shoppingCart: []
           }) 
         }
-          fetch("http://localhost:3000/users/new", 
+          fetch(`${listeningServer}/users/new`, 
           requestOptions
         ).then(
           setTimeout(() => {
@@ -90,7 +91,7 @@ const getUsers = () => {
     }
 
     const deleteUser = (_id) => {
-        fetch("http://localhost:3000/users/delete/" + _id, { method: "DELETE"})
+        fetch(`${listeningServer}/users/delete/${_id}`, { method: "DELETE"})
             .then(GetAllUsers())
     }
 
@@ -114,7 +115,7 @@ const getUsers = () => {
             shoppingCart: state.value.newShoppingCart
           }) 
         }
-        fetch(`http://localhost:3000/users/update/${userId.value}`, 
+        fetch(`${listeningServer}/users/update/${userId.value}`, 
         requestOptions)
           .then(res =>  res.body ) 
           .then(res => {console.log(res)}) 
@@ -124,7 +125,7 @@ const getUsers = () => {
     
     const GetUserById = async (userId) => {
         try {
-            fetch(`http://localhost:3000/users/update/${userId.value}`)
+            fetch(`${listeningServer}/users/update/${userId.value}`)
             .then(res => res.json)
             .then(data => {
                user.value = data.filter(t => t._id === userId.value)
@@ -137,7 +138,7 @@ const getUsers = () => {
     const SignInUser =  async (userName, password) => {
       let potentialUser;
         try {
-          await fetch('http://localhost:3000/users')
+          await fetch(`${listeningServer}/users`)
           .then((res) => res.json())
           .then((data) => {
             // Compare username to entire array of users
@@ -166,7 +167,7 @@ const getUsers = () => {
 
     const GetUserByEmail = async () => {
       try {
-          fetch("http://localhost:3000/users" + _id)
+          fetch(`${listeningServer}/users/${_id}`)
           .then(res => res.json)
           .then(data => {
              user.value = data.filter(t => t._id === userId.value)

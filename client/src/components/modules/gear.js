@@ -14,6 +14,8 @@ const firebaseConfig = {
   measurementID: "G-CR297872NV"
 };
 
+const listeningServer = 'https://mission-phoenix.onrender.com'
+
 
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
@@ -99,7 +101,7 @@ const getGear = () => {
 
     const GetAllGear = async () => {
         try {
-            await fetch('http://localhost:3000/gear/')
+            await fetch(`${listeningServer}/gear/`)
             .then((res) => res.json())
             .then((data) => {
               state.value.gear = data
@@ -112,7 +114,7 @@ const getGear = () => {
 
     const GetGearByCategory = async (categ) => {
       try {
-          await fetch(`http://localhost:3000/gear/`)
+          await fetch(`${listeningServer}/gear/`)
           .then((res) => res.json())
           .then((data) => {
             const mensGear = data.filter((e) => e.category === categ);
@@ -141,13 +143,13 @@ const getGear = () => {
             category: state.value.newCategory
           }) 
         }
-          fetch(`http://localhost:3000/gear/new/`, 
+          fetch(`${listeningServer}/gear/`, 
           requestOptions
         ).then(GetAllGear())
     }
 
     const deleteItem = (_id, categ) => {
-        fetch(`http://localhost:3000/gear//delete/${_id}`, { method: "DELETE"})
+        fetch(`${listeningServer}/gear/${_id}`, { method: "DELETE"})
             .then(GetAllGear())
     }
 
@@ -168,7 +170,7 @@ const getGear = () => {
            category: state.value.newCategory
           }) 
         }
-        fetch("http://localhost:3000/gear/update/" + itemId.value, 
+        fetch(`${listeningServer}/gear/update/${itemId.value}`, 
         requestOptions)
           .then(res =>  res.body ) 
           .then(res => {console.log(res)}) 
@@ -179,7 +181,7 @@ const getGear = () => {
 
     const GetGearById = async (_id) => {
       try {
-        await fetch('http://localhost:3000/gear/')
+        await fetch(`${listeningServer}/gear/`)
         .then((res) => res.json())
         .then((data) => {
           const thisItem = data.filter((e) => e._id === _id)

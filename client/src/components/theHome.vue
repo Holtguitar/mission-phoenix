@@ -53,7 +53,7 @@
       <img
         v-if="inViewDelayed"
         v-for="(item, index) in this.arrowArray"
-        src="../../public/icons/down-arrow.png"
+        src="/icons/down-arrow.png"
         class="down-arrow-icon"
         :class="item.faded ? 'faded' : ''"
       />
@@ -69,7 +69,7 @@
     </svg>
     <div class="section-container">
       <div class="section-image-container">
-        <img src="../../public/icons/connect.png" />
+        <img src="/icons/connect.png" />
       </div>
       <div class="section-header-container">
         <h1 class="section-header">Connect</h1>
@@ -89,7 +89,7 @@
         <h1 class="section-header">Counsel</h1>
       </div>
       <div class="section-image-container">
-        <img src="../../public/icons/counsel.png" />
+        <img src="/icons/counsel.png" />
       </div>
     </div>
   </div>
@@ -103,7 +103,7 @@
     </svg>
     <div class="section-container">
       <div class="section-image-container">
-        <img src="../../public/icons/equip.png" />
+        <img src="/icons/equip.png" />
       </div>
       <div class="section-header-container">
         <h1 class="section-header">Equip</h1>
@@ -123,7 +123,7 @@
         <h1 class="section-header">Restore</h1>
       </div>
       <div class="section-image-container">
-        <img src="../../public/icons/restore.png" />
+        <img src="/icons/restore.png" />
       </div>
     </div>
   </div>
@@ -137,7 +137,7 @@
     </svg>
     <div class="section-container">
       <div class="section-image-container">
-        <img src="../../public/icons/rise.png" />
+        <img src="/icons/rise.png" />
       </div>
       <div class="section-header-container">
         <h1 class="section-header">Rise</h1>
@@ -184,9 +184,9 @@ export default {
     return {
       fadedIndex: 0,
       arrowArray: [
-        { source: '../../public/icons/down-arrow.png', faded: true },
-        { source: '../../public/icons/down-arrow.png', faded: false },
-        { source: '../../public/icons/down-arrow.png', faded: false },
+        { source: '/icons/down-arrow.png', faded: true },
+        { source: '/icons/down-arrow.png', faded: false },
+        { source: '/icons/down-arrow.png', faded: false },
       ],
       inViewStationary: false,
       inViewRising: false,

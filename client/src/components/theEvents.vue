@@ -119,7 +119,7 @@ export default {
   height: fit-content;
   text-align: center;
   margin-bottom: 25vh;
-  /* background: url('../../public/icons/event-lighting.png'); */
+  /* background: url('/icons/event-lighting.png'); */
 }
 
 .events-home hr {

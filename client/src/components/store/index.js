@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import router from "../../router/index";
+const listeningServer = 'https://mission-phoenix.onrender.com'
 
 export default createStore({
     state: {
@@ -63,7 +64,7 @@ export default createStore({
         async GetAllUsers({commit})  {
             try {
                 let usersToLoad = [];
-                await fetch('http://localhost:3000/users')
+                await fetch(`${listeningServer}/users`)
                 .then((res) => res.json())
                 .then((data) => {
                     let users = [];
@@ -93,7 +94,7 @@ export default createStore({
         async SignInByUserName({commit}, userName)  {
             try {
                 
-                await fetch('http://localhost:3000/users')
+                await fetch(`${listeningServer}/users`)
                 .then((res) => res.json())
                 .then((data) => {
                     let cachedUser = data.filter((e) => e.userName === userName);
@@ -107,7 +108,7 @@ export default createStore({
         async SignInUser({commit}, details){
             try {
                 let potentialUser;
-                await fetch('http://localhost:3000/users')
+                await fetch(`${listeningServer}/users`)
                 .then((res) => res.json())
                 .then((data) => {
                   potentialUser = data.filter((e) => 
@@ -117,7 +118,7 @@ export default createStore({
                   if(potentialUser[0].password === details.password){
                 
                     // Send to server for JWT
-                    // fetch("http://localhost:3000/login", {
+                    // fetch(`${listeningServer}/login`, {
                     //     method: "POST", 
                     //     headers: {
                     //         "content-Type": "application/json",
@@ -190,7 +191,7 @@ export default createStore({
                               shoppingCart: this.state.newUser.shoppingCart
                             }) 
                         }
-                        fetch("http://localhost:3000/users/new", requestOptions)
+                        fetch(`${listeningServer}/users/new`, requestOptions)
                             .then (() => {
                                 this.state.currentUser = this.state.newUser;
                                 this.state.userLoggedOn = true;
@@ -228,7 +229,7 @@ export default createStore({
                         shoppingCart: this.state.currentUser.shoppingCart
                     }) 
                   }
-                  fetch(`http://localhost:3000/users/update/${this.state.currentUser._id}`, 
+                  fetch(`${listeningServer}/users/update/${this.state.currentUser._id}`, 
                   requestOptions)
                     .then(
                         res => res.json()
@@ -261,7 +262,7 @@ export default createStore({
                         shoppingCart: this.state.currentUser.shoppingCart
                     }) 
                   }
-                  fetch(`http://localhost:3000/users/update/${this.state.currentUser._id}`, 
+                  fetch(`${listeningServer}/users/update/${this.state.currentUser._id}`, 
                   requestOptions)
                     .then(
                         res => res.json()
