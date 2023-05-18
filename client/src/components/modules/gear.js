@@ -101,7 +101,7 @@ const getGear = () => {
 
     const GetAllGear = async () => {
         try {
-            await fetch(`${listeningServer}/gear/`)
+            await fetch(`${listeningServer}/gear`)
             .then((res) => res.json())
             .then((data) => {
               state.value.gear = data
@@ -114,7 +114,7 @@ const getGear = () => {
 
     const GetGearByCategory = async (categ) => {
       try {
-          await fetch(`${listeningServer}/gear/`)
+          await fetch(`${listeningServer}/gear`)
           .then((res) => res.json())
           .then((data) => {
             const mensGear = data.filter((e) => e.category === categ);
@@ -143,7 +143,7 @@ const getGear = () => {
             category: state.value.newCategory
           }) 
         }
-          fetch(`${listeningServer}/gear/`, 
+          fetch(`${listeningServer}/gear`, 
           requestOptions
         ).then(GetAllGear())
     }
@@ -181,7 +181,7 @@ const getGear = () => {
 
     const GetGearById = async (_id) => {
       try {
-        await fetch(`${listeningServer}/gear/`)
+        await fetch(`${listeningServer}/gear`)
         .then((res) => res.json())
         .then((data) => {
           const thisItem = data.filter((e) => e._id === _id)
