@@ -4,7 +4,8 @@
     @click="
       ;(this.showSubMission = false),
         (this.showSubAccount = false),
-        (this.showSubGear = false)
+        (this.showSubGear = false),
+        (this.showSubAdmin = false)
     "
   >
     <div
@@ -33,6 +34,20 @@
     <div class="navigation-container">
       <!-- Main nav item -->
       <div class="nav-bar">
+        <div
+          v-if="this.$store.state.userLoggedOn"
+          class="nav-item"
+          id="admin"
+          @mouseover="
+            ;(this.showSubMission = false),
+              (this.showSubAccount = false),
+              (this.showSubGear = false),
+              (this.showSubAdmin = true)
+          "
+        >
+          Admin
+          <img class="submenu-down-arrow" src="/icons/down-arrow.png" />
+      </div>
         <router-link
           class="nav-item"
           id="mission"
@@ -40,7 +55,8 @@
           @mouseover="
             ;(this.showSubMission = true),
               (this.showSubAccount = false),
-              (this.showSubGear = false)
+              (this.showSubGear = false),
+              (this.showSubAdmin = false)
           "
         >
           Mission
@@ -53,7 +69,8 @@
           @mouseover="
             ;(this.showSubMission = false),
               (this.showSubAccount = false),
-              (this.showSubGear = true)
+              (this.showSubGear = true),
+              (this.showSubAdmin = false)
           "
         >
           Gear
@@ -66,7 +83,8 @@
           @mouseover="
             ;(this.showSubMission = false),
               (this.showSubAccount = false),
-              (this.showSubGear = false)
+              (this.showSubGear = false),
+              (this.showSubAdmin = false)
           "
         >
           Events
@@ -78,7 +96,8 @@
           @mouseover="
             ;(this.showSubMission = false),
               (this.showSubAccount = false),
-              (this.showSubGear = false)
+              (this.showSubGear = false),
+              (this.showSubAdmin = false)
           "
         >
           Blog
@@ -90,7 +109,8 @@
           @mouseover="
             ;(this.showSubMission = false),
               (this.showSubAccount = true),
-              (this.showSubGear = false)
+              (this.showSubGear = false),
+              (this.showSubAdmin = false)
           "
         >
           Account
@@ -106,7 +126,8 @@
           @mouseleave="
             ;(this.showSubMission = false),
               (this.showSubAccount = false),
-              (this.showSubGear = false)
+              (this.showSubGear = false),
+              (this.showSubAdmin = false)
           "
         >
           <router-link class="nav-item" to="/">Donate</router-link>
@@ -121,7 +142,8 @@
           @mouseleave="
             ;(this.showSubMission = false),
               (this.showSubAccount = false),
-              (this.showSubGear = false)
+              (this.showSubGear = false),
+              (this.showSubAdmin = false)
           "
         >
           <router-link class="nav-item" to="/gear-men">Men</router-link>
@@ -140,7 +162,8 @@
           @mouseleave="
             ;(this.showSubMission = false),
               (this.showSubAccount = false),
-              (this.showSubGear = false)
+              (this.showSubGear = false),
+              (this.showSubAdmin = false)
           "
         >
           <router-link class="nav-item" to="/account">
@@ -151,12 +174,32 @@
           </router-link>
           <router-link class="nav-item" to="/">Purchase History</router-link>
         </div>
+        <div
+          class="subnav-item"
+          id="submenu-admin"
+          v-if="this.showSubAdmin"
+          @mouseleave="
+            ;(this.showSubMission = false),
+              (this.showSubAccount = false),
+              (this.showSubGear = false),
+              (this.showSubAdmin = false)
+          "
+        >
+          <router-link class="nav-item" to="/add-new-gear">Gear</router-link>
+          <router-link class="nav-item" to="/">Events</router-link>
+          <router-link class="nav-item" to="/">
+            Blogs
+          </router-link>
+          <router-link class="nav-item" to="/">
+            Users
+          </router-link>
+        </div>
       </div>
     </div>
     <div
       class="welcome-container"
       id="welcome-container"
-      v-bind:class="{ collapsed: welcomeCollapsed }"
+      v-bind:class="{ collapsed: welcomeCollapsedFlipped }"
     >
       <div class="welcome-header" v-if="!this.welcomeCollapsed">
         <div class="welcome-header__text">
@@ -189,7 +232,7 @@
           class="collapse-arrow__image"
           id="collapse-arrow__image"
           src="/icons/down-arrow.png"
-          v-bind:class="{ flipped: welcomeCollapsed }"
+          v-bind:class="{ flipped: welcomeCollapsedFlipped }"
         />
       </div>
     </div>
@@ -221,7 +264,9 @@ export default {
       showSubMission: false,
       showSubAccount: false,
       showSubGear: false,
+      showSubAdmin: true,
       welcomeCollapsed: true,
+      welcomeCollapsedFlipped: true
     }
   },
   methods: {
@@ -233,7 +278,10 @@ export default {
       this.inViewStationary = true
     },
     toggleWelcomeHeader() {
-      this.welcomeCollapsed = !this.welcomeCollapsed
+      this.welcomeCollapsedFlipped = !this.welcomeCollapsedFlipped
+      setTimeout(() => {
+        this.welcomeCollapsed = !this.welcomeCollapsed
+      }, 300)
     },
   },
   beforeUnmount() {
@@ -291,11 +339,11 @@ export default {
 
 /* NAV BAR */
 .navigation-container {
-  width: 50%;
+  width: 60%;
   height: 75%;
   position: absolute;
   top: 12.5%;
-  left: 45%;
+  left: 35%;
 }
 
 .nav-bar {
@@ -318,6 +366,10 @@ export default {
   width: 20%;
   padding: 2%;
   text-align: center;
+}
+
+.nav-item:hover {
+  cursor: pointer;
 }
 
 .nav-bar a:hover {

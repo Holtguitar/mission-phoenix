@@ -16,6 +16,7 @@ export default createStore({
             subscribedToEmails: false,
             purchases: [],
             shoppingCart: [],
+            admin: false
         },
         currentUser: null,
         userLoggedOn: false,
@@ -79,7 +80,9 @@ export default createStore({
                             vetStatus: data[id].vetStatus,
                             subscribedToEmails: data[id].subscribedToEmails,
                             purchases: data[id].purchases,
-                            shoppingCart: data[id].shoppingCart
+                            shoppingCart: data[id].shoppingCart,
+                            admin: data[id].admin
+                            
                         });
                     }
                     usersToLoad = users;
@@ -188,7 +191,8 @@ export default createStore({
                               vetStatus: this.state.newUser.vetStatus,
                               subscribedToEmails: this.state.newUser.subscribedToEmails,
                               purchases: this.state.newUser.purchases,
-                              shoppingCart: this.state.newUser.shoppingCart
+                              shoppingCart: this.state.newUser.shoppingCart,
+                              admin: this.state.newUser.admin
                             }) 
                         }
                         fetch(`${listeningServer}/users/new`, requestOptions)
@@ -226,7 +230,8 @@ export default createStore({
                         vetStatus: this.state.currentUser.vetStatus,
                         subscribedToEmails: this.state.currentUser.subscribedToEmails,
                         purchases: this.state.currentUser.purchases,
-                        shoppingCart: this.state.currentUser.shoppingCart
+                        shoppingCart: this.state.currentUser.shoppingCart,
+                        admin: this.state.currentUser.admin
                     }) 
                   }
                   fetch(`${listeningServer}/users/update/${this.state.currentUser._id}`, 
@@ -259,7 +264,8 @@ export default createStore({
                         vetStatus: this.state.currentUser.vetStatus,
                         subscribedToEmails: this.state.currentUser.subscribedToEmails,
                         purchases: this.state.currentUser.purchases,
-                        shoppingCart: this.state.currentUser.shoppingCart
+                        shoppingCart: this.state.currentUser.shoppingCart,
+                        admin: this.state.currentUser.admin
                     }) 
                   }
                   fetch(`${listeningServer}/users/update/${this.state.currentUser._id}`, 

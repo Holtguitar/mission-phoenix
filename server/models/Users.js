@@ -12,7 +12,8 @@ const UsersSchema = new mongoose.Schema({
     adminUser: Boolean,
     subscribedToEmails: Boolean,
     purchases: Array,
-    shoppingCart: Array
+    shoppingCart: Array,
+    admin: Boolean
 });
 
 module.exports = mongoose.model('user', UsersSchema);
