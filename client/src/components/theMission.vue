@@ -24,7 +24,7 @@
       <div class="mission-statement__body">
         <h2>
           To identify and eradicate the stigma of combat related PTSD that is
-          taking so many of our veteran's lives;
+          taking so many of our veterans' lives;
           <br />
           <br />
           To train veterans to RISE out of the ashes of their trauma and pain

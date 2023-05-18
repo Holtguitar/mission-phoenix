@@ -199,7 +199,11 @@ export default {
     goto(refName) {
       var element = this.$refs[refName]
       var top = element.offsetTop
-      window.scrollTo(0, top)
+      // window.scrollTo(0, top)
+      window.scrollTo({
+        top: top,
+        behavior: 'smooth',
+      })
     },
     toggleInViewStationary() {
       this.inViewStationary = true
