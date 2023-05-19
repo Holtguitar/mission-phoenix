@@ -112,15 +112,6 @@ export default {
 .add-gear-link:hover {
   text-decoration: underline;
 }
-.inventory-scroll {
-  position: relative;
-  width: 80vw;
-  padding-top: 5%;
-  display: grid;
-  grid-template-columns: auto auto auto;
-  padding-left: 5%;
-  left: 5%;
-}
 
 .item-image {
   width: 250px;
@@ -152,10 +143,9 @@ export default {
   text-align: center;
   font-size: 25px;
   top: 5%;
-  /* color: white; */
-  /* top: -15%; */
   color: rgb(63, 63, 63);
   text-decoration: underline;
+
 }
 
 .link-container {
@@ -164,13 +154,12 @@ export default {
   left: 10%;
   position: relative;
   display: flex;
-  justify-content: space-between;
-  /* background-color: blue; */
+  justify-content: center;
+  gap: 10%;
 }
 
 .image-container {
   position: relative;
-  /* background-color: green; */
   width: 100%;
   height: 60%;
   /* height: 50%; */

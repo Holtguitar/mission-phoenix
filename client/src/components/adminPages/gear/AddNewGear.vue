@@ -77,21 +77,6 @@
           <div class="size-box">
             <input
               type="checkbox"
-              id="xs"
-              name="xs"
-              value="xs"
-              v-model="this.newInventory.newSizes.xs.selected"
-            />
-            <label for="xs">XS</label>
-            <input
-              type="number"
-              v-model="this.newInventory.newSizes.xs.price"
-              class="size-price"
-            />
-          </div>
-          <div class="size-box">
-            <input
-              type="checkbox"
               id="s"
               name="s"
               value="s"
@@ -161,6 +146,21 @@
             <input
               type="number"
               v-model="this.newInventory.newSizes.xxl.price"
+              class="size-price"
+            />
+          </div>
+          <div class="size-box">
+            <input
+              type="checkbox"
+              id="xxxl"
+              name="xxxl"
+              value="xxxl"
+              v-model="this.newInventory.newSizes.xxxl.selected"
+            />
+            <label for="xxxl">XXXL</label>
+            <input
+              type="number"
+              v-model="this.newInventory.newSizes.xxxl.price"
               class="size-price"
             />
           </div>
@@ -292,11 +292,6 @@ export default {
       newInventory: {
         newItemName: '',
         newSizes: {
-          xs: {
-            size: 'XS',
-            selected: false,
-            price: 0,
-          },
           s: {
             size: 'S',
             selected: false,
@@ -319,6 +314,11 @@ export default {
           },
           xxl: {
             size: 'XXL',
+            selected: false,
+            price: 0,
+          },
+          xxxl: {
+            size: 'XXXL',
             selected: false,
             price: 0,
           },

@@ -601,10 +601,10 @@ export default {
   position: relative;
   /* background-color: purple; */
   height: 50%;
-  width: 35%;
+  width: 30%;
   top: 20%;
 
-  border-radius: 200px;
+  /* border-radius: 200px; */
   box-shadow: 1px 1px 5px 5px rgba(90, 90, 139, 0.31);
   overflow: hidden;
 }

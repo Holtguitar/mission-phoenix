@@ -28,14 +28,21 @@
     </div>
     <div class="display-price-container">
       <div class="display-price">
-        <div class="price" v-if="displayPriceDefault">
+        <!-- <div class="price" v-if="displayPriceDefault">
           {{
             this.prices[0].min > 1
               ? `$${this.prices[0].min} - $${this.prices[0].max}`
               : `$${this.prices[0].max}`
           }}
         </div>
-        <div class="price" v-else>${{ this.displayPrice * this.quantity }}</div>
+        <div class="price" v-else>${{ this.quantity }}</div> -->
+        <div class="price">
+          {{
+            this.prices[0].min > 1
+              ? `$${this.prices[0].min} - $${this.prices[0].max}`
+              : `$${this.prices[0].max * this.quantity}`
+          }}
+        </div>
       </div>
     </div>
     <div class="full-item-size-container" v-if="this.sizeArray.length > 0">
@@ -211,7 +218,8 @@ export default {
 <style>
 /* re-formatting */
 .activeSize {
-  background-color: rgba(0, 1, 74, 0.693);
+  color: whitesmoke;
+  background-color: rgba(123, 123, 123, 0.693);
 }
 
 .full-inventory-item {
