@@ -238,7 +238,9 @@ export default createStore({
                   requestOptions)
                     .then(
                         res => res.json()
-                    )
+                    ).then(() => {
+                        router.push(`/gear-${cartItem.category}`)
+                    })
                     // router.push('/users')
             } else {
                 this.commit("ADD_TO_GUEST_CART", cartItem);

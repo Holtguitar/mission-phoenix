@@ -264,7 +264,7 @@ export default {
       showSubMission: false,
       showSubAccount: false,
       showSubGear: false,
-      showSubAdmin: true,
+      showSubAdmin: false,
       welcomeCollapsed: true,
       welcomeCollapsedFlipped: true
     }
@@ -370,11 +370,11 @@ export default {
 
 .nav-item:hover {
   cursor: pointer;
+  background-color: rgb(120, 120, 120);
 }
 
 .nav-bar a:hover {
   cursor: pointer;
-  background-color: rgb(120, 120, 120);
 }
 
 .nav-bar a:active {
