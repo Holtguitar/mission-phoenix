@@ -4,16 +4,19 @@
       Blogs
       <hr />
     </h1>
+    <!-- <thePreloader></thePreloader> -->
   </div>
   <theFooter></theFooter>
 </template>
 
 <script>
 import theFooter from './theFooter.vue'
+import thePreloader from './preloader/thePreloader.vue';
 
 export default {
   components: {
     theFooter,
+    thePreloader
   },
   mounted() {
     window.scrollTo(0, 0)
@@ -26,7 +29,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  background: url('/icons/cracked-wall.png');
+  /* background: url('/icons/cracked-wall.png'); */
 }
 
 .blogs-home h1 {

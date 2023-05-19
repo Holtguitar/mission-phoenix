@@ -1,5 +1,6 @@
 <template>
-  <div class="forms-container">
+  <div class="forms-container"
+  v-bind:class="{blur: this.loading}">
     <div class="new-item__page-header">
       <h2>Create a New Item</h2>
     </div>
@@ -268,15 +269,19 @@
       </div>
     </form>
   </div>
+
+  <div class="preloader-container" v-if="this.loading"><thePreloader></thePreloader></div>
   <!-- <the-footer></the-footer> -->
 </template>
 
 <script>
 import theFooter from '../../theFooter.vue'
 import gear from '../../modules/gear'
+import thePreloader from '../../preloader/thePreloader.vue'
 export default {
   data() {
     return {
+      loading: false,
       imageCount: 1,
       colorCount: 1,
       images: [],
@@ -391,6 +396,7 @@ export default {
       }
     },
     submitNewItem() {
+      this.loading = true;
       this.state.newItemName = this.newInventory.newItemName
       this.state.newSizes = this.newInventory.newSizes
       this.state.newColors = this.newInventory.newColors
@@ -423,6 +429,7 @@ export default {
   },
   components: {
     theFooter,
+    thePreloader
   },
   mounted() {
     window.scrollTo(0, 0)
@@ -451,7 +458,6 @@ export default {
   position: absolute;
   left: 0 !important;
   margin-top: 5%;
-
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -739,4 +745,18 @@ export default {
   border-radius: 10px;
   box-shadow: 1px 1px 3px 3px rgba(41, 43, 89, 0.488) !important;
 }
+
+/* Handle item submit action */
+.blur {
+  filter: blur(5px);
+}
+
+.preloader-container {
+  position: absolute;
+  width: 100vw;
+  height: 50vh;
+  margin-top: 25%;
+}
+
+
 </style>
