@@ -23,7 +23,7 @@
     ></theGearFullItem> -->
     <h1>Phoenix Gear</h1>
     <router-link
-      v-if="this.$store.state.currentUser.userName === 'holtguitar'"
+      v-if="this.isUserAdmin"
       to="add-new-gear"
       class="add-gear-link"
     >
@@ -83,6 +83,7 @@ export default {
       gearArray: [],
       bgColor: '',
       store: useStore(),
+      currentUser: this.$store.dispatch('GetCurrentUser'),
     }
   },
   setup() {
@@ -93,6 +94,17 @@ export default {
     }
   },
   methods: {},
+  computed: {
+    isUserAdmin() {
+      if(this.$store.state.userLoggedOn){
+        if(this.$store.state.currentUser.admin){
+          return true
+        } else {
+          return false
+        }
+      } else { return false}
+    }
+  },
   mounted() {
     this.GetAllGear()
     window.scrollTo(0, 0)

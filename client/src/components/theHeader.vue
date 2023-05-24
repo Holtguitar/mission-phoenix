@@ -35,7 +35,8 @@
       <!-- Main nav item -->
       <div class="nav-bar">
         <div
-          v-if="this.$store.state.userLoggedOn"
+
+          v-if="this.isUserAdmin"
           class="nav-item"
           id="admin"
           @mouseover="
@@ -190,7 +191,7 @@
           <router-link class="nav-item" to="/">
             Blogs
           </router-link>
-          <router-link class="nav-item" to="/">
+          <router-link class="nav-item" to="/user-accounts-display">
             Users
           </router-link>
         </div>
@@ -203,7 +204,7 @@
     >
       <div class="welcome-header" v-if="!this.welcomeCollapsed">
         <div class="welcome-header__text">
-          <router-link to="/account" v-if="!isLoggedIn">
+          <router-link to="/account" v-if="!this.isSignedIn">
             Sign In
           </router-link>
           <div v-else>
@@ -269,6 +270,24 @@ export default {
       welcomeCollapsedFlipped: true
     }
   },
+  computed: {
+    isUserAdmin() {
+      if(this.$store.state.userLoggedOn){
+        if(this.$store.state.currentUser.admin){
+          return true
+        } else {
+          return false
+        }
+      } else { return false}
+    },
+    isSignedIn(){
+      if(this.$store.state.userLoggedOn){ 
+        return true
+      } else { 
+        return false
+      }
+    }
+  },
   methods: {
     toggleHamburger() {
       this.open = !this.open
@@ -324,10 +343,13 @@ export default {
   left: 0;
   width: 100vw;
   height: 15vh;
-  background-color: rgba(78, 78, 78, 0.805);
+  /* background-color: transparent; */
+  /* background-color: rgba(64, 66, 94, 0.521); */
+  background-color: #4e4e4ecd;
   margin: 0 auto;
   z-index: 1030;
   opacity: 0.99;
+
 }
 
 .mission-phoenix-logo {
@@ -340,7 +362,7 @@ export default {
 /* NAV BAR */
 .navigation-container {
   width: 60%;
-  height: 75%;
+  height: 80%;
   position: absolute;
   top: 12.5%;
   left: 35%;
@@ -509,7 +531,7 @@ export default {
   height: 50%;
   width: 100%;
   top: 30%;
-  color: whitesmoke;
+  color: #f5f5f5;
 }
 
 /* Hamburger Icon */

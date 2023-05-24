@@ -13,7 +13,14 @@ const UsersSchema = new mongoose.Schema({
     subscribedToEmails: Boolean,
     purchases: Array,
     shoppingCart: Array,
-    admin: Boolean
+    admin: Boolean,
+    addressLine1: String,
+    addressLine2: String,
+    zipCode: String,
+    city: String,
+    state: String,
+    zip: String,
+
 });
 
 module.exports = mongoose.model('user', UsersSchema);

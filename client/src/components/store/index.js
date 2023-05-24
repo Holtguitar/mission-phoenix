@@ -16,8 +16,15 @@ export default createStore({
             subscribedToEmails: false,
             purchases: [],
             shoppingCart: [],
-            admin: false
+            admin: false,
+            addressLine1: '',
+            addressLine2: '',
+            zipCode: '',
+            city: '',
+            state: '',
+            zip: ''
         },
+        editUser: {},
         currentUser: null,
         userLoggedOn: false,
         token: null,
@@ -26,6 +33,9 @@ export default createStore({
     mutations: {
         SET_USERS(state, users){
             state.users = users;
+        },
+        SET_EDIT_USER(state, user){
+            state.editUser = user[0];
         },
         LOGIN_USER(state, user){
             state.currentUser = user;
@@ -71,6 +81,7 @@ export default createStore({
                     let users = [];
                     for(const id in data){
                         users.push({
+                            userId: data[id]._id,
                             userName: data[id].userName,
                             password: data[id].password,
                             firstName: data[id].firstName,
@@ -81,7 +92,13 @@ export default createStore({
                             subscribedToEmails: data[id].subscribedToEmails,
                             purchases: data[id].purchases,
                             shoppingCart: data[id].shoppingCart,
-                            admin: data[id].admin
+                            admin: data[id].admin,
+                            addressLine1: data[id].addressLine1,
+                            addressLine2: data[id].addressLine2,
+                            zipCode: data[id].zipCode,
+                            city: data[id].city,
+                            state: data[id].state,
+                            zip: data[id].zip
                             
                         });
                     }
@@ -92,6 +109,18 @@ export default createStore({
             } catch(err) {
                 console.error(err)
                 // alert(err)
+            }
+        },
+        async GetUserById({commit}, id) {
+            try {
+                await fetch(`${listeningServer}/users`)
+                .then((res) => res.json())
+                .then((data) => {
+                    let user = data.filter((e) => e._id === id)
+                    this.commit("SET_EDIT_USER", user)
+                })
+            } catch(err) {
+                console.log(err)
             }
         },
         async SignInByUserName({commit}, userName)  {
@@ -182,17 +211,24 @@ export default createStore({
                               // "auth-token": state.token
                             },
                             body: JSON.stringify({
-                              userName: this.state.newUser.userName,
-                              password: this.state.newUser.password,
-                              firstName: this.state.newUser.firstName,
-                              lastName: this.state.newUser.lastName,
-                              emailAddress: this.state.newUser.emailAddress,
-                              phoneNumber: this.state.newUser.phoneNumber,
-                              vetStatus: this.state.newUser.vetStatus,
-                              subscribedToEmails: this.state.newUser.subscribedToEmails,
-                              purchases: this.state.newUser.purchases,
-                              shoppingCart: this.state.newUser.shoppingCart,
-                              admin: this.state.newUser.admin
+                                userName: this.state.newUser.userName,
+                                password: this.state.newUser.password,
+                                firstName: this.state.newUser.firstName,
+                                lastName: this.state.newUser.lastName,
+                                emailAddress: this.state.newUser.emailAddress,
+                                phoneNumber: this.state.newUser.phoneNumber,
+                                vetStatus: this.state.newUser.vetStatus,
+                                subscribedToEmails: this.state.newUser.subscribedToEmails,
+                                purchases: this.state.newUser.purchases,
+                                shoppingCart: this.state.newUser.shoppingCart,
+                                admin: this.state.newUser.admin,
+                                addressLine1: this.state.newUser.addressLine1,
+                                addressLine2: this.state.newUser.addressLine2,
+                                zipCode: this.state.newUser.zipCode,
+                                city: this.state.newUser.city,
+                                state: this.state.newUser.state,
+                                zip: this.state.newUser.zip
+                            
                             }) 
                         }
                         fetch(`${listeningServer}/users/new`, requestOptions)
@@ -206,6 +242,39 @@ export default createStore({
                         })
                     }
             })   
+        },
+        EditUser() {      
+            const requestOptions = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                    // "auth-token": state.token
+                },
+                body: JSON.stringify({
+                    userName: this.state.editUser.userName,
+                    password: this.state.editUser.password,
+                    firstName: this.state.editUser.firstName,
+                    lastName: this.state.editUser.lastName,
+                    emailAddress: this.state.editUser.emailAddress,
+                    phoneNumber: this.state.editUser.phoneNumber,
+                    vetStatus: this.state.editUser.vetStatus,
+                    subscribedToEmails: this.state.editUser.subscribedToEmails,
+                    purchases: this.state.editUser.purchases,
+                    shoppingCart: this.state.editUser.shoppingCart,
+                    admin: this.state.editUser.admin,
+                    addressLine1: this.state.editUser.addressLine1,
+                    addressLine2: this.state.editUser.addressLine2,
+                    zipCode: this.state.editUser.zipCode,
+                    city: this.state.editUser.city,
+                    state: this.state.editUser.state,
+                    zip: this.state.editUser.zip
+                
+                }) 
+            }
+            fetch(`${listeningServer}/users/update`, requestOptions)
+            .then(() => {
+                router.push("/user-accounts-display")
+            })
         },
         GetCurrentUser(){
             return this.state.currentUser;
@@ -231,7 +300,14 @@ export default createStore({
                         subscribedToEmails: this.state.currentUser.subscribedToEmails,
                         purchases: this.state.currentUser.purchases,
                         shoppingCart: this.state.currentUser.shoppingCart,
-                        admin: this.state.currentUser.admin
+                        admin: this.state.currentUser.admin,
+                        addressLine1: this.state.currentUser.addressLine1,
+                        addressLine2: this.state.currentUser.addressLine2,
+                        zipCode: this.state.currentUser.zipCode,
+                        city: this.state.currentUser.city,
+                        state: this.state.newUser.state,
+                        zip: this.state.newUser.zip,
+                        
                     }) 
                   }
                   fetch(`${listeningServer}/users/update/${this.state.currentUser._id}`, 
@@ -267,7 +343,13 @@ export default createStore({
                         subscribedToEmails: this.state.currentUser.subscribedToEmails,
                         purchases: this.state.currentUser.purchases,
                         shoppingCart: this.state.currentUser.shoppingCart,
-                        admin: this.state.currentUser.admin
+                        admin: this.state.currentUser.admin,
+                        addressLine1: this.state.currentUser.addressLine1,
+                        addressLine2: this.state.currentUser.addressLine2,
+                        zipCode: this.state.currentUser.zipCode,
+                        city: this.state.currentUser.city,
+                        state: this.state.newUser.state,
+                        zip: this.state.newUser.zip,
                     }) 
                   }
                   fetch(`${listeningServer}/users/update/${this.state.currentUser._id}`, 

@@ -1,0 +1,14 @@
+BLOGS:
+https://missionphoenix.org/wp-json/wp/v2/posts
+render using: <div v-for="(item, index) in this.objects" v-html="item.content.rendered"></div>
+
+SOME STORE ITEMS:
+https://missionphoenix.org/wp-json/wc/store/products
+
+<div v-for="item in objects">
+    <img v-for="image in item.images" :src="image.src" style="min-width: 150px; height: 200px"/>
+    <div v-html="item.price_html"></div>
+</div>
+
+USERS - CANNOT ACCESS:
+https://missionphoenix.org/wp-json/wp/v2/users
