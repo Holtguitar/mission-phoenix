@@ -236,42 +236,57 @@ export default createStore({
                                 this.state.currentUser = this.state.newUser;
                                 this.state.userLoggedOn = true;
                                 this.state.newUser = {};
-                            }
-                        ).then(() => {
-                            router.push("/")
-                        })
+                            })
+                            .then(() => {
+                                router.push("/")
+                            })
                     }
             })   
         },
-        EditUser() {      
-            const requestOptions = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                    // "auth-token": state.token
-                },
-                body: JSON.stringify({
-                    userName: this.state.editUser.userName,
-                    password: this.state.editUser.password,
-                    firstName: this.state.editUser.firstName,
-                    lastName: this.state.editUser.lastName,
-                    emailAddress: this.state.editUser.emailAddress,
-                    phoneNumber: this.state.editUser.phoneNumber,
-                    vetStatus: this.state.editUser.vetStatus,
-                    subscribedToEmails: this.state.editUser.subscribedToEmails,
-                    purchases: this.state.editUser.purchases,
-                    shoppingCart: this.state.editUser.shoppingCart,
-                    admin: this.state.editUser.admin,
-                    addressLine1: this.state.editUser.addressLine1,
-                    addressLine2: this.state.editUser.addressLine2,
-                    zipCode: this.state.editUser.zipCode,
-                    city: this.state.editUser.city,
-                    state: this.state.editUser.state,
-                    zip: this.state.editUser.zip
+        EditUser() {   
+            // const requestOptions = {
+            //     method: "PUT",
+            //     headers: {
+            //         "Content-Type": "application/json"
+            //         // "auth-token": state.token
+            //     },
+            //     body: JSON.stringify({
+            //         userName: this.state.editUser.userName,
+            //         password: this.state.editUser.password,
+            //         firstName: this.state.editUser.firstName,
+            //         lastName: this.state.editUser.lastName,
+            //         emailAddress: this.state.editUser.emailAddress,
+            //         phoneNumber: this.state.editUser.phoneNumber,
+            //         vetStatus: this.state.editUser.vetStatus,
+            //         subscribedToEmails: this.state.editUser.subscribedToEmails,
+            //         purchases: this.state.editUser.purchases,
+            //         shoppingCart: this.state.editUser.shoppingCart,
+            //         admin: this.state.editUser.admin,
+            //         addressLine1: this.state.editUser.addressLine1,
+            //         addressLine2: this.state.editUser.addressLine2,
+            //         zipCode: this.state.editUser.zipCode,
+            //         city: this.state.editUser.city,
+            //         state: this.state.editUser.state,
+            //         zip: this.state.editUser.zip
                 
-                }) 
+            //     }) 
+            // }
+            const requestOptions = {
+                method: "PUT"
             }
-            fetch(`${listeningServer}/users/update`, requestOptions)
+            
+            fetch(`${listeningServer}/users/update/${this.state.editUser._id}`, requestOptions)
+            .then((res) => res.body)
+            .then(res => {console.log(res)})
+            .then(() => {
+                // router.push("/user-accounts-display")
+            })
+        },
+        DeleteUser(){
+            fetch(`${listeningServer}/users/delete/${this.state.editUser._id}`,
+            {
+                method: "DELETE"
+            })
             .then(() => {
                 router.push("/user-accounts-display")
             })

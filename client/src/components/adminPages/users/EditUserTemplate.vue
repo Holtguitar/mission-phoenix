@@ -4,6 +4,9 @@
     <button @click.prevent="this.cancelEditUser">Cancel</button>
     <button @click.prevent="this.submitEditUser">Submit</button>
   </div>
+  <div class="delete-button-container">
+    <button @click.prevent="this.deleteUser">Delete User</button>
+  </div>
   <div class="user-card">
     <div class="row-1" id="edit-row">
       <input
@@ -124,6 +127,9 @@ export default {
       this.$store.state.editUser = {}
       this.$router.push('/user-accounts-display')
     },
+    deleteUser() {
+      this.$store.dispatch('DeleteUser')
+    },
   },
   mounted() {},
 }
@@ -159,6 +165,25 @@ export default {
 }
 
 .edit-buttons button {
+  width: 45%;
+  height: 100% !important;
+  color: rgb(81, 81, 81) !important;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 1px 1px 2px 2px rgba(41, 43, 89, 0.488);
+}
+
+.delete-button-container {
+  position: absolute;
+  width: 20%;
+  height: 30px;
+  left: 70%;
+  top: 30%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-button-container button {
   width: 45%;
   height: 100% !important;
   color: rgb(81, 81, 81) !important;
