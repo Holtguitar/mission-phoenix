@@ -33,9 +33,8 @@ router.delete('/delete/:id', async (req, res) => {
 // Edit a user by id
 router.put('/update/:id', async (req, res) => {
   const tUpdate = await User.findByIdAndUpdate(
-    { _id: req.params.id }, 
-    {firstName: "TEST"}
-    // { $set: req.body }
+    { _id: req.params.id },
+    { $set: req.body }
   )
   res.json(tUpdate)
 })
