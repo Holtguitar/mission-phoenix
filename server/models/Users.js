@@ -22,7 +22,6 @@ const UsersSchema = new mongoose.Schema({
     state: String,
     zip: String,
     securityQuestion: Array
-
 });
 
 module.exports = mongoose.model('user', UsersSchema);

@@ -145,7 +145,7 @@
           <button class="sign-in__button" @click.prevent="this.signInUser()">
             Sign In
           </button>
-          <button @click.prevent class="forgot-password__button">
+          <button class="forgot-password__button" @click.prevent="">
             <router-link to="/reset-password">Forgot Password</router-link>
           </button>
         </div>

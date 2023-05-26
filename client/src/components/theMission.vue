@@ -208,6 +208,7 @@ export default {
   width: 80vw;
   height: 60vh;
   box-shadow: 1px 1px 10px 10px rgba(41, 43, 89, 0.488);
+  background-color: white;
 }
 
 /* .too-many {

@@ -40,12 +40,12 @@
       </div>
       <input
         type="text"
-        :placeholder="this.emailAddress"
+        :placeholder="this.emailAddress ? this.emailAddress : ''"
         v-model="this.$store.state.editUser.emailAddress"
       />
       <input
         type="text"
-        :placeholder="this.phoneNumber"
+        :placeholder="this.phoneNumber ? this.phoneNumber : ''"
         v-model="this.$store.state.editUser.phoneNumber"
       />
     </div>
@@ -72,29 +72,33 @@
     <div class="row-4" id="edit-row">
       <input
         type="text"
-        :placeholder="this.addressLine1"
+        :placeholder="
+          this.addressLine1 ? this.addressLine1 : 'Street Address Line 1'
+        "
         v-model="this.$store.state.editUser.addressLine1"
       />
       <input
         type="text"
-        :placeholder="this.addressLine2"
+        :placeholder="
+          this.addressLine2 ? this.addressLine1 : 'Street Address Line 2'
+        "
         v-model="this.$store.state.editUser.addressLine2"
       />
     </div>
     <div class="row-5" id="edit-row">
       <input
         type="text"
-        :placeholder="this.city"
+        :placeholder="this.city ? this.city : 'City'"
         v-model="this.$store.state.editUser.city"
       />
       <input
         type="text"
-        :placeholder="this.state"
+        :placeholder="this.state ? this.state : 'State'"
         v-model="this.$store.state.editUser.state"
       />
       <input
         type="text"
-        :placeholder="this.zip"
+        :placeholder="this.zip ? this.zip : 'Zip'"
         v-model="this.$store.state.editUser.zip"
       />
     </div>
@@ -118,6 +122,7 @@ export default {
     'zip',
     'subscribedToEmails',
     'vetStatus',
+    'securityQuestions',
   ],
   methods: {
     submitEditUser(id) {

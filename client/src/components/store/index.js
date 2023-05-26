@@ -28,6 +28,8 @@ export default createStore({
         editUser: {},
         currentUser: null,
         userLoggedOn: false,
+        resetUsername: '',
+        resetUser: null,
         token: null,
         guestCart: []
     },
@@ -339,9 +341,54 @@ export default createStore({
                 this.commit("ADD_TO_GUEST_CART", cartItem);
             }
         },
+        async ConfirmUserForReset({commit, dispatch}, userInfo){
+            this.dispatch("GetAllUsers")
+            let results = this.state.users.filter((e) => e.emailAddress.toLowerCase() === userInfo.emailAddress.toLowerCase() && e.userName.toLowerCase() === userInfo.userName.toLowerCase())
+            if(results.length === 1) {
+                this.state.resetUser = results[0]
+            } else {
+                this.state.resetUser = null
+            }
+
+        },
         ResetPassword({commit}, newPassword){
             try {
-                
+                const requestOptions = {
+                    method: "PUT",
+                    headers: {
+                      "Content-Type": "application/json"
+                      // "auth-token": state.token
+                    },
+                    body: JSON.stringify({
+                        userName: this.state.resetUser.userName,
+                        password: newPassword,
+                        firstName: this.state.resetUser.firstName,
+                        lastName: this.state.resetUser.lastName,
+                        emailAddress: this.state.resetUser.emailAddress,
+                        phoneNumber: this.state.resetUser.phoneNumber,
+                        vetStatus: this.state.resetUser.vetStatus,
+                        subscribedToEmails: this.state.resetUser.subscribedToEmails,
+                        purchases: this.state.resetUser.purchases,
+                        shoppingCart: this.state.resetUser.shoppingCart,
+                        admin: this.state.resetUser.admin,
+                        addressLine1: this.state.resetUser.addressLine1,
+                        addressLine2: this.state.resetUser.addressLine2,
+                        zipCode: this.state.resetUser.zipCode,
+                        city: this.state.resetUser.city,
+                        state: this.state.resetUser.state,
+                        zip: this.state.resetUser.zip,
+                        securityQuestion: this.state.resetUser.securityQuestion
+                        
+                    }) 
+                  }
+                  fetch(`${listeningServer}/users/update/${this.state.resetUser.userId}`, 
+                  requestOptions)
+                    .then(
+                        res => res.json()
+                    ).then(() => {
+                        alert("Password successfully reset. Please sign back in.")
+                        router.push(`/account`)
+                    })
             } catch(err) {
                 console.log(err)
             }
