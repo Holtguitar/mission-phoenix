@@ -22,7 +22,8 @@ export default createStore({
             zipCode: '',
             city: '',
             state: '',
-            zip: ''
+            zip: '',
+            securityQuestion: []
         },
         editUser: {},
         currentUser: null,
@@ -98,7 +99,8 @@ export default createStore({
                             zipCode: data[id].zipCode,
                             city: data[id].city,
                             state: data[id].state,
-                            zip: data[id].zip
+                            zip: data[id].zip,
+                            securityQuestion: data[id].securityQuestion
                             
                         });
                     }
@@ -201,7 +203,7 @@ export default createStore({
                   
                     if(uniqueUserName.length > 0) {
                         alert("Username is already in use.")
-                    } else if(uniqueEmail.length > 0 ) {
+                    } else if(uniqueEmail.length > 0 && this.state.newUser.emailAddress !== '' ) {
                         alert("Email is already in use.")
                     } else {
                         const requestOptions = {
@@ -227,7 +229,8 @@ export default createStore({
                                 zipCode: this.state.newUser.zipCode,
                                 city: this.state.newUser.city,
                                 state: this.state.newUser.state,
-                                zip: this.state.newUser.zip
+                                zip: this.state.newUser.zip,
+                                securityQuestion: this.state.newUser.securityQuestion
                             
                             }) 
                         }
@@ -267,7 +270,8 @@ export default createStore({
                     zipCode: this.state.editUser.zipCode,
                     city: this.state.editUser.city,
                     state: this.state.editUser.state,
-                    zip: this.state.editUser.zip
+                    zip: this.state.editUser.zip,
+                    securityQuestion: this.state.editUser.securityQuestion
                     
                 }) 
               }
@@ -317,8 +321,9 @@ export default createStore({
                         addressLine2: this.state.currentUser.addressLine2,
                         zipCode: this.state.currentUser.zipCode,
                         city: this.state.currentUser.city,
-                        state: this.state.newUser.state,
-                        zip: this.state.newUser.zip,
+                        state: this.state.currentUser.state,
+                        zip: this.state.currentUser.zip,
+                        securityQuestion: this.state.currentUser.securityQuestion
                         
                     }) 
                   }
@@ -332,6 +337,13 @@ export default createStore({
                     // router.push('/users')
             } else {
                 this.commit("ADD_TO_GUEST_CART", cartItem);
+            }
+        },
+        ResetPassword({commit}, newPassword){
+            try {
+                
+            } catch(err) {
+                console.log(err)
             }
         },
         RemoveFromCart({commit}, id){
@@ -360,8 +372,9 @@ export default createStore({
                         addressLine2: this.state.currentUser.addressLine2,
                         zipCode: this.state.currentUser.zipCode,
                         city: this.state.currentUser.city,
-                        state: this.state.newUser.state,
-                        zip: this.state.newUser.zip,
+                        state: this.state.currentUser.state,
+                        zip: this.state.currentUser.zip,
+                        securityQuestion: this.state.currentUser.securityQuestion
                     }) 
                   }
                   fetch(`${listeningServer}/users/update/${this.state.currentUser._id}`, 

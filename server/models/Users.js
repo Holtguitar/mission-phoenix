@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const mongoose = require("mongoose");
 
 const UsersSchema = new mongoose.Schema({
@@ -20,6 +21,7 @@ const UsersSchema = new mongoose.Schema({
     city: String,
     state: String,
     zip: String,
+    securityQuestion: Array
 
 });
 

@@ -15,7 +15,7 @@
     <br />
     <div v-if="!this.signIn" class="register__form-container">
       <h2 class="register__form-title">New Here? Create an account.</h2>
-      <form class="register__form">
+      <form class="register__form" @change="">
         <div class="register__form-row-1">
           <input
             type="text"
@@ -64,11 +64,36 @@
         </div>
         <div class="register__form-row-4">
           <div>
+            <select
+              class="security-questions__select"
+              v-model="this.$store.state.newUser.securityQuestion[0]"
+            >
+              <!-- <option v-for="(question, index) in this.securityQuestions">
+                {{ question }}
+              </option> -->
+              <option>What is your mother's maiden name?</option>
+              <option>In what city did you meet your spouse?</option>
+              <option>What is the middle name of your first born child?</option>
+              <option>What was your highschool mascot?</option>
+              <option>What was the model of your first car?</option>
+              <option>What is your paternal grandmother's first name?</option>
+              <option>What was the name of your first pet?</option>
+            </select>
+          </div>
+          <input
+            type="text"
+            placeholder="Answer"
+            v-model="this.$store.state.newUser.securityQuestion[1]"
+          />
+        </div>
+        <div class="register__form-row-5">
+          <div class="vet-affiliation">
             <label for="vet-status">Veteran Affiliation</label>
             <select
               class="vet-select"
               name="vet-status"
               v-model="this.$store.state.newUser.vetStatus"
+              @submit.prevent
             >
               <option>Veteran</option>
               <option>Current Service Member</option>
@@ -76,7 +101,7 @@
               <option>Veteran Supporter</option>
             </select>
           </div>
-          <div>
+          <div class="subscribe-container">
             <input
               class="subscribe-check"
               type="checkbox"
@@ -86,7 +111,7 @@
             <label>Subsribe to our news letter</label>
           </div>
 
-          <div>
+          <div class="submit-container">
             <input
               type="submit"
               value="Create Account"
@@ -116,12 +141,14 @@
             v-model="this.login_form.password"
           />
         </div>
-        <input
-          type="submit"
-          value="Sign In"
-          class="sign-in-button"
-          @click.prevent="this.signInUser()"
-        />
+        <div class="sign-in__buttons">
+          <button class="sign-in__button" @click.prevent="this.signInUser()">
+            Sign In
+          </button>
+          <button @click.prevent class="forgot-password__button">
+            <router-link to="/reset-password">Forgot Password</router-link>
+          </button>
+        </div>
       </form>
     </div>
   </div>
@@ -189,6 +216,15 @@ export default {
       login_form: ref({}),
       signIn: false,
       store: useStore(),
+      securityQuestions: [
+        "What is your mother's maiden name?",
+        'In what city did you meet your spouse?',
+        'What is the middle name of your first born child?',
+        'What was your highschool mascot?',
+        'What was the model of your first car?',
+        "What is your paternal grandmother's first name?",
+        'What was the name of your first pet?',
+      ],
     }
   },
   methods: {
@@ -305,7 +341,7 @@ button:hover {
 }
 
 .register__form-container input {
-  height: 30%;
+  height: 50%;
   border-radius: 2px;
   position: relative;
   top: 20%;
@@ -323,7 +359,7 @@ button:hover {
   position: relative;
   width: 30%;
   top: -2% !important;
-  height: 50% !important;
+  height: 10 0% !important;
   color: rgb(81, 81, 81) !important;
   border-radius: 5px;
   border: none;
@@ -347,7 +383,7 @@ button:hover {
 
 .register__form-row-1 {
   position: relative;
-  height: 20%;
+  height: 10%;
   width: 90%;
   left: 5%;
   display: flex;
@@ -357,7 +393,7 @@ button:hover {
 
 .register__form-row-2 {
   position: relative;
-  height: 20%;
+  height: 10%;
   width: 90%;
   left: 5%;
   display: flex;
@@ -367,7 +403,7 @@ button:hover {
 
 .register__form-row-3 {
   position: relative;
-  height: 20%;
+  height: 10%;
   width: 90%;
   left: 5%;
   display: flex;
@@ -377,28 +413,65 @@ button:hover {
 
 .register__form-row-4 {
   position: relative;
+  height: 10%;
+  width: 90%;
+  left: 5%;
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+}
+
+.register__form-row-4 input,
+.register__form-row-4 div {
+  position: relative;
+  height: 50%;
+  top: 25%;
+}
+
+.register__form-row-4 div {
+  height: 50%;
+}
+
+.register__form-row-5 {
+  position: relative;
   height: 40%;
   width: 90%;
   left: 5%;
   padding-top: 1%;
 }
 
-.register__form-row-4 div {
+.security-questions__select {
   position: relative;
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  height: 33%;
-  width: 100%;
+  top: 20%;
 }
 
 .subscribe-check {
   position: relative;
   top: -1% !important;
+  margin-right: 5%;
+}
+
+.subscribe-container {
+  top: 25%;
+  position: relative;
+  height: 10%;
+}
+
+.submit-container {
+  position: relative;
+  top: 50%;
+  height: 35%;
+}
+
+.vet-affiliation {
+  height: 10% !important;
+  position: relative;
+  top: 10%;
 }
 
 .vet-select {
-  height: 35%;
+  height: 100%;
+  margin-left: 5%;
 }
 
 /* Sign in Form */
@@ -443,18 +516,33 @@ button:hover {
   padding-left: 2.5%;
 }
 
-.sign-in-button {
+.sign-in__buttons {
+  width: 100%;
+  height: 65%;
+}
+
+.sign-in__button {
   position: relative;
   width: 30%;
-  height: 35%;
-  left: 35%;
+  height: 50%;
   border-radius: 5px;
   border: none;
   box-shadow: 1px 1px 2px 2px rgba(41, 43, 89, 0.488);
   color: rgb(81, 81, 81) !important;
 }
 
-.sign-in-button:hover {
+.forgot-password__button {
+  position: relative;
+  width: 30%;
+  height: 50%;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 1px 1px 2px 2px rgba(41, 43, 89, 0.488);
+  color: rgb(81, 81, 81) !important;
+}
+
+.sign-in__button:hover,
+.forgot-password__button:hover {
   cursor: pointer;
 }
 
