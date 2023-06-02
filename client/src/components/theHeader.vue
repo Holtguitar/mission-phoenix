@@ -206,7 +206,22 @@
       <ul>
         <li class="mobile-menu">
           Admin
-          <ul>
+          <img
+            src="../../public/icons/down-arrow.png"
+            class="mobile-down-arrow"
+            id="mobile-down-arrow"
+            v-bind:class="this.showSubAdminMobile ? 'rotate' : ''"
+            @click="
+              this.showSubAdminMobile
+                ? (this.showSubAdminMobile = false)
+                : (this.showSubAdminMobile = true)
+            "
+          />
+          <ul
+            class="mobile-submenu"
+            id="mobile-submenu"
+            v-bind:class="this.showSubAdminMobile ? '' : 'collapsed'"
+          >
             <li>Gear</li>
             <li>Users</li>
             <li>Blogs</li>
@@ -215,7 +230,22 @@
         </li>
         <li class="mobile-menu">
           Mission
-          <ul>
+          <img
+            src="../../public/icons/down-arrow.png"
+            class="mobile-down-arrow"
+            id="mobile-down-arrow"
+            v-bind:class="this.showSubMissionMobile ? 'rotate' : ''"
+            @click="
+              this.showSubMissionMobile
+                ? (this.showSubMissionMobile = false)
+                : (this.showSubMissionMobile = true)
+            "
+          />
+          <ul
+            class="mobile-submenu"
+            id="mobile-submenu"
+            v-bind:class="this.showSubMissionMobile ? '' : 'collapsed'"
+          >
             <li>Donate</li>
             <li>Sponsors</li>
             <li>Our Team</li>
@@ -224,7 +254,22 @@
         </li>
         <li class="mobile-menu">
           Gear
-          <ul>
+          <img
+            src="../../public/icons/down-arrow.png"
+            class="mobile-down-arrow"
+            id="mobile-down-arrow"
+            v-bind:class="this.showSubGearMobile ? 'rotate' : ''"
+            @click="
+              this.showSubGearMobile
+                ? (this.showSubGearMobile = false)
+                : (this.showSubGearMobile = true)
+            "
+          />
+          <ul
+            class="mobile-submenu"
+            id="mobile-submenu"
+            v-bind:class="this.showSubGearMobile ? '' : 'collapsed'"
+          >
             <li>Men</li>
             <li>Women</li>
             <li>Accessories</li>
@@ -235,7 +280,22 @@
         <li class="mobile-menu">Events</li>
         <li class="mobile-menu">
           Accounts
-          <ul>
+          <img
+            src="../../public/icons/down-arrow.png"
+            class="mobile-down-arrow"
+            id="mobile-down-arrow"
+            v-bind:class="this.showSubAccountMobile ? 'rotate' : ''"
+            @click="
+              this.showSubAccountMobile
+                ? (this.showSubAccountMobile = false)
+                : (this.showSubAccountMobile = true)
+            "
+          />
+          <ul
+            class="mobile-submenu"
+            id="mobile-submenu"
+            v-bind:class="this.showSubAccountMobile ? '' : 'collapsed'"
+          >
             <li>Account Info</li>
             <li>Shopping Cart</li>
             <li>Purchase History</li>
@@ -312,6 +372,10 @@ export default {
       showSubAccount: false,
       showSubGear: false,
       showSubAdmin: false,
+      showSubAccountMobile: false,
+      showSubMissionMobile: false,
+      showSubGearMobile: false,
+      showSubAdminMobile: false,
       welcomeCollapsed: true,
       welcomeCollapsedFlipped: true,
     }
@@ -337,6 +401,9 @@ export default {
     },
   },
   methods: {
+    test() {
+      console.log(this.showSubAccountMobile)
+    },
     toggleHamburger() {
       this.open = !this.open
       this.showMenu = !this.showMenu
@@ -696,6 +763,38 @@ export default {
     left: 5%;
   }
 
+  .mobile-down-arrow {
+    position: relative;
+    width: 7%;
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
+    z-index: 1;
+  }
+
+  #mobile-down-arrow.rotate {
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
+    transform: rotate(180deg);
+  }
+
+  .mobile-menu,
+  .mobile-submenu {
+    list-style: none;
+  }
+
+  .mobile-menu {
+    margin-bottom: 15px;
+  }
+
+  .mobile-submenu {
+    margin-top: 15px;
+    display: none;
+  }
+
+  #mobile-submenu.collapsed {
+    display: block;
+  }
+
   #nav-icon3 {
     display: block;
     z-index: 1;
@@ -710,14 +809,17 @@ export default {
     position: relative;
     width: 75%;
     height: 80%;
-    background-color: blue;
     top: 15%;
     left: 12.5%;
     overflow-y: scroll;
+    color: whitesmoke;
+    font-size: 25px;
   }
 
   .header {
     background-color: rgb(96, 89, 89);
+    transition: height 0.2s ease-in-out;
+    will-change: height;
   }
 
   .mobile-header__expanded {
