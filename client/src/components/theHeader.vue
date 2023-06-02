@@ -1,6 +1,7 @@
 <template>
   <section
     class="header"
+    v-bind:class="this.open ? 'mobile-header__expanded' : ''"
     @click="
       ;(this.showSubMission = false),
         (this.showSubAccount = false),
@@ -35,7 +36,6 @@
       <!-- Main nav item -->
       <div class="nav-bar">
         <div
-
           v-if="this.isUserAdmin"
           class="nav-item"
           id="admin"
@@ -48,7 +48,7 @@
         >
           Admin
           <img class="submenu-down-arrow" src="/icons/down-arrow.png" />
-      </div>
+        </div>
         <router-link
           class="nav-item"
           id="mission"
@@ -197,6 +197,52 @@
         </div>
       </div>
     </div>
+    <div class="nav-bar__mobile" v-bind:class="this.open ? 'show' : 'hide'">
+      <!-- <router-link to="/mission">Mission</router-link>
+      <router-link to="/gear">Gear</router-link>
+      <router-link to="/events">Events</router-link>
+      <router-link to="/blogs">Blog</router-link>
+      <router-link to="/account">Account</router-link> -->
+      <ul>
+        <li class="mobile-menu">
+          Admin
+          <ul>
+            <li>Gear</li>
+            <li>Users</li>
+            <li>Blogs</li>
+            <li>Accounts</li>
+          </ul>
+        </li>
+        <li class="mobile-menu">
+          Mission
+          <ul>
+            <li>Donate</li>
+            <li>Sponsors</li>
+            <li>Our Team</li>
+            <li>Resources</li>
+          </ul>
+        </li>
+        <li class="mobile-menu">
+          Gear
+          <ul>
+            <li>Men</li>
+            <li>Women</li>
+            <li>Accessories</li>
+            <li>Shopping Cart</li>
+          </ul>
+        </li>
+        <li class="mobile-menu">Blog</li>
+        <li class="mobile-menu">Events</li>
+        <li class="mobile-menu">
+          Accounts
+          <ul>
+            <li>Account Info</li>
+            <li>Shopping Cart</li>
+            <li>Purchase History</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
     <div
       class="welcome-container"
       id="welcome-container"
@@ -267,26 +313,28 @@ export default {
       showSubGear: false,
       showSubAdmin: false,
       welcomeCollapsed: true,
-      welcomeCollapsedFlipped: true
+      welcomeCollapsedFlipped: true,
     }
   },
   computed: {
     isUserAdmin() {
-      if(this.$store.state.userLoggedOn){
-        if(this.$store.state.currentUser.admin){
+      if (this.$store.state.userLoggedOn) {
+        if (this.$store.state.currentUser.admin) {
           return true
         } else {
           return false
         }
-      } else { return false}
-    },
-    isSignedIn(){
-      if(this.$store.state.userLoggedOn){ 
-        return true
-      } else { 
+      } else {
         return false
       }
-    }
+    },
+    isSignedIn() {
+      if (this.$store.state.userLoggedOn) {
+        return true
+      } else {
+        return false
+      }
+    },
   },
   methods: {
     toggleHamburger() {
@@ -349,7 +397,6 @@ export default {
   margin: 0 auto;
   z-index: 1030;
   opacity: 0.99;
-
 }
 
 .mission-phoenix-logo {
@@ -536,9 +583,11 @@ export default {
 
 /* Hamburger Icon */
 #nav-icon3 {
-  width: 30px;
-  height: 25%;
   position: fixed;
+  width: 30px;
+  height: 20%;
+  left: 80%;
+  /* left: 85%; */
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
   -o-transform: rotate(0deg);
@@ -547,10 +596,6 @@ export default {
   -moz-transition: 0.5s ease-in-out;
   -o-transition: 0.5s ease-in-out;
   transition: 0.5s ease-in-out;
-  cursor: pointer;
-  left: 87.5%;
-  top: 2.5%;
-  height: 3%;
   display: none;
 }
 
@@ -641,5 +686,49 @@ export default {
   opacity: 1;
   transform: none;
   visibility: visible;
+}
+
+@media (max-width: 870px) {
+  .mission-phoenix-logo {
+    position: fixed;
+    width: 40%;
+    top: 5%;
+    left: 5%;
+  }
+
+  #nav-icon3 {
+    display: block;
+    z-index: 1;
+    top: 6%;
+  }
+
+  .nav-bar {
+    display: none;
+  }
+
+  .nav-bar__mobile {
+    position: relative;
+    width: 75%;
+    height: 80%;
+    background-color: blue;
+    top: 15%;
+    left: 12.5%;
+    overflow-y: scroll;
+  }
+
+  .header {
+    background-color: rgb(96, 89, 89);
+  }
+
+  .mobile-header__expanded {
+    height: 100vh;
+    position: fixed;
+    transition: height 0.2s ease-in-out;
+    will-change: height;
+  }
+
+  .welcome-container {
+    display: none;
+  }
 }
 </style>

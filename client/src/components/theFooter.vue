@@ -21,8 +21,6 @@
 .footer-bar {
   position: relative;
   bottom: 0%;
-  /* margin-top: 50px; */
-  /* top: 100%; */
   bottom: 0%;
   width: 100vw;
   height: 15vh;
@@ -38,5 +36,14 @@
   left: 75%;
   top: 20%;
   width: fit-content;
+}
+
+@media (max-width: 870px) {
+  .doppio-footer,
+  .phoenix-gear__footer {
+    width: 100%;
+    left: 0%;
+    text-align: center;
+  }
 }
 </style>
