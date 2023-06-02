@@ -198,11 +198,6 @@
       </div>
     </div>
     <div class="nav-bar__mobile" v-bind:class="this.open ? 'show' : 'hide'">
-      <!-- <router-link to="/mission">Mission</router-link>
-      <router-link to="/gear">Gear</router-link>
-      <router-link to="/events">Events</router-link>
-      <router-link to="/blogs">Blog</router-link>
-      <router-link to="/account">Account</router-link> -->
       <ul>
         <li class="mobile-menu">
           Admin
@@ -222,10 +217,15 @@
             id="mobile-submenu"
             v-bind:class="this.showSubAdminMobile ? '' : 'collapsed'"
           >
-            <li>Gear</li>
-            <li>Users</li>
-            <li>Blogs</li>
-            <li>Accounts</li>
+            <li>
+              <router-link to="/add-new-gear">Gear</router-link>
+            </li>
+            <li>
+              <router-link to="/add-new-user">Users</router-link>
+            </li>
+            <li>
+              <router-link to="/">Blogs</router-link>
+            </li>
           </ul>
         </li>
         <li class="mobile-menu">
@@ -246,10 +246,18 @@
             id="mobile-submenu"
             v-bind:class="this.showSubMissionMobile ? '' : 'collapsed'"
           >
-            <li>Donate</li>
-            <li>Sponsors</li>
-            <li>Our Team</li>
-            <li>Resources</li>
+            <li>
+              <router-link to="/">Donate</router-link>
+            </li>
+            <li>
+              <router-link to="/">Sponsors</router-link>
+            </li>
+            <li>
+              <router-link to="/">Our Team</router-link>
+            </li>
+            <li>
+              <router-link to="/">Resources</router-link>
+            </li>
           </ul>
         </li>
         <li class="mobile-menu">
@@ -270,16 +278,26 @@
             id="mobile-submenu"
             v-bind:class="this.showSubGearMobile ? '' : 'collapsed'"
           >
-            <li>Men</li>
-            <li>Women</li>
-            <li>Accessories</li>
-            <li>Shopping Cart</li>
+            <li>
+              <router-link to="/gear-men">Men</router-link>
+            </li>
+            <li>
+              <router-link to="/gear-women">Women</router-link>
+            </li>
+            <li>
+              <router-link to="/gear-accessories">Accessories</router-link>
+            </li>
+            <li>
+              <router-link to="/shopping-cart">Shopping Cart</router-link>
+            </li>
           </ul>
         </li>
-        <li class="mobile-menu">Blog</li>
-        <li class="mobile-menu">Events</li>
+        <li class="mobile-menu"><router-link to="/blogs">Blog</router-link></li>
         <li class="mobile-menu">
-          Accounts
+          <router-link to="/events">Events</router-link>
+        </li>
+        <li class="mobile-menu">
+          <router-link to="/account">Accounts</router-link>
           <img
             src="../../public/icons/down-arrow.png"
             class="mobile-down-arrow"
@@ -296,9 +314,18 @@
             id="mobile-submenu"
             v-bind:class="this.showSubAccountMobile ? '' : 'collapsed'"
           >
-            <li>Account Info</li>
-            <li>Shopping Cart</li>
-            <li>Purchase History</li>
+            <li>
+              <router-link to="/account"></router-link>
+              Account Info
+            </li>
+            <li>
+              <router-link to="/shopping-cart"></router-link>
+              Shopping Cart
+            </li>
+            <li>
+              <router-link to="/"></router-link>
+              Purchase History
+            </li>
           </ul>
         </li>
       </ul>
@@ -372,10 +399,10 @@ export default {
       showSubAccount: false,
       showSubGear: false,
       showSubAdmin: false,
-      showSubAccountMobile: false,
-      showSubMissionMobile: false,
-      showSubGearMobile: false,
-      showSubAdminMobile: false,
+      showSubAccountMobile: true,
+      showSubMissionMobile: true,
+      showSubGearMobile: true,
+      showSubAdminMobile: true,
       welcomeCollapsed: true,
       welcomeCollapsedFlipped: true,
     }
@@ -791,6 +818,11 @@ export default {
     display: none;
   }
 
+  .mobile-submenu__container {
+    height: fit-content;
+    background-color: blue;
+  }
+
   #mobile-submenu.collapsed {
     display: block;
   }
@@ -814,6 +846,10 @@ export default {
     overflow-y: scroll;
     color: whitesmoke;
     font-size: 25px;
+  }
+
+  .mobile-menu:last-child {
+    margin-bottom: 50%;
   }
 
   .header {
